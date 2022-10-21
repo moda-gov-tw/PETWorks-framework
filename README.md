@@ -21,6 +21,7 @@ result = PETValidation(recoveredData, originalData, "FL")
 report(result, "web")
 ```
 
+### How it works?
 | Module                    | Description                                                                                                                           |
 |---------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | PET Enhanced Data Process | This module aims to load and process (e.g. recover) PET-enhanced data accordingly to the data and the PET it used.                    |                                                                                                                                       |
