@@ -10,15 +10,15 @@ Here we provide a framework dealing with the validation problem of PET enhanced 
 Validation of data processed with federated learning.
 
 ```python
-from PETWorks import dataRecover, PETValidation
+from PETWorks import dataRecover, PETValidation, report
 
 gradient = "/home/Doc/gradient"
 model = "/home/Doc/model"
 originalData = "/home/Doc/o.png"
 
 recoveredData = dataProcess(model, gradient, "FL", "recover")
-report = PETValidation(recoveredData, originalData, "FL")
-print(report)
+result = PETValidation(recoveredData, originalData, "FL")
+report(result, "web")
 ```
 
 | Module                    | Description                                                                                                                           |
