@@ -18,6 +18,6 @@ model = "/home/Doc/model"
 originalData = "/home/Doc/o.png"
 
 recoveredData = dataRecover(model, gradient, "FL")
-report = PETValidation(recoveredData, originalData)
+report = PETValidation(recoveredData, originalData, "FL")
 print(report)
 ```
