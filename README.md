@@ -10,7 +10,7 @@ Here we provide a framework dealing with the validation problem of PET enhanced 
 ### Showcase
 Validation of data processed with federated learning.
 
-```python=
+```python
 from PETWorks import dataRecover, PETValidation
 
 gradient = "/home/Doc/gradient"
