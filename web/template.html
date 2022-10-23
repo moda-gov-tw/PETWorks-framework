@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <style>
+    * { margin: 0px; padding: 0px; text-align: center; text-align: -webkit-center;}
+
+html {
+    height: 100%;
+    background-color: #1b1b1b;
+    /* background-image: linear-gradient( 109.6deg,  rgba(61,245,167,1) 11.2%, rgba(9,111,224,1) 91.1% ); */
+}
+
+body {
+    font-family: "Open Sans", sans-serif; 
+    color:white;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    margin-block: 20px;
+}
+
+.title{
+    font-family: 'Source Sans Pro',sans-serif;
+    font-size: 3.4rem;
+    font-weight: 700;
+}
+
+.subtitle{
+    font-family: 'Source Sans Pro',sans-serif;
+    font-size: 1.5rem;
+}
+
+.title-container {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin-top:100px;
+}
+
+.column {
+    float: left;
+  }
+  
+.process {
+    width:100%;
+    padding: 10px
+}
+.process-img {
+    width: 80%;
+    height: 100%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px; /* 5px rounded corners */
+    margin-inline: 60px;
+    
+    border-color: white;
+    border-style: solid;
+}
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+    padding: 10px 16px;
+    text-align: center;
+}
+
+/* Add rounded corners to the top left and the top right corner of the image */
+img {
+    border-radius: 5px 5px 0 0;
+}
+
+
+.circle-wrap {
+    display: grid;
+    grid-template-columns: repeat(1, 160px);
+    grid-gap: 80px;
+    margin-top: 50px;
+    width: 150px;
+    height: 150px;
+    background: yellow;
+    border-radius: 50%;
+  }
+  
+  .circle-wrap .circle .mask,
+  .circle-wrap .circle .fill-1,
+  .circle-wrap .circle .fill-2,
+  .circle-wrap .circle .fill-3 {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  .circle-wrap .circle .mask {
+    clip: rect(0px, 150px, 150px, 75px);
+  }
+  
+  .circle-wrap .inside-circle {
+    width: 124px;
+    height: 124px;
+    border-radius: 50%;
+    background: #1b1b1b;
+    line-height: 120px;
+    text-align: center;
+    margin-top: 13px;
+    margin-left: 13px;
+    color: white;
+    position: absolute;
+    z-index: 100;
+    font-weight: 700;
+    font-size: 2em;
+  }
+  
+  /* color animation */
+  
+  .mask .fill-1 {
+    clip: rect(0px, 75px, 150px, 0px);
+    background-color: #ec0c0c;
+  }
+  
+  .mask.full-1,
+  .circle .fill-1 {
+    animation: fill-1 ease-in-out 3s;
+    transform: rotate(153deg);
+  }
+  
+  @keyframes fill-1 {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(153deg);
+    }
+  }
+  
+  /* 2nd bar */
+  
+  .mask .fill-2 {
+    clip: rect(0px, 75px, 150px, 0px);
+    background-color: yellow;
+  }
+  
+  .mask.full-2,
+  .circle .fill-2 {
+    animation: fill-2 ease-in-out 3s;
+    transform: rotate(117deg);
+  }
+  
+  @keyframes fill-2{
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(117deg);
+    }
+  }
+  
+  /* 3rd progress bar */
+  .mask .fill-3 {
+    clip: rect(0px, 75px, 150px, 0px);
+    background-color: #1b1b1b;
+  }
+  
+  .mask.full-3,
+  .circle .fill-3 {
+    animation: fill-3 ease-in-out 3s;
+    transform: rotate(135deg);
+  }
+  
+  @keyframes fill-3{
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(135deg);
+    }
+  }
+  </style>
+  <body>
+      <div class="row">
+        <div class="title-container">
+          <h2 class="title"> PET Works Framework </h1><br>
+          <h3 class="subtitle"> The similarity between original image and recovered image. </h2>
+        </div>
+      </div>
