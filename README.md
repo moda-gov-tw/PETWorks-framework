@@ -28,5 +28,15 @@ report(result, "web")
 | PET Validation            | This module has validation methodologies built in. Returning the result of the validation.                                            |
 | Report                    | This module handles the output format of the report.  It could be text-based on the terminal or GUI-based showing on the web browser. |
 
+#### Web Report
+
+Here is the showcase of the web report.
+
+![](https://i.imgur.com/p9wE8BP.png)
+
+The web report also shows the process of recovery.
+
+![](https://i.imgur.com/tCtVqBu.png)
+
 ### Current Status
 We're now providing just a really simple showcase demonstrating how we can use this framework to validate PET protection of the data using the technology of federated learning. We still need plenty of implementation for every module. This is a very early stage project. Stay tuned!  
