@@ -21,6 +21,32 @@ result = PETValidation(recoveredData, originalData, "FL")
 report(result, "web")
 ```
 
+Execute the public API from [the ARX anonymization framework](https://github.com/arx-deidentifier/arx).
+
+```python
+from py4j.java_gateway import JavaGateway
+
+PATH_TO_ARX_LIBRARY = "libarx-3.9.0.jar"
+gateway = JavaGateway.launch_gateway(classpath=PATH_TO_ARX_LIBRARY)
+
+String = gateway.jvm.java.lang.String
+Data = gateway.jvm.org.deidentifier.arx.Data
+
+
+def newJavaArray(classType, elementList):
+    array = gateway.new_array(classType, len(elementList))
+    for index in range(len(array)):
+        array[index] = elementList[index]
+    return array
+
+
+data = Data.create()
+data.add(newJavaArray(String, ["zipcode", "disease1", "age", "disease2"]))
+data.add(newJavaArray(String, ["47677", "gastric ulcer", "29", "gastric ulcer"]))
+print(data)
+
+```
+
 ### How it works?
 | Module                    | Description                                                                                                                           |
 |---------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
