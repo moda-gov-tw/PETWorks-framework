@@ -31,6 +31,9 @@ gateway = JavaGateway.launch_gateway(classpath=PATH_TO_ARX_LIBRARY)
 
 String = gateway.jvm.java.lang.String
 Data = gateway.jvm.org.deidentifier.arx.Data
+AttributeType = gateway.jvm.org.deidentifier.arx.AttributeType
+ARXPopulationModel = gateway.jvm.org.deidentifier.arx.ARXPopulationModel
+DataHandle = gateway.jvm.org.deidentifier.arx.DataHandle
 
 
 def newJavaArray(classType, elementList):
@@ -41,10 +44,34 @@ def newJavaArray(classType, elementList):
 
 
 data = Data.create()
-data.add(newJavaArray(String, ["zipcode", "disease1", "age", "disease2"]))
-data.add(newJavaArray(String, ["47677", "gastric ulcer", "29", "gastric ulcer"]))
-print(data)
+data.add(newJavaArray(String, ["id", "name", "gender"]))
+data.add(newJavaArray(String, ["34", "male", "Peter"]))
+data.add(newJavaArray(String, ["34", "female", "Alice"]))
+data.add(newJavaArray(String, ["45", "male", "Event"]))
 
+dataDefinition = data.getDefinition()
+dataDefinition.setAttributeType("name", AttributeType.QUASI_IDENTIFYING_ATTRIBUTE)
+dataDefinition.setAttributeType("gender", AttributeType.QUASI_IDENTIFYING_ATTRIBUTE)
+dataDefinition.setAttributeType("id", AttributeType.IDENTIFYING_ATTRIBUTE)
+
+
+def measureReidentificationRisk(dataHandle: DataHandle) -> float:
+    populationModel = ARXPopulationModel.create(dataHandle.getNumRows(), 0.01)
+    riskEstimator = dataHandle.getRiskEstimator(populationModel)
+
+    risk = riskEstimator.getSampleBasedReidentificationRisk()
+    return risk.getHighestRisk()
+
+
+risk = measureReidentificationRisk(data.getHandle())
+print(f"The re-identification risk of the data is {risk}")
+
+```
+
+Execution Result
+
+```bash
+The re-identification risk of the data is 1.0
 ```
 
 ### How it works?
