@@ -21,57 +21,23 @@ result = PETValidation(recoveredData, originalData, "FL")
 report(result, "web")
 ```
 
-Execute the public API from [the ARX anonymization framework](https://github.com/arx-deidentifier/arx).
+Measurement of the re-identification risk with [the ARX anonymization framework](https://github.com/arx-deidentifier/arx).
 
 ```python
-from py4j.java_gateway import JavaGateway
+from PETWorks import PETValidation, report
 
-PATH_TO_ARX_LIBRARY = "libarx-3.9.0.jar"
-gateway = JavaGateway.launch_gateway(classpath=PATH_TO_ARX_LIBRARY)
+originalData = "data/deidentifiedData.csv"
 
-String = gateway.jvm.java.lang.String
-Data = gateway.jvm.org.deidentifier.arx.Data
-AttributeType = gateway.jvm.org.deidentifier.arx.AttributeType
-ARXPopulationModel = gateway.jvm.org.deidentifier.arx.ARXPopulationModel
-DataHandle = gateway.jvm.org.deidentifier.arx.DataHandle
-
-
-def newJavaArray(classType, elementList):
-    array = gateway.new_array(classType, len(elementList))
-    for index in range(len(array)):
-        array[index] = elementList[index]
-    return array
-
-
-data = Data.create()
-data.add(newJavaArray(String, ["id", "name", "gender"]))
-data.add(newJavaArray(String, ["34", "male", "Peter"]))
-data.add(newJavaArray(String, ["34", "female", "Alice"]))
-data.add(newJavaArray(String, ["45", "male", "Event"]))
-
-dataDefinition = data.getDefinition()
-dataDefinition.setAttributeType("name", AttributeType.QUASI_IDENTIFYING_ATTRIBUTE)
-dataDefinition.setAttributeType("gender", AttributeType.QUASI_IDENTIFYING_ATTRIBUTE)
-dataDefinition.setAttributeType("id", AttributeType.IDENTIFYING_ATTRIBUTE)
-
-
-def measureReidentificationRisk(dataHandle: DataHandle) -> float:
-    populationModel = ARXPopulationModel.create(dataHandle.getNumRows(), 0.01)
-    riskEstimator = dataHandle.getRiskEstimator(populationModel)
-
-    risk = riskEstimator.getSampleBasedReidentificationRisk()
-    return risk.getHighestRisk()
-
-
-risk = measureReidentificationRisk(data.getHandle())
-print(f"The re-identification risk of the data is {risk}")
-
+result = PETValidation(originalData, None, "ReidentificationRisk")
+report(result, "json")
 ```
 
 Execution Result
 
 ```bash
-The re-identification risk of the data is 1.0
+{
+    "Re-identification Risk": 1.0
+}
 ```
 
 ### How it works?
