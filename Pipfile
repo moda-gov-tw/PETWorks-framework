@@ -10,6 +10,7 @@ torchvision = "*"
 matplotlib = "*"
 tqdm = "*"
 ssim-pil = "*"
+py4j = "*"
 
 [dev-packages]
 

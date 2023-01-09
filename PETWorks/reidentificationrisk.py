@@ -1,9 +1,5 @@
-from py4j.java_gateway import JavaGateway
+from PETWorks.arx import Data, gateway, loadDataFromCsv
 
-PATH_TO_ARX_LIBRARY = "arx/lib/libarx-3.9.0.jar"
-gateway = JavaGateway.launch_gateway(classpath=PATH_TO_ARX_LIBRARY)
-
-Data = gateway.jvm.org.deidentifier.arx.Data
 StandardCharsets = gateway.jvm.java.nio.charset.StandardCharsets
 AttributeType = gateway.jvm.org.deidentifier.arx.AttributeType
 ARXPopulationModel = gateway.jvm.org.deidentifier.arx.ARXPopulationModel
@@ -35,8 +31,7 @@ def _measureReidentificationRisk(
 
 
 def PETValidation(data, *_):
-    data = Data.create(data, StandardCharsets.UTF_8, ";")
-    data
+    data = loadDataFromCsv(data, StandardCharsets.UTF_8, ";")
 
     _applyDefinition(data)
 

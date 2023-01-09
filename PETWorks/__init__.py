@@ -2,6 +2,7 @@ import json
 
 import PETWorks.federatedlearning as FL
 import PETWorks.reidentificationrisk as ReidentificationRisk
+import PETWorks.ambiguity as Ambiguity
 from web.generate import generateWebView
 
 HISTORY = "images/history.png"
@@ -12,11 +13,13 @@ def dataProcess(model, gradient, tech, method, **keywordArgs):
         return FL.dataProcess(model, gradient, tech, method, **keywordArgs)
 
 
-def PETValidation(recover, origin, tech):
+def PETValidation(recover, origin, tech, **keywordArgs):
     if tech == "FL":
-        return FL.PETValidation(recover, origin, tech)
+        return FL.PETValidation(recover, origin, tech, **keywordArgs)
     elif tech == "ReidentificationRisk":
-        return ReidentificationRisk.PETValidation(recover, origin, tech)
+        return ReidentificationRisk.PETValidation(recover, origin, tech, **keywordArgs)
+    elif tech == "Ambiguity":
+        return Ambiguity.PETValidation(recover, origin, tech, **keywordArgs)
 
 
 def report(result, format):
