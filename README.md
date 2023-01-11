@@ -7,7 +7,8 @@ Data Privacy is the keystone promoting stronger and deeper analysis of problem i
 Here we provide a framework dealing with the validation problem of PET enhanced data.
 
 ### Showcase
-Validation of data processed with federated learning.
+
+#### Validation of Data Processed With Federated Learning
 
 ```python
 from PETWorks import dataProcess, PETValidation, report
@@ -21,7 +22,7 @@ result = PETValidation(recoveredData, originalData, "FL")
 report(result, "web")
 ```
 
-Measurement of the re-identification risk with [the ARX anonymization framework](https://github.com/arx-deidentifier/arx).
+#### Measurement of the Re-Identification Risk
 
 ```python
 from PETWorks import PETValidation, report
@@ -37,6 +38,31 @@ Execution Result
 ```bash
 {
     "Re-identification Risk": 1.0
+}
+```
+
+#### Measurement of the Ambiguity Metric
+
+```python
+from PETWorks import PETValidation, report
+
+originalData = "data/adult.csv"
+anonymizedData = "data/adult_anonymized.csv"
+
+dataHierarchy = "data/adult_hierarchy"
+
+result = PETValidation(
+    originalData, anonymizedData, "Ambiguity", dataHierarchy=dataHierarchy
+)
+report(result, "json")
+```
+
+Execution Result
+
+```bash
+$ python3 ambiguity.py
+{
+    "ambiguity": 0.7271401100722763
 }
 ```
 
