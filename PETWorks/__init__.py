@@ -3,6 +3,7 @@ import json
 import PETWorks.federatedlearning as FL
 import PETWorks.reidentificationrisk as ReidentificationRisk
 import PETWorks.ambiguity as Ambiguity
+import PETWorks.precision as Precision
 from web.generate import generateWebView
 
 HISTORY = "images/history.png"
@@ -20,6 +21,8 @@ def PETValidation(recover, origin, tech, **keywordArgs):
         return ReidentificationRisk.PETValidation(recover, origin, tech, **keywordArgs)
     elif tech == "Ambiguity":
         return Ambiguity.PETValidation(recover, origin, tech, **keywordArgs)
+    elif tech == "Precision":
+        return Precision.PETValidation(recover, origin, tech, **keywordArgs)
 
 
 def report(result, format):
