@@ -66,6 +66,30 @@ $ python3 ambiguity.py
 }
 ```
 
+#### Measurement of the Precision Metric
+
+```python
+from PETWorks import PETValidation, report
+
+originalData = "data/adult.csv"
+anonymizedData = "data/adult_anonymized.csv"
+dataHierarchy = "data/adult_hierarchy"
+
+result = PETValidation(
+    originalData, anonymizedData, "Precision", dataHierarchy=dataHierarchy
+)
+report(result, "json")
+```
+
+Execution Result
+```bash
+$ python3 precision.py
+{
+    "precision": 0.7271401100722763
+}
+```
+
+
 ### How it works?
 | Module                    | Description                                                                                                                           |
 |---------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
