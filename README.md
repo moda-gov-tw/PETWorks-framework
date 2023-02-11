@@ -90,6 +90,32 @@ $ python3 precision.py
 ```
 
 
+#### Measurement of the Non-Uniform Entropy Metric
+
+```python
+from PETWorks import PETValidation, report
+
+originalData = "data/adult.csv"
+anonymizedData = "data/adult_anonymized.csv"
+dataHierarchy = "data/adult_hierarchy"
+
+result = PETValidation(
+    originalData, anonymizedData, "Non-Uniform Entropy", dataHierarchy=dataHierarchy
+)
+report(result, "json")
+```
+
+Execution Result
+```python
+$ python nonUniformEntropy.py
+{
+    "Non-Uniform Entropy": 0.6691909578638351
+}
+```
+
+
+
+
 ### How it works?
 | Module                    | Description                                                                                                                           |
 |---------------------------|---------------------------------------------------------------------------------------------------------------------------------------|

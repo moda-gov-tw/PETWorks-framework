@@ -4,6 +4,7 @@ import PETWorks.federatedlearning as FL
 import PETWorks.reidentificationrisk as ReidentificationRisk
 import PETWorks.ambiguity as Ambiguity
 import PETWorks.precision as Precision
+import PETWorks.nonUniformEntropy as NonUniformEntropy
 from web.generate import generateWebView
 
 HISTORY = "images/history.png"
@@ -23,6 +24,8 @@ def PETValidation(recover, origin, tech, **keywordArgs):
         return Ambiguity.PETValidation(recover, origin, tech, **keywordArgs)
     elif tech == "Precision":
         return Precision.PETValidation(recover, origin, tech, **keywordArgs)
+    elif tech == "Non-Uniform Entropy":
+        return NonUniformEntropy.PETValidation(recover, origin, tech, **keywordArgs)
 
 
 def report(result, format):
