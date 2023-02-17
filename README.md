@@ -113,7 +113,27 @@ $ python nonUniformEntropy.py
 }
 ```
 
+#### Measurement of the AECS Metric
 
+```python
+from PETWorks import PETValidation, report
+
+originalData = "data/adult.csv"
+anonymizedData = "data/adult_anonymized.csv"
+
+result = PETValidation(
+    originalData, anonymizedData, "AECS"
+    )
+report(result, "json")
+```
+
+Execution Result
+```python
+$ python aecs.py
+{
+    "AECS": 0.9992930131052006
+}
+```
 
 
 ### How it works?

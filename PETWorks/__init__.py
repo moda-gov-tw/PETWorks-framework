@@ -5,6 +5,7 @@ import PETWorks.reidentificationrisk as ReidentificationRisk
 import PETWorks.ambiguity as Ambiguity
 import PETWorks.precision as Precision
 import PETWorks.nonUniformEntropy as NonUniformEntropy
+import PETWorks.aecs as AECS
 from web.generate import generateWebView
 
 HISTORY = "images/history.png"
@@ -26,6 +27,8 @@ def PETValidation(recover, origin, tech, **keywordArgs):
         return Precision.PETValidation(recover, origin, tech, **keywordArgs)
     elif tech == "Non-Uniform Entropy":
         return NonUniformEntropy.PETValidation(recover, origin, tech, **keywordArgs)
+    elif tech == "AECS":
+        return AECS.PETValidation(recover, origin, tech)
 
 
 def report(result, format):
