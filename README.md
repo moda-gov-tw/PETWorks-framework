@@ -135,6 +135,35 @@ $ python aecs.py
 }
 ```
 
+#### Compute the k-anonymity
+
+```python
+from PETWorks import PETValidation, report
+from PETWorks.attributetypes import QUASI_IDENTIFIER
+
+anonymizedData = "data/adult_anonymized.csv"
+
+attributeTypes = {
+    "age": QUASI_IDENTIFIER,
+    "sex": QUASI_IDENTIFIER,
+}
+
+result = PETValidation(
+        None, anonymizedData, "k-anonymity", attributeTypes=attributeTypes, k=6
+)
+report(result, "json")
+```
+
+Execution Result
+```python
+$ python3 k-anonymity.py
+{
+    "k": 6,
+    "k-anonymity": true
+}
+```
+
+
 
 ### How it works?
 | Module                    | Description                                                                                                                           |

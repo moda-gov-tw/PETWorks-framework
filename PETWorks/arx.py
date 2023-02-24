@@ -6,7 +6,8 @@ from typing import List
 from py4j.java_gateway import JavaGateway
 
 PATH_TO_ARX_LIBRARY = "arx/lib/libarx-3.9.0.jar"
-gateway = JavaGateway.launch_gateway(classpath=PATH_TO_ARX_LIBRARY)
+gateway = JavaGateway.launch_gateway(
+        classpath=PATH_TO_ARX_LIBRARY, die_on_exit=True)
 
 Data = gateway.jvm.org.deidentifier.arx.Data
 Charset = gateway.jvm.java.nio.charset.Charset
