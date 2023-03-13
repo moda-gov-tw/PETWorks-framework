@@ -164,6 +164,40 @@ $ python3 k-anonymity.py
 ```
 
 
+#### Compute the δ-presence
+```python
+from PETWorks import PETValidation, report
+from PETWorks.attributetypes import SENSITIVE_ATTRIBUTE, QUASI_IDENTIFIER
+
+
+origin = "data/delta.csv"
+anonymized = "data/delta_anonymized.csv"
+dataHierarchy = "data/delta_hierarchy"
+
+attributeTypes = {
+    "zip": QUASI_IDENTIFIER,
+    "age": QUASI_IDENTIFIER,
+    "nationality": QUASI_IDENTIFIER,
+    "salary-class": SENSITIVE_ATTRIBUTE
+}
+
+result = PETValidation(
+        origin, anonymized, "d-presence", dataHierarchy=dataHierarchy, attributeTypes=attributeTypes, dMin=1/2, dMax=2/3
+    )
+report(result, "json")
+```
+
+Execution Result
+```python
+$ python3 d-presence.py
+{
+    "dMin": 0.5,
+    "dMax": 0.6666666666666666,
+    "d-presence": true
+}
+```
+
+
 
 ### How it works?
 | Module                    | Description                                                                                                                           |
