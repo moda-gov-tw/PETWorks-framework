@@ -8,6 +8,7 @@ import PETWorks.nonUniformEntropy as NonUniformEntropy
 import PETWorks.aecs as AECS
 import PETWorks.kanonymity as KAnonymity
 import PETWorks.dpresence as DPresence
+import PETWorks.profitability as Profitability
 from web.generate import generateWebView
 
 HISTORY = "images/history.png"
@@ -35,6 +36,8 @@ def PETValidation(recover, origin, tech, **keywordArgs):
         return KAnonymity.PETValidation(recover, origin, tech, **keywordArgs)
     elif tech == "d-presence":
         return DPresence.PETValidation(recover, origin, tech, **keywordArgs)
+    elif tech == "profitability":
+        return Profitability.PETValidation(recover, origin, tech, **keywordArgs)
 
 
 def report(result, format):
