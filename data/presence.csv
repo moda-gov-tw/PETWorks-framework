@@ -1,0 +1,10 @@
+identifier ;name      ;zip   ;age ;nationality ;sen
+a          ;Alice     ;47906 ; 35 ;USA         ;  0
+b          ;Bob       ;47903 ; 59 ;Canada      ;  1
+c          ;Christine ;47906 ; 42 ;USA         ;  1
+d          ;Dirk      ;47630 ; 18 ;Brazil      ;  0
+e          ;Eunice    ;47630 ; 22 ;Brazil      ;  0
+f          ;Frank     ;47633 ; 63 ;Peru        ;  1
+g          ;Gail      ;48973 ; 33 ;Spain       ;  0
+h          ;Harry     ;48972 ; 47 ;Bulgaria    ;  1
+i          ;Iris      ;48970 ; 52 ;France      ;  1

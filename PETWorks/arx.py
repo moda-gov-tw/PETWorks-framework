@@ -3,10 +3,12 @@ import pandas as pd
 import numpy as np
 from os import PathLike, listdir
 from os.path import join
-from typing import List
-from PETWorks.attributetypes import IDENTIFIER, INSENSITIVE_ATTRIBUTE
+from typing import Dict
+from PETWorks.attributetypes import IDENTIFIER, QUASI_IDENTIFIER
+from PETWorks.attributetypes import INSENSITIVE_ATTRIBUTE, SENSITIVE_ATTRIBUTE
 
 from py4j.java_gateway import JavaGateway
+from py4j.java_collections import JavaArray
 
 PATH_TO_ARX_LIBRARY = "arx/lib/libarx-3.9.0.jar"
 gateway = JavaGateway.launch_gateway(
@@ -30,7 +32,7 @@ def loadDataFromCsv(path: PathLike, charset: Charset, delimiter: str) -> Data:
 
 def loadDataHierarchy(
     path: PathLike, charset: Charset, delimiter: str
-) -> dict[str, List[List[str]]]:
+) -> dict[str, JavaArray]:
     hierarchies = {}
     for filename in listdir(path):
         result = re.match(".*hierarchy_(.*?).csv", filename)
@@ -50,21 +52,29 @@ def loadDataHierarchy(
 
 
 def setDataHierarchies(
-    data: Data, hierarchies: dict[str, list[list[str]]], attributeTypes: dict
+    data: Data,
+    hierarchies: Dict[str, JavaArray],
+    attributeTypes: Dict[str, str],
 ) -> None:
-    for attributeName, hierarchy in hierarchies.items():
-        data.getDefinition().setAttributeType(attributeName, hierarchy)
-        attributeType = attributeTypes.get(attributeName)
+    for attributeName, attributeType in attributeTypes.items():
+        if attributeName in hierarchies.keys():
+            if attributeType == QUASI_IDENTIFIER:
+                data.getDefinition().setAttributeType(
+                    attributeName, hierarchies[attributeName]
+                )
 
-        if attributeType == IDENTIFIER:
-            data.getDefinition().setAttributeType(
-                attributeName, AttributeType.IDENTIFYING_ATTRIBUTE
-            )
+        if attributeType == QUASI_IDENTIFIER:
+            continue
+        elif attributeType == IDENTIFIER:
+            javaAttributeType = AttributeType.IDENTIFYING_ATTRIBUTE
+        elif attributeType == SENSITIVE_ATTRIBUTE:
+            javaAttributeType = AttributeType.INSENSITIVE_ATTRIBUTE
+        elif attributeType == INSENSITIVE_ATTRIBUTE:
+            javaAttributeType = AttributeType.INSENSITIVE_ATTRIBUTE
+        else:
+            raise ValueError(f"Unexpected attribute type: {attributeType}")
 
-        if attributeType == INSENSITIVE_ATTRIBUTE:
-            data.getDefinition().setAttributeType(
-                attributeName, AttributeType.INSENSITIVE_ATTRIBUTE
-            )
+        data.getDefinition().setAttributeType(attributeName, javaAttributeType)
 
 
 def getQiNames(dataHandle: str) -> list[str]:
@@ -83,7 +93,7 @@ def getQiIndices(dataHandle: str) -> list[int]:
     return qiIndices
 
 
-def findAnonymousLevel(hierarchy: list[list[str]], value: str) -> int:
+def findAnonymousLevel(hierarchy: JavaArray, value: str) -> int:
     for hierarchyRow in hierarchy:
         for level in range(len(hierarchyRow)):
             if hierarchyRow[level] == value:
@@ -92,7 +102,7 @@ def findAnonymousLevel(hierarchy: list[list[str]], value: str) -> int:
 
 
 def getAnonymousLevels(
-    anonymizedSubset: Data, hierarchies: dict[str, list[list[str]]]
+    anonymizedSubset: Data, hierarchies: dict[str, JavaArray]
 ) -> list[int]:
     subsetDataFrame = getDataFrame(anonymizedSubset.getHandle())
     subsetRowNum = len(subsetDataFrame)
@@ -110,7 +120,7 @@ def getAnonymousLevels(
         if sampleRowIndex != -1:
             break
 
-        allSuppressed = (subsetRowIndex == subsetRowNum - 1)
+        allSuppressed = subsetRowIndex == subsetRowNum - 1
 
     anonymousLevels = []
     for qiIndex in qiIndices:
@@ -162,9 +172,11 @@ def getSubsetIndices(
         subsetGroupList = subsetGroup.values.tolist()
         filter = pd.Series(True, index=range(tableRowNum))
         for qiName, qiIndex in zip(qiNames, qiIndices):
-            filter &= (tableDataFrame[qiName] == subsetGroupList[0][qiIndex])
+            filter &= tableDataFrame[qiName] == subsetGroupList[0][qiIndex]
 
-        subsetIndices += np.flatnonzero(filter).tolist()[:len(subsetGroupList)]
+        subsetIndices += np.flatnonzero(filter).tolist()[
+            : len(subsetGroupList)
+        ]
 
     return subsetIndices
 
@@ -176,6 +188,7 @@ def applyAnonymousLevels(original: Data, anonymousLevels: list[int]) -> str:
 
     arxConfig = ARXConfiguration.create()
     arxConfig.addPrivacyModel(KAnonymity(1))
+
     anonymizer = ARXAnonymizer()
     result = anonymizer.anonymize(original, arxConfig)
 
