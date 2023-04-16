@@ -1,0 +1,46 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: PyTest
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install imagehash torch torchvision 
+          python -m pip install matplotlib tqdm ssim-pil py4j
+          python -m pip install numpy pandas
+          
+      - name: Setup arx
+        run : |
+          mkdir arx/lib -p
+          wget "https://github.com/arx-deidentifier/arx/releases/download/v3.9.0/libarx-3.9.0.jar" -P arx/lib
+
+      - name: Test with pytest
+        run: |
+          python -m pip install pytest
+          python -m pip install coveralls pytest-cov
+          pytest --cov=./
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          flags: unittests
+          fail_ci_if_error: true
