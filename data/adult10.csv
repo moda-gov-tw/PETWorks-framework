@@ -1,0 +1,11 @@
+sex;age;race;marital-status;education;native-country;workclass;occupation;salary-class
+Male;39;White;Never-married;Bachelors;United-States;State-gov;Adm-clerical;<=50K
+Male;50;White;Married-civ-spouse;Bachelors;United-States;Self-emp-not-inc;Exec-managerial;<=50K
+Male;38;White;Divorced;HS-grad;United-States;Private;Handlers-cleaners;<=50K
+Male;53;Black;Married-civ-spouse;11th;United-States;Private;Handlers-cleaners;<=50K
+Female;28;Black;Married-civ-spouse;Bachelors;Cuba;Private;Prof-specialty;<=50K
+Female;37;White;Married-civ-spouse;Masters;United-States;Private;Exec-managerial;<=50K
+Female;49;Black;Married-spouse-absent;9th;Jamaica;Private;Other-service;<=50K
+Male;52;White;Married-civ-spouse;HS-grad;United-States;Self-emp-not-inc;Exec-managerial;>50K
+Female;31;White;Never-married;Masters;United-States;Private;Prof-specialty;>50K
+Male;42;White;Married-civ-spouse;Bachelors;United-States;Private;Exec-managerial;>50K

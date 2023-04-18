@@ -9,6 +9,7 @@ import PETWorks.aecs as AECS
 import PETWorks.kanonymity as KAnonymity
 import PETWorks.dpresence as DPresence
 import PETWorks.profitability as Profitability
+import PETWorks.tcloseness as TCloseness
 from web.generate import generateWebView
 
 HISTORY = "images/history.png"
@@ -38,6 +39,8 @@ def PETValidation(recover, origin, tech, **keywordArgs):
         return DPresence.PETValidation(recover, origin, tech, **keywordArgs)
     elif tech == "profitability":
         return Profitability.PETValidation(recover, origin, tech, **keywordArgs)
+    elif tech == "t-closeness":
+        return TCloseness.PETValidation(recover, origin, tech, **keywordArgs)
 
 
 def report(result, format):

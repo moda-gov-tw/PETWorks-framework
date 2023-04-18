@@ -1,0 +1,41 @@
+{
+    "k": "100",
+    "d": 1,
+    "t": 1.0,
+    "ambiguity": 1,
+    "precision": 1,
+    "nonUniformEntropy": 1,
+    "aecs": 1.0,
+    "profitability": 100
+}
+No result since the analysis target is not analyzable.
+{
+    "k": "50",
+    "d": 0.5,
+    "t": 0.5,
+    "ambiguity": 0.5,
+    "precision": 0.5,
+    "nonUniformEntropy": 0.5,
+    "aecs": 0.5,
+    "profitability": 50
+}
+{
+    "k": "50",
+    "d": 0.5,
+    "t": 0.5,
+    "ambiguity": 0.5,
+    "precision": 0.5,
+    "nonUniformEntropy": 0.5,
+    "aecs": 0.5,
+    "profitability": 50
+}
+{
+    "k": "0",
+    "d": 0,
+    "t": 0,
+    "ambiguity": 0,
+    "precision": 0,
+    "nonUniformEntropy": 0,
+    "aecs": 0,
+    "profitability": 0
+}

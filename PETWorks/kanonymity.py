@@ -1,34 +1,15 @@
-from PETWorks.arx import Data, gateway, loadDataFromCsv
-from PETWorks.attributetypes import QUASI_IDENTIFIER
-StandardCharsets = gateway.jvm.java.nio.charset.StandardCharsets
-ARXAnonymizer = gateway.jvm.org.deidentifier.arx.ARXAnonymizer
-ARXConfiguration = gateway.jvm.org.deidentifier.arx.ARXConfiguration
-KAnonymity = gateway.jvm.org.deidentifier.arx.criteria.KAnonymity
-AttributeType = gateway.jvm.org.deidentifier.arx.AttributeType
+from PETWorks.arx import Data, loadDataFromCsv
+from PETWorks.arx import JavaApi, setDataHierarchies
 
 
-def _setDataHierarchies(data: Data, attributeType: dict) -> None:
-    for column in range(data.getHandle().getNumColumns()):
-        attribute = data.getHandle().getAttributeName(column)
-        if not attributeType:
-            data.getDefinition().setAttributeType(
-                    attribute, AttributeType.QUASI_IDENTIFYING_ATTRIBUTE)
-            continue
-
-        if attributeType.get(attribute) == QUASI_IDENTIFIER:
-            data.getDefinition().setAttributeType(
-                    attribute, AttributeType.QUASI_IDENTIFYING_ATTRIBUTE)
-
-
-def _measureKAnonymity(anonymized: Data, k: int) -> bool:
-
+def _measureKAnonymity(anonymized: Data, k: int, javaApi: JavaApi) -> bool:
     if k > anonymized.getHandle().getNumColumns():
         return False
 
-    anonymizer = ARXAnonymizer()
-    config = ARXConfiguration.create()
+    anonymizer = javaApi.ARXAnonymizer()
+    config = javaApi.ARXConfiguration.create()
 
-    config.addPrivacyModel(KAnonymity(k))
+    config.addPrivacyModel(javaApi.KAnonymity(k))
     result = anonymizer.anonymize(anonymized, config)
 
     return bool(result.getOutput())
@@ -38,12 +19,12 @@ def PETValidation(foo, anonymized, bar, **other):
     k = other["k"]
     attributeType = other.get("attributeTypes", None)
 
-    anonymized = loadDataFromCsv(anonymized, StandardCharsets.UTF_8, ";")
+    javaApi = JavaApi()
+    anonymized = loadDataFromCsv(
+        anonymized, javaApi.StandardCharsets.UTF_8, ";", javaApi
+    )
 
-    _setDataHierarchies(anonymized, attributeType)
+    setDataHierarchies(anonymized, None, attributeType, javaApi)
 
-    kanonymity = _measureKAnonymity(anonymized, k)
-    return {
-            "k": k,
-            "k-anonymity": kanonymity
-            }
+    kAnonymity = _measureKAnonymity(anonymized, k)
+    return {"k": k, "k-anonymity": kAnonymity}

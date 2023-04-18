@@ -1,13 +1,26 @@
-from PETWorks.attributetypes import IDENTIFIER, QUASI_IDENTIFIER
-from PETWorks.attributetypes import INSENSITIVE_ATTRIBUTE, SENSITIVE_ATTRIBUTE
-from PETWorks.arx import loadDataFromCsv, loadDataHierarchy, setDataHierarchies
-from PETWorks.arx import gateway, Data
 from typing import Dict
+
 import pytest
 from py4j.java_collections import JavaArray
 
+from PETWorks.arx import (
+    Data,
+    JavaApi,
+    loadDataFromCsv,
+    loadDataHierarchy,
+    setDataHierarchies,
+)
+from PETWorks.attributetypes import (
+    IDENTIFIER,
+    INSENSITIVE_ATTRIBUTE,
+    QUASI_IDENTIFIER,
+    SENSITIVE_ATTRIBUTE,
+)
 
-StandardCharsets = gateway.jvm.java.nio.charset.StandardCharsets
+
+@pytest.fixture(scope="session")
+def javaApi() -> JavaApi:
+    return JavaApi()
 
 
 @pytest.fixture(scope="module")
@@ -35,32 +48,41 @@ def errorAttributeTypesForAdult() -> Dict[str, str]:
 
 
 @pytest.fixture(scope="module")
-def arxDataAdult(DATASET_PATH_ADULT) -> Data:
+def arxDataAdult(DATASET_PATH_ADULT, javaApi) -> Data:
     return loadDataFromCsv(
-        DATASET_PATH_ADULT["originalData"], StandardCharsets.UTF_8, ";"
+        DATASET_PATH_ADULT["originalData"],
+        javaApi.StandardCharsets.UTF_8,
+        ";",
+        javaApi,
     )
 
 
 @pytest.fixture(scope="module")
-def arxHierarchyAdult(DATASET_PATH_ADULT) -> Dict[str, JavaArray]:
+def arxHierarchyAdult(DATASET_PATH_ADULT, javaApi) -> Dict[str, JavaArray]:
     return loadDataHierarchy(
-        DATASET_PATH_ADULT["dataHierarchy"], StandardCharsets.UTF_8, ";"
+        DATASET_PATH_ADULT["dataHierarchy"],
+        javaApi.StandardCharsets.UTF_8,
+        ";",
+        javaApi,
     )
 
 
 def testSetDataHierarchiesErrorAttributeTypes(
-    arxDataAdult, arxHierarchyAdult, errorAttributeTypesForAdult
+    arxDataAdult, arxHierarchyAdult, errorAttributeTypesForAdult, javaApi
 ):
     with pytest.raises(ValueError):
         setDataHierarchies(
-            arxDataAdult, arxHierarchyAdult, errorAttributeTypesForAdult
+            arxDataAdult,
+            arxHierarchyAdult,
+            errorAttributeTypesForAdult,
+            javaApi,
         )
 
 
 def testSetDataHierarchies(
-    arxDataAdult, arxHierarchyAdult, attributeTypesForAdult
+    arxDataAdult, arxHierarchyAdult, attributeTypesForAdult, javaApi
 ):
-    setDataHierarchies(arxDataAdult, arxHierarchyAdult, attributeTypesForAdult)
+    setDataHierarchies(arxDataAdult, arxHierarchyAdult, attributeTypesForAdult, javaApi)
 
     dataDefinition = arxDataAdult.getDefinition()
     maritalStatusHierarchy = dataDefinition.getHierarchy("marital-status")

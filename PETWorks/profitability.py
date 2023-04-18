@@ -1,78 +1,43 @@
-from PETWorks.arx import Data, gateway, loadDataFromCsv, loadDataHierarchy
-from PETWorks.arx import setDataHierarchies, getSubsetIndices
-from PETWorks.arx import getAnonymousLevels, applyAnonymousLevels
-
-StandardCharsets = gateway.jvm.java.nio.charset.StandardCharsets
-DataSubset = gateway.jvm.org.deidentifier.arx.DataSubset
-HashSet = gateway.jvm.java.util.HashSet
-
-ARXConfiguration = gateway.jvm.org.deidentifier.arx.ARXConfiguration
-ARXCostBenefitConfiguration = (
-    gateway.jvm.org.deidentifier.arx.ARXCostBenefitConfiguration
+from typing import List
+from PETWorks.arx import (
+    getAttributeNameByType,
 )
+from PETWorks.attributetypes import QUASI_IDENTIFIER
 
-ARXAnonymizer = gateway.jvm.org.deidentifier.arx.ARXAnonymizer
-AttributeType = gateway.jvm.org.deidentifier.arx.AttributeType
-Metric = gateway.jvm.org.deidentifier.arx.metric.Metric
-Int = gateway.jvm.int
-
-ProfitabilityJournalist = (
-    gateway.jvm.org.deidentifier.arx.criteria.ProfitabilityJournalist
-)
-ProfitabilityJournalistNoAttack = (
-    gateway.jvm.org.deidentifier.arx.criteria.ProfitabilityJournalistNoAttack
-)
+import pandas as pd
 
 
-def _measureProfitability(
-    original: Data,
-    subsetIndices: list[int],
-    anonymousLevels: list[int],
-    allowAttack: bool,
-    adversaryCost: float,
-    adversaryGain: float,
+def _measureProfitabilityPayoffAcceptingAttack(
+    anonymizedData: pd.DataFrame,
+    qiNames: List[str],
     publisherLost: float,
     publisherBenefit: float,
-) -> bool:
-    indices = HashSet()
-    for index in subsetIndices:
-        indices.add(index)
+):
+    probabilityOfSuccess = 1 / (anonymizedData.groupby(qiNames).size())
 
-    subset = DataSubset.create(original, indices)
-    original.getHandle().release()
+    publisherTotalGain = publisherBenefit * len(anonymizedData)
+    publisherTotalLost = (publisherLost * probabilityOfSuccess).sum()
 
-    config = ARXCostBenefitConfiguration.create()
-    config.setAdversaryCost(adversaryCost)
-    config.setAdversaryGain(adversaryGain)
-    config.setPublisherLoss(publisherLost)
-    config.setPublisherBenefit(publisherBenefit)
+    return publisherTotalGain - publisherTotalLost
 
-    arxConfig = ARXConfiguration.create()
-    arxConfig.setCostBenefitConfiguration(config)
-    arxConfig.setQualityModel(Metric.createPublisherPayoutMetric(False))
 
-    if allowAttack:
-        profitabilityModel = ProfitabilityJournalist(subset)
-    else:
-        profitabilityModel = ProfitabilityJournalistNoAttack(subset)
-
-    arxConfig.addPrivacyModel(profitabilityModel)
-    arxConfig.setAlgorithm(
-        ARXConfiguration.AnonymizationAlgorithm.BEST_EFFORT_TOP_DOWN
+def _measureProfitabilityPayoffNoAttack(
+    anonymizedData: pd.DataFrame,
+    qiNames: List[str],
+    adversaryCost: float,
+    adversaryGain: float,
+) -> float:
+    anonymizedData["probabilityOfSuccess"] = 1 / (
+        anonymizedData.groupby(qiNames).transform("size").astype(float)
     )
 
-    anonymizer = ARXAnonymizer()
-    result = anonymizer.anonymize(original, arxConfig)
+    adversaryTotalGain = (
+        anonymizedData["probabilityOfSuccess"] * adversaryGain
+    ).sum()
 
-    levels = gateway.new_array(Int, len(anonymousLevels))
-    for i in range(len(anonymousLevels)):
-        levels[i] = anonymousLevels[i]
+    adversaryTotalCost = len(anonymizedData) * adversaryCost
 
-    lattice = result.getLattice()
-    node = lattice.getNode(levels)
-    anonymity = str(node.getAnonymity())
-
-    return anonymity == "ANONYMOUS"
+    return adversaryTotalGain - adversaryTotalCost
 
 
 def PETValidation(
@@ -87,30 +52,23 @@ def PETValidation(
     publisherLost,
     publisherBenefit,
 ):
-    dataHierarchy = loadDataHierarchy(
-        dataHierarchy, StandardCharsets.UTF_8, ";"
-    )
-    original = loadDataFromCsv(original, StandardCharsets.UTF_8, ";")
-    subset = loadDataFromCsv(subset, StandardCharsets.UTF_8, ";")
+    subset = pd.read_csv(subset, sep=";")
+    qiNames = getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER)
 
-    setDataHierarchies(original, dataHierarchy, attributeTypes)
-    setDataHierarchies(subset, dataHierarchy, attributeTypes)
-
-    anonymousLevels = getAnonymousLevels(subset, dataHierarchy)
-    anonymizedData = applyAnonymousLevels(original, anonymousLevels)
-
-    subsetIndices = getSubsetIndices(anonymizedData, subset.getHandle())
-
-    isProfitable = _measureProfitability(
-        original,
-        subsetIndices,
-        anonymousLevels,
-        allowAttack,
-        float(adversaryCost),
-        float(adversaryGain),
-        float(publisherLost),
-        float(publisherBenefit),
-    )
+    if allowAttack:
+        isProfitable = (
+            _measureProfitabilityPayoffAcceptingAttack(
+                subset, qiNames, publisherLost, publisherBenefit
+            )
+            > 0
+        )
+    else:
+        isProfitable = (
+            _measureProfitabilityPayoffNoAttack(
+                subset, qiNames, adversaryCost, adversaryGain
+            )
+            <= 0
+        )
 
     return {
         "allow attack": allowAttack,

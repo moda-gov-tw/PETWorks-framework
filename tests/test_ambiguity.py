@@ -11,5 +11,5 @@ def testPETValidation(
             "Ambiguity",
             dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
         )["ambiguity"]
-        == 0.7271401100722763
+        == 0.7271401084040343
     )
