@@ -242,6 +242,38 @@ $ python3 profitability.py
 }
 ```
 
+
+#### Compute the l-diversity
+```python
+from PETWorks import PETValidation, report
+from PETWorks.attributetypes import SENSITIVE_ATTRIBUTE, QUASI_IDENTIFIER
+
+anonymized = "data/inpatient_anonymized.csv"
+
+attributeTypes = {
+    "zipcode": QUASI_IDENTIFIER,
+    "age": QUASI_IDENTIFIER,
+    "nationality": QUASI_IDENTIFIER,
+    "condition": SENSITIVE_ATTRIBUTE
+}
+
+result = PETValidation(
+    None, anonymized, "l-diversity", attributeTypes=attributeTypes, l=3
+)
+report(result, "json")
+```
+
+Execution Result
+```
+$ python3 l-diversity.py
+{
+    "l": 3,
+    "fulfill l-diversity": true
+}
+```
+
+
+
 ### How it works?
 | Module                    | Description                                                                                                                           |
 |---------------------------|---------------------------------------------------------------------------------------------------------------------------------------|

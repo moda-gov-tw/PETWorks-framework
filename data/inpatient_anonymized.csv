@@ -1,0 +1,13 @@
+zipcode;age;nationality;condition
+1305*;<=40;*;heart disease
+1305*;<=40;*;viral infection
+1305*;<=40;*;cancer
+1305*;<=40;*;cancer
+1485*;>40;*;cancer
+1485*;>40;*;heart disease
+1485*;>40;*;viral infection
+1485*;>40;*;viral infection
+1306*;<=40;*;heart disease
+1306*;<=40;*;viral infection
+1306*;<=40;*;cancer
+1306*;<=40;*;cancer

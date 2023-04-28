@@ -45,6 +45,7 @@ def testFindQualifiedAnonymityConfigs(tmp_path, simpleTestSet):
     originalData, dataHierarchy, attributeTypes = simpleTestSet
     parameterSetFile = "tests/report/combination.csv"
     output = tmp_path / "result.txt"
+
     bias = 3
 
     def analysisFunction(data: pd.DataFrame) -> float:
@@ -72,6 +73,7 @@ def testCalculateThresholds(tmp_path):
     at.calculateThresholds(resultFile, output)
 
     thresholds = json.loads(output.read_text())
-    assert len(thresholds) == 8
+    assert len(thresholds) == 9
     assert thresholds["k"] == [0, 50, 50, 100]
     assert thresholds["d"] == [0, 0.5, 0.5, 1]
+    assert thresholds["l"] == [1, 25, 50, 100]

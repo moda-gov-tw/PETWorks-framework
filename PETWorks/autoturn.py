@@ -30,7 +30,6 @@ T = TypeVar("T")
 def __sample(
     data: List[T], count: int, dataSize: int = None
 ) -> Generator[T, None, None]:
-
     if dataSize is None:
         dataSize = len(data)
 
@@ -86,9 +85,7 @@ def __findQualifiedConfigsImplement(argumentSets: List):
         originalDataFrame, anonymizedDataFrame, __analysisFunction, bias
     ):
         # Make a copy of the original data for ARX API to evaluate metrics.
-        originalData = loadDataFromCsv(
-            originalDataFile, utf8, ";", __javaApi
-        )
+        originalData = loadDataFromCsv(originalDataFile, utf8, ";", __javaApi)
         setDataHierarchies(
             originalData, dataHierarchy, attributeTypes, __javaApi
         )
@@ -119,12 +116,16 @@ def __calculateFiveThresholds(values: List[float]) -> Tuple[float]:
     thirdAvg = series.loc[lambda v: v >= middleAvg].astype(float).mean()
 
     firstThreshold = series.loc[lambda v: v <= firstAvg].astype(float).mean()
-    secondThreshold = series.loc[
-        lambda v: np.logical_and(v >= firstAvg, v <= middleAvg)
-    ].astype(float).mean()
-    thirdThreshold = series.loc[
-        lambda v: np.logical_and(v >= middleAvg, v <= thirdAvg)
-    ].astype(float).mean()
+    secondThreshold = (
+        series.loc[lambda v: np.logical_and(v >= firstAvg, v <= middleAvg)]
+        .astype(float)
+        .mean()
+    )
+    thirdThreshold = (
+        series.loc[lambda v: np.logical_and(v >= middleAvg, v <= thirdAvg)]
+        .astype(float)
+        .mean()
+    )
     fourthThreshold = series.loc[lambda v: v >= thirdAvg].astype(float).mean()
 
     if math.isnan(secondThreshold):
@@ -230,6 +231,7 @@ def calculateThresholds(
         "k": [],
         "d": [],
         "t": [],
+        "l": [],
         "profitability": [],
         "ambiguity": [],
         "precision": [],
@@ -260,6 +262,9 @@ def calculateThresholds(
                     values.append(jsonObj[metric])
 
     effectiveResults["k"] = [int(element) for element in effectiveResults["k"]]
+    effectiveResults["l"] = [
+        int(element) for element in effectiveResults["l"]
+    ]
 
     thresholds = {}
     for metric, values in effectiveResults.items():

@@ -27,6 +27,7 @@ from multiprocessing import cpu_count
 from PETWorks.tcloseness import (
     measureTCloseness,
 )
+from PETWorks.ldiversity import measureLDiversity
 from PETWorks.profitability import _measureProfitabilityPayoffNoAttack
 
 from py4j.java_gateway import Py4JJavaError
@@ -41,6 +42,7 @@ class Metrics:
     k: int
     d: float
     t: float
+    l: int
     profitability: int
 
     @staticmethod
@@ -122,6 +124,8 @@ class Metrics:
             default=1,
         )
 
+        lLimit = min(measureLDiversity(anonymizedDataFrame, attributeTypes))
+
         profitability = _measureProfitabilityPayoffNoAttack(
             anonymizedDataFrame, qiNames, 4, 200000 / len(anonymizedDataFrame)
         )
@@ -134,6 +138,7 @@ class Metrics:
             k=k,
             d=d,
             t=t,
+            l=lLimit,
             profitability=profitability,
         )
 
