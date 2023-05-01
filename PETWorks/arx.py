@@ -175,11 +175,11 @@ def setDataHierarchies(
 def getAttributeNameByType(
     attributeTypes: Dict[str, str], type: str
 ) -> Iterator[str]:
-    return (
+    return [
         attributeName
         for attributeName, attributeType in attributeTypes.items()
         if attributeType == type
-    )
+    ]
 
 
 def getQiNames(data: Data) -> List[str]:

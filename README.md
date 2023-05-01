@@ -300,7 +300,7 @@ $ python3 profitability.py
     "adversary's gain": 300,
     "publisher's loss": 300,
     "publisher's benefit": 1200,
-    "profitability": true
+    "isProfitable": true
 }
 ```
 

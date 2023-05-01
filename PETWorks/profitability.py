@@ -56,14 +56,14 @@ def PETValidation(
     qiNames = getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER)
 
     if allowAttack:
-        isProfitable = (
+        isProfitable = bool(
             _measureProfitabilityPayoffAcceptingAttack(
                 subset, qiNames, publisherLost, publisherBenefit
             )
             > 0
         )
     else:
-        isProfitable = (
+        isProfitable = bool(
             _measureProfitabilityPayoffNoAttack(
                 subset, qiNames, adversaryCost, adversaryGain
             )
