@@ -1,30 +1,25 @@
-from PETWorks.arx import Data, loadDataFromCsv
-from PETWorks.arx import JavaApi, setDataHierarchies
+from PETWorks.arx import getAttributeNameByType
+from PETWorks.attributetypes import QUASI_IDENTIFIER
+import pandas as pd
 
 
-def _measureKAnonymity(anonymized: Data, k: int, javaApi: JavaApi) -> bool:
-    if k > anonymized.getHandle().getNumColumns():
-        return False
-
-    anonymizer = javaApi.ARXAnonymizer()
-    config = javaApi.ARXConfiguration.create()
-
-    config.addPrivacyModel(javaApi.KAnonymity(k))
-    result = anonymizer.anonymize(anonymized, config)
-
-    return bool(result.getOutput())
+def _measureKAnonymity(anonymized: pd.DataFrame, qiNames: list[str]) -> int:
+    suppressedValues = ["*"] * len(qiNames)
+    anonymized = anonymized.loc[
+        ~anonymized[qiNames].isin(suppressedValues).all(axis=1)
+    ]
+    return anonymized.groupby(qiNames).count().min().min()
 
 
-def PETValidation(foo, anonymized, bar, **other):
-    k = other["k"]
-    attributeType = other.get("attributeTypes", None)
+def _validateKAnonymity(kValue: int, k: int) -> bool:
+    return k <= kValue
 
-    javaApi = JavaApi()
-    anonymized = loadDataFromCsv(
-        anonymized, javaApi.StandardCharsets.UTF_8, ";", javaApi
-    )
 
-    setDataHierarchies(anonymized, None, attributeType, javaApi)
+def PETValidation(foo, anonymized, bar, attributeTypes, k):
+    anonymized = pd.read_csv(anonymized, sep=";", skipinitialspace=True)
+    qiNames = list(getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER))
 
-    kAnonymity = _measureKAnonymity(anonymized, k)
-    return {"k": k, "k-anonymity": kAnonymity}
+    kValue = int(_measureKAnonymity(anonymized, qiNames))
+    fulFillKAnonymity = _validateKAnonymity(kValue, k)
+
+    return {"k": k, "fulfill k-anonymity": fulFillKAnonymity}

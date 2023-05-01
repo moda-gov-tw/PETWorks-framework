@@ -9,8 +9,9 @@ from PETWorks.attributetypes import (
     IDENTIFIER,
     INSENSITIVE_ATTRIBUTE,
     QUASI_IDENTIFIER,
+    SENSITIVE_ATTRIBUTE
 )
-from PETWorks.attributetypes import INSENSITIVE_ATTRIBUTE, SENSITIVE_ATTRIBUTE
+
 
 from py4j.java_gateway import JavaGateway, JavaClass
 from py4j.java_collections import JavaArray
@@ -147,7 +148,11 @@ def setDataHierarchies(
     javaApi: JavaApi,
 ) -> None:
     for attributeName, attributeType in attributeTypes.items():
-        if attributeName in hierarchies.keys():
+        if not hierarchies:
+            data.getDefinition().setAttributeType(
+                attributeName, javaApi.Hierarchy.create()
+            )
+        elif attributeName in hierarchies.keys():
             if attributeType == QUASI_IDENTIFIER:
                 data.getDefinition().setAttributeType(
                     attributeName, hierarchies[attributeName]

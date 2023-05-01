@@ -1,19 +1,17 @@
-from PETWorks.arx import Data, loadDataFromCsv, JavaApi, UtilityMetrics
-
-
-def _setDataHierarchies(data: Data, javaApi: JavaApi) -> None:
-    for column in range(data.getHandle().getNumColumns()):
-        data.getDefinition().setAttributeType(
-            data.getHandle().getAttributeName(column),
-            javaApi.Hierarchy.create(),
-        )
+from PETWorks.arx import (
+    Data,
+    loadDataFromCsv,
+    JavaApi,
+    UtilityMetrics,
+    setDataHierarchies,
+)
 
 
 def _measureAECS(original: Data, anonymized: Data) -> float:
     return UtilityMetrics.evaluate(original, anonymized).aecs
 
 
-def PETValidation(original, anonymized, _):
+def PETValidation(original, anonymized, _, attributeTypes):
     javaApi = JavaApi()
     original = loadDataFromCsv(
         original, javaApi.StandardCharsets.UTF_8, ";", javaApi
@@ -22,8 +20,8 @@ def PETValidation(original, anonymized, _):
         anonymized, javaApi.StandardCharsets.UTF_8, ";", javaApi
     )
 
-    _setDataHierarchies(original, javaApi)
-    _setDataHierarchies(anonymized, javaApi)
+    setDataHierarchies(original, None, attributeTypes, javaApi)
+    setDataHierarchies(anonymized, None, attributeTypes, javaApi)
 
     aecs = _measureAECS(original, anonymized)
     return {"AECS": aecs}

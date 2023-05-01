@@ -45,14 +45,29 @@ Execution Result
 
 ```python
 from PETWorks import PETValidation, report
+from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
 originalData = "data/adult.csv"
 anonymizedData = "data/adult_anonymized.csv"
-
 dataHierarchy = "data/adult_hierarchy"
 
+attributeTypes = {
+    "age": QUASI_IDENTIFIER,
+    "education": QUASI_IDENTIFIER,
+    "marital-status": QUASI_IDENTIFIER,
+    "native-country": QUASI_IDENTIFIER,
+    "occupation": QUASI_IDENTIFIER,
+    "race": QUASI_IDENTIFIER,
+    "salary-class": QUASI_IDENTIFIER,
+    "sex": QUASI_IDENTIFIER,
+    "workclass": SENSITIVE_ATTRIBUTE,
+}
+
 result = PETValidation(
-    originalData, anonymizedData, "Ambiguity", dataHierarchy=dataHierarchy
+    originalData, anonymizedData,
+    "Ambiguity",
+    dataHierarchy=dataHierarchy,
+    attributeTypes=attributeTypes
 )
 report(result, "json")
 ```
@@ -62,7 +77,7 @@ Execution Result
 ```bash
 $ python3 ambiguity.py
 {
-    "ambiguity": 0.7271401100722763
+    "ambiguity": 0.72714009672634
 }
 ```
 
@@ -70,13 +85,29 @@ $ python3 ambiguity.py
 
 ```python
 from PETWorks import PETValidation, report
+from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
 originalData = "data/adult.csv"
 anonymizedData = "data/adult_anonymized.csv"
 dataHierarchy = "data/adult_hierarchy"
 
+attributeTypes = {
+    "age": QUASI_IDENTIFIER,
+    "education": QUASI_IDENTIFIER,
+    "marital-status": QUASI_IDENTIFIER,
+    "native-country": QUASI_IDENTIFIER,
+    "occupation": QUASI_IDENTIFIER,
+    "race": QUASI_IDENTIFIER,
+    "salary-class": QUASI_IDENTIFIER,
+    "sex": QUASI_IDENTIFIER,
+    "workclass": SENSITIVE_ATTRIBUTE,
+}
+
 result = PETValidation(
-    originalData, anonymizedData, "Precision", dataHierarchy=dataHierarchy
+    originalData, anonymizedData,
+    "Precision",
+    dataHierarchy=dataHierarchy,
+    attributeTypes=attributeTypes
 )
 report(result, "json")
 ```
@@ -94,13 +125,29 @@ $ python3 precision.py
 
 ```python
 from PETWorks import PETValidation, report
+from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
 originalData = "data/adult.csv"
 anonymizedData = "data/adult_anonymized.csv"
 dataHierarchy = "data/adult_hierarchy"
 
+attributeTypes = {
+    "age": QUASI_IDENTIFIER,
+    "education": QUASI_IDENTIFIER,
+    "marital-status": QUASI_IDENTIFIER,
+    "native-country": QUASI_IDENTIFIER,
+    "occupation": QUASI_IDENTIFIER,
+    "race": QUASI_IDENTIFIER,
+    "salary-class": QUASI_IDENTIFIER,
+    "sex": QUASI_IDENTIFIER,
+    "workclass": SENSITIVE_ATTRIBUTE,
+}
+
 result = PETValidation(
-    originalData, anonymizedData, "Non-Uniform Entropy", dataHierarchy=dataHierarchy
+    originalData, anonymizedData,
+    "Non-Uniform Entropy",
+    dataHierarchy=dataHierarchy,
+    attributeTypes=attributeTypes
 )
 report(result, "json")
 ```
@@ -109,7 +156,7 @@ Execution Result
 ```python
 $ python nonUniformEntropy.py
 {
-    "Non-Uniform Entropy": 0.6691909578638351
+    "Non-Uniform Entropy": 0.6740002378300514
 }
 ```
 
@@ -117,13 +164,28 @@ $ python nonUniformEntropy.py
 
 ```python
 from PETWorks import PETValidation, report
+from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
 originalData = "data/adult.csv"
 anonymizedData = "data/adult_anonymized.csv"
 
+attributeTypes = {
+    "age": QUASI_IDENTIFIER,
+    "education": QUASI_IDENTIFIER,
+    "marital-status": QUASI_IDENTIFIER,
+    "native-country": QUASI_IDENTIFIER,
+    "occupation": QUASI_IDENTIFIER,
+    "race": QUASI_IDENTIFIER,
+    "salary-class": QUASI_IDENTIFIER,
+    "sex": QUASI_IDENTIFIER,
+    "workclass": SENSITIVE_ATTRIBUTE,
+}
+
 result = PETValidation(
-    originalData, anonymizedData, "AECS"
-    )
+    originalData, anonymizedData,
+    "AECS",
+    attributeTypes=attributeTypes
+)
 report(result, "json")
 ```
 
@@ -131,7 +193,7 @@ Execution Result
 ```python
 $ python aecs.py
 {
-    "AECS": 0.9992930131052006
+    "AECS": 0.9992707253704929
 }
 ```
 
