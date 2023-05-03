@@ -8,8 +8,8 @@ from PETWorks.arx import (
 )
 
 
-def _measurePrecision(original: Data, anonymized: Data) -> float:
-    return UtilityMetrics.evaluate(original, anonymized).precision
+def _measureNonUniformEntropy(original: Data, anonymized: Data) -> float:
+    return UtilityMetrics.evaluate(original, anonymized).nonUniformEntropy
 
 
 def PETValidation(original, anonymized, _, dataHierarchy, attributeTypes):
@@ -29,5 +29,5 @@ def PETValidation(original, anonymized, _, dataHierarchy, attributeTypes):
     setDataHierarchies(original, dataHierarchy, attributeTypes, javaApi)
     setDataHierarchies(anonymized, dataHierarchy, attributeTypes, javaApi)
 
-    precision = _measurePrecision(original, anonymized)
-    return {"precision": precision}
+    nonUniformEntropy = _measureNonUniformEntropy(original, anonymized)
+    return {"Non-Uniform Entropy": nonUniformEntropy}

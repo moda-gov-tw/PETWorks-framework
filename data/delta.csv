@@ -1,0 +1,10 @@
+zip;age;nationality;salary-class
+47906;35;USA;<=50
+47903;59;Canada;<=50
+47906;42;USA;<=50
+47630;18;Brazil;>50
+47630;22;Brazil;<=50
+47633;63;Peru;<=50
+48973;33;Spain;>50
+48972;47;Bulgaria;>50
+48970;52;France;<=50
