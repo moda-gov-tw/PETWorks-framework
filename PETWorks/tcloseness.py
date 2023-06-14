@@ -3,11 +3,17 @@ import pandas as pd
 from PETWorks.arx import (
     loadDataHierarchyNatively,
     getAttributeNameByType,
+    loadDataFromCsv,
+    loadDataHierarchy,
+    setDataHierarchies,
+    JavaApi,
+    getDataFrame,
+    anonymizeData,
 )
 from PETWorks.attributetypes import SENSITIVE_ATTRIBUTE, QUASI_IDENTIFIER
 import numpy as np
-import pandas as pd
 from math import fabs
+from typing import Dict
 
 
 def _computeHierarchicalDistance(
@@ -186,6 +192,63 @@ def PETValidation(
         for sensitiveAttribute in sensitiveAttributes
     ]
 
-    fullfilTCloseness = all(_validateTCloseness(t, tLimit) for t in tList)
+    fulfillTCloseness = all(_validateTCloseness(t, tLimit) for t in tList)
 
-    return {"t": tLimit, "fullfil t-closeness": fullfilTCloseness}
+    return {"t": tLimit, "fulfill t-closeness": fulfillTCloseness}
+
+
+def PETAnonymization(
+    originalData: str,
+    dataHierarchy: str,
+    attributeTypes: Dict[str, str],
+    maxSuppressionRate: float,
+    t: float,
+) -> pd.DataFrame:
+    javaApi = JavaApi()
+    originalDataFrame = pd.read_csv(
+        originalData, sep=";", skipinitialspace=True
+    )
+
+    originalData = loadDataFromCsv(
+        originalData, javaApi.StandardCharsets.UTF_8, ";", javaApi
+    )
+
+    dataHierarchy = loadDataHierarchy(
+        dataHierarchy, javaApi.StandardCharsets.UTF_8, ";", javaApi
+    )
+
+    setDataHierarchies(
+        originalData, dataHierarchy, attributeTypes, javaApi, True
+    )
+
+    privacyModels = []
+    for attributeName, attributeType in attributeTypes.items():
+        if attributeType == SENSITIVE_ATTRIBUTE:
+            isNumerical = True
+            try:
+                float(originalDataFrame[attributeName].iloc[0])
+            except ValueError:
+                isNumerical = False
+
+            if isNumerical:
+                tClosenessModel = javaApi.OrderedDistanceTCloseness(
+                    attributeName, float(t)
+                )
+            else:
+                tClosenessModel = javaApi.HierarchicalDistanceTCloseness(
+                    attributeName, float(t), dataHierarchy.get(attributeName)
+                )
+
+            privacyModels.append(tClosenessModel)
+
+    anonymizedResult = anonymizeData(
+        originalData,
+        privacyModels,
+        javaApi,
+        None,
+        float(maxSuppressionRate),
+    )
+    anonymizedData = javaApi.Data.create(
+        anonymizedResult.getOutput(True).iterator()
+    )
+    return getDataFrame(anonymizedData)

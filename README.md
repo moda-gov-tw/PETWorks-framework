@@ -334,6 +334,115 @@ $ python3 l-diversity.py
 }
 ```
 
+#### Anonymize with the k-anonymity
+
+```python
+from PETWorks import PETAnonymization, output
+from PETWorks.attributetypes import *
+
+originalData = "data/adult.csv"
+dataHierarchy = "data/adult_hierarchy"
+
+attributeTypes = {
+    "age": QUASI_IDENTIFIER,
+    "sex": QUASI_IDENTIFIER,
+}
+
+result = PETAnonymization(
+    originalData,
+    "k-anonymity",
+    dataHierarchy,
+    attributeTypes,
+    maxSuppressionRate=0.6,
+    k=6,
+)
+
+output(result, "output.csv")
+```
+
+#### Anonymize with the δ-presence
+
+```python
+from PETWorks import PETAnonymization, output
+from PETWorks.attributetypes import *
+
+originalData = "data/adult.csv"
+dataHierarchy = "data/adult_hierarchy"
+subsetData = "data/adult10.csv"
+
+attributeTypes = {
+    "age": QUASI_IDENTIFIER,
+    "race": QUASI_IDENTIFIER,
+}
+
+result = PETAnonymization(
+    originalData,
+    "d-presence",
+    dataHierarchy,
+    attributeTypes,
+    maxSuppressionRate=0.6,
+    dMin=0.0,
+    dMax=0.8,
+    subsetData=subsetData,
+)
+
+output(result, "output.csv")
+```
+
+#### Anonymize with the l-diversity
+
+```python
+from PETWorks import PETAnonymization, output
+from PETWorks.attributetypes import *
+
+originalData = "data/adult.csv"
+dataHierarchy = "data/adult_hierarchy"
+
+attributeTypes = {
+    "age": QUASI_IDENTIFIER,
+    "race": QUASI_IDENTIFIER,
+    "workclass": SENSITIVE_ATTRIBUTE,
+}
+
+result = PETAnonymization(
+    originalData,
+    "l-diversity",
+    dataHierarchy,
+    attributeTypes,
+    maxSuppressionRate=0.6,
+    l=6,
+)
+
+output(result, "output.csv")
+```
+
+#### Anonymize with the t-closeness
+
+```python
+from PETWorks import PETAnonymization, output
+from PETWorks.attributetypes import *
+
+originalData = "data/adult.csv"
+dataHierarchy = "data/adult_hierarchy"
+
+attributeTypes = {
+    "age": QUASI_IDENTIFIER,
+    "race": QUASI_IDENTIFIER,
+    "workclass": SENSITIVE_ATTRIBUTE,
+}
+
+result = PETAnonymization(
+    originalData,
+    "t-closeness",
+    dataHierarchy,
+    attributeTypes,
+    maxSuppressionRate=0.6,
+    t=6,
+)
+
+output(result, "output.csv")
+```
+
 
 
 ### How it works?

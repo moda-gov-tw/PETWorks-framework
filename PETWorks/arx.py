@@ -9,7 +9,7 @@ from PETWorks.attributetypes import (
     IDENTIFIER,
     INSENSITIVE_ATTRIBUTE,
     QUASI_IDENTIFIER,
-    SENSITIVE_ATTRIBUTE
+    SENSITIVE_ATTRIBUTE,
 )
 
 
@@ -29,8 +29,10 @@ ARXConfiguration = JavaClass
 KAnonymity = JavaClass
 ARXAnonymizer = JavaClass
 ARXResult = JavaClass
+ARXNode = JavaClass
 AttributeType = JavaClass
 Int = JavaClass
+Metric = JavaClass
 
 javaApiTable = {
     "Data": "jvm.org.deidentifier.arx.Data",
@@ -41,6 +43,12 @@ javaApiTable = {
     "DefaultHierarchy": "jvm.org.deidentifier.arx.AttributeType.Hierarchy.DefaultHierarchy",
     "ARXConfiguration": "jvm.org.deidentifier.arx.ARXConfiguration",
     "KAnonymity": "jvm.org.deidentifier.arx.criteria.KAnonymity",
+    "DistinctLDiversity": "jvm.org.deidentifier.arx.criteria.DistinctLDiversity",
+    "DPresence": "jvm.org.deidentifier.arx.criteria.DPresence",
+    "OrderedDistanceTCloseness": "jvm.org.deidentifier.arx.criteria.OrderedDistanceTCloseness",
+    "HierarchicalDistanceTCloseness": "jvm.org.deidentifier.arx.criteria.HierarchicalDistanceTCloseness",
+    "createLossMetric": "jvm.org.deidentifier.arx.metric.Metric.createLossMetric",
+    "createPrecomputedEntropyMetric": "jvm.org.deidentifier.arx.metric.Metric.createPrecomputedEntropyMetric",
     "ARXAnonymizer": "jvm.org.deidentifier.arx.ARXAnonymizer",
     "AttributeType": "jvm.org.deidentifier.arx.AttributeType",
     "ARXPopulationModel": "jvm.org.deidentifier.arx.ARXPopulationModel",
@@ -48,7 +56,6 @@ javaApiTable = {
     "DataSubset": "jvm.org.deidentifier.arx.DataSubset",
     "HashGroupifyEntry": "jvm.org.deidentifier.arx.framework.check.groupify.HashGroupifyEntry",
     "HashSet": "jvm.java.util.HashSet",
-    "DPresence": "jvm.org.deidentifier.arx.criteria.DPresence",
     "Int": "jvm.int",
     "String": "jvm.java.lang.String",
     "new_array": "new_array",
@@ -146,6 +153,7 @@ def setDataHierarchies(
     hierarchies: Dict[str, JavaArray],
     attributeTypes: Dict[str, str],
     javaApi: JavaApi,
+    enableSensitiveAttribute: bool = False,
 ) -> None:
     for attributeName, attributeType in attributeTypes.items():
         if not hierarchies:
@@ -163,7 +171,10 @@ def setDataHierarchies(
         elif attributeType == IDENTIFIER:
             javaAttributeType = javaApi.AttributeType.IDENTIFYING_ATTRIBUTE
         elif attributeType == SENSITIVE_ATTRIBUTE:
-            javaAttributeType = javaApi.AttributeType.INSENSITIVE_ATTRIBUTE
+            if enableSensitiveAttribute:
+                javaAttributeType = javaApi.AttributeType.SENSITIVE_ATTRIBUTE
+            else:
+                javaAttributeType = javaApi.AttributeType.INSENSITIVE_ATTRIBUTE
         elif attributeType == INSENSITIVE_ATTRIBUTE:
             javaAttributeType = javaApi.AttributeType.INSENSITIVE_ATTRIBUTE
         else:
@@ -245,6 +256,9 @@ def getAnonymousLevels(
 
 
 def getDataFrame(data: Data) -> pd.DataFrame:
+    if not data:
+        return pd.DataFrame()
+
     dataHandle = data.getHandle()
     rowNum = dataHandle.getNumRows()
     colNum = dataHandle.getNumColumns()
@@ -313,11 +327,13 @@ def anonymizeData(
 
     try:
         anonymizer = javaApi.ARXAnonymizer()
-        anonymizedData = anonymizer.anonymize(original, arxConfig)
+        anonymizedResult = anonymizer.anonymize(original, arxConfig)
     except Py4JJavaError as e:
         raise e
 
-    return anonymizedData
+    original.getHandle().release()
+
+    return anonymizedResult
 
 
 def applyAnonymousLevels(
@@ -334,21 +350,14 @@ def applyAnonymousLevels(
     privacyModels = [javaApi.KAnonymity(1)]
 
     try:
-        anonymizedData = anonymizeData(original, privacyModels, javaApi)
+        anonymizedResult = anonymizeData(original, privacyModels, javaApi)
     except Py4JJavaError:
         return
 
-    lattice = anonymizedData.getLattice()
+    lattice = anonymizedResult.getLattice()
     node = lattice.getNode(levels)
-
-    output = anonymizedData.getOutput(node, True)
-    if not output:
-        return None
-
     result = javaApi.Data.create(
-        anonymizedData.getOutput(node, True).iterator()
+        anonymizedResult.getOutput(node, True).iterator()
     )
-
     setDataHierarchies(result, hierarchies, attributeTypes, javaApi)
-
     return result

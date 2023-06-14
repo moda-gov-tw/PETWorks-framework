@@ -1,6 +1,15 @@
-from PETWorks.arx import getAttributeNameByType
+from PETWorks.arx import (
+    getAttributeNameByType,
+    JavaApi,
+    anonymizeData,
+    getDataFrame,
+    loadDataFromCsv,
+    loadDataHierarchy,
+    setDataHierarchies,
+)
 from PETWorks.attributetypes import QUASI_IDENTIFIER
 import pandas as pd
+from typing import Dict
 
 
 def _measureKAnonymity(anonymized: pd.DataFrame, qiNames: list[str]) -> int:
@@ -23,3 +32,34 @@ def PETValidation(foo, anonymized, bar, attributeTypes, k):
     fulFillKAnonymity = _validateKAnonymity(kValue, k)
 
     return {"k": k, "fulfill k-anonymity": fulFillKAnonymity}
+
+
+def PETAnonymization(
+    originalData: str,
+    dataHierarchy: str,
+    attributeTypes: Dict[str, str],
+    maxSuppressionRate: float,
+    k: int,
+) -> pd.DataFrame:
+    javaApi = JavaApi()
+    originalData = loadDataFromCsv(
+        originalData, javaApi.StandardCharsets.UTF_8, ";", javaApi
+    )
+
+    dataHierarchy = loadDataHierarchy(
+        dataHierarchy, javaApi.StandardCharsets.UTF_8, ";", javaApi
+    )
+
+    setDataHierarchies(originalData, dataHierarchy, attributeTypes, javaApi)
+
+    anonymizedResult = anonymizeData(
+        originalData,
+        [javaApi.KAnonymity(k)],
+        javaApi,
+        None,
+        float(maxSuppressionRate),
+    )
+    anonymizedData = javaApi.Data.create(
+        anonymizedResult.getOutput(True).iterator()
+    )
+    return getDataFrame(anonymizedData)
