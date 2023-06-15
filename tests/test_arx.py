@@ -1,5 +1,6 @@
 from typing import Dict
 
+import pandas as pd
 import pytest
 from py4j.java_collections import JavaArray
 
@@ -9,7 +10,10 @@ from PETWorks.arx import (
     loadDataFromCsv,
     loadDataHierarchy,
     setDataHierarchies,
+    anonymizeData,
+    getDataFrame,
 )
+from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
 
 @pytest.fixture(scope="session")
@@ -97,6 +101,23 @@ def testSetDataHierarchiesNoHierarchies(
     )
 
 
+def testSetDataHierarchiesSensitiveEnabled(
+    arxDataAdult, arxHierarchyAdult, javaApi
+):
+    attributeTypes = {
+        "age": SENSITIVE_ATTRIBUTE,
+    }
+    setDataHierarchies(
+        arxDataAdult, arxHierarchyAdult, attributeTypes, javaApi, True
+    )
+
+    dataDefinition = arxDataAdult.getDefinition()
+    assert (
+        dataDefinition.getAttributeType("age").toString()
+        == "SENSITIVE_ATTRIBUTE"
+    )
+
+
 def testSetDataHierarchies(
     arxDataAdult, arxHierarchyAdult, attributeTypesForAdult, javaApi
 ):
@@ -140,4 +161,34 @@ def testSetDataHierarchies(
     assert (
         dataDefinition.getAttributeType("workclass").toString()
         == "INSENSITIVE_ATTRIBUTE"
+    )
+
+
+def testGetDataFrameWithNone():
+    assert getDataFrame(None).empty is True
+
+
+def testGetDataFrame(arxDataAdult):
+    assert len(getDataFrame(arxDataAdult)) == 30162
+
+
+def testAnonymizeData(
+    arxDataAdult, arxHierarchyAdult, attributeTypesForAdultAllQi, javaApi
+):
+    setDataHierarchies(
+        arxDataAdult, arxHierarchyAdult, attributeTypesForAdultAllQi, javaApi
+    )
+
+    assert (
+        anonymizeData(
+            arxDataAdult,
+            [javaApi.KAnonymity(5)],
+            javaApi,
+            javaApi.createPrecomputedEntropyMetric(0.1, True),
+            0.04,
+        )
+        .getGlobalOptimum()
+        .getHighestScore()
+        .toString()
+        == "255559.85455731067"
     )

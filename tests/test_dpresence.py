@@ -4,12 +4,12 @@ from PETWorks.dpresence import (
     measureDPresence,
     validateDPresence,
     PETValidation,
+    PETAnonymization,
 )
 
 from typing import Dict
 import pytest
 import pandas as pd
-
 
 ORIGINAL_POPULATION_DATA_PATH = "data/presence.csv"
 ANONYMIZED_POPULATION_DATA_PATH = "data/presence_transformed.csv"
@@ -94,3 +94,19 @@ def testPETValidationNotFulfilled(attributeTypesForPresence):
     assert result["dMin"] == 1 / 2
     assert result["dMax"] == 1 / 3
     assert result["d-presence"] is False
+
+
+def testPETAnonymization(DATASET_PATH_ADULT, attributeTypesForAdultAllQi):
+    result = PETAnonymization(
+        DATASET_PATH_ADULT["originalData"],
+        DATASET_PATH_ADULT["dataHierarchy"],
+        attributeTypesForAdultAllQi,
+        maxSuppressionRate=0.05,
+        dMin=0.0,
+        dMax=0.2,
+        subsetData="data/adult10.csv",
+    )
+    result["age"] = result["age"].astype(float)
+    assert result.equals(
+        pd.read_csv("data/DAnonymization.csv", sep=";", skipinitialspace=True)
+    )

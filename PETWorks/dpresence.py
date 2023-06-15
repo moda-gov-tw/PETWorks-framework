@@ -10,6 +10,7 @@ from PETWorks.arx import (
     loadDataFromCsv,
     loadDataHierarchy,
     setDataHierarchies,
+    anonymizeData,
 )
 from PETWorks.attributetypes import QUASI_IDENTIFIER
 
@@ -89,3 +90,42 @@ def PETValidation(
     fulfillDPresence = validateDPresence(deltaValues, float(dMin), float(dMax))
 
     return {"dMin": dMin, "dMax": dMax, "d-presence": fulfillDPresence}
+
+
+def PETAnonymization(
+    originalData: str,
+    dataHierarchy: str,
+    attributeTypes: Dict[str, str],
+    maxSuppressionRate: float,
+    dMin: float,
+    dMax: float,
+    subsetData: str,
+) -> pd.DataFrame:
+    javaApi = JavaApi()
+
+    originalData = loadDataFromCsv(
+        originalData, javaApi.StandardCharsets.UTF_8, ";", javaApi
+    )
+
+    dataHierarchy = loadDataHierarchy(
+        dataHierarchy, javaApi.StandardCharsets.UTF_8, ";", javaApi
+    )
+
+    subsetData = loadDataFromCsv(
+        subsetData, javaApi.StandardCharsets.UTF_8, ";", javaApi
+    )
+
+    setDataHierarchies(originalData, dataHierarchy, attributeTypes, javaApi)
+    dataSubset = javaApi.DataSubset.create(originalData, subsetData)
+
+    anonymizedResult = anonymizeData(
+        originalData,
+        [javaApi.DPresence(dMin, dMax, dataSubset)],
+        javaApi,
+        None,
+        float(maxSuppressionRate),
+    )
+    anonymizedData = javaApi.Data.create(
+        anonymizedResult.getOutput(True).iterator()
+    )
+    return getDataFrame(anonymizedData)

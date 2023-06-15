@@ -45,4 +45,19 @@ def attributeTypesForAdult() -> Dict[str, str]:
         "workclass": SENSITIVE_ATTRIBUTE,
     }
     return attributeTypes
-    
+
+
+@pytest.fixture(scope="session")
+def attributeTypesForAdultAllQi() -> Dict[str, str]:
+    attributeTypes = {
+        "age": QUASI_IDENTIFIER,
+        "education": QUASI_IDENTIFIER,
+        "marital-status": QUASI_IDENTIFIER,
+        "native-country": QUASI_IDENTIFIER,
+        "occupation": QUASI_IDENTIFIER,
+        "race": QUASI_IDENTIFIER,
+        "salary-class": QUASI_IDENTIFIER,
+        "sex": QUASI_IDENTIFIER,
+        "workclass": QUASI_IDENTIFIER,
+    }
+    return attributeTypes
