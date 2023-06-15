@@ -4,8 +4,8 @@ from PETWorks.ldiversity import (
     measureLDiversity,
     validateLDiversity,
     PETValidation,
+    PETAnonymization,
 )
-
 from typing import Dict
 import pytest
 import pandas as pd
@@ -72,3 +72,29 @@ def testPETValidationNotFulfilled(attributeTypesForInpatient):
     )
     assert result["l"] == 5
     assert result["fulfill l-diversity"] is False
+
+
+def testPETAnonymization(DATASET_PATH_ADULT):
+    attributeTypes = {
+        "age": QUASI_IDENTIFIER,
+        "education": QUASI_IDENTIFIER,
+        "marital-status": QUASI_IDENTIFIER,
+        "native-country": QUASI_IDENTIFIER,
+        "occupation": SENSITIVE_ATTRIBUTE,
+        "race": QUASI_IDENTIFIER,
+        "salary-class": QUASI_IDENTIFIER,
+        "sex": QUASI_IDENTIFIER,
+        "workclass": QUASI_IDENTIFIER,
+    }
+
+    result = PETAnonymization(
+        DATASET_PATH_ADULT["originalData"],
+        DATASET_PATH_ADULT["dataHierarchy"],
+        attributeTypes,
+        maxSuppressionRate=0.04,
+        l=5,
+    )
+
+    assert result.equals(
+        pd.read_csv("data/LAnonymization.csv", sep=";", skipinitialspace=True)
+    )
