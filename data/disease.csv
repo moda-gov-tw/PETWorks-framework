@@ -1,0 +1,10 @@
+ZIPCode;Age;Salary;Disease
+4767*;<=40;3;gastric ulcer
+4767*;<=40;4;pneumonia
+4767*;<=40;5;stomach cancer
+4790*;>40;6;gastritis
+4790*;>40;11;flu
+4790*;>40;8;bronchitis
+4760*;<=40;7;bronchitis
+4760*;<=40;9;gastritis
+4760*;<=40;10;stomach cancer

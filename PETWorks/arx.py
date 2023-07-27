@@ -141,7 +141,7 @@ def loadDataHierarchyNatively(
     path: PathLike, delimiter: str
 ) -> Dict[str, np.chararray]:
     return {
-        attributeName: pd.read_csv(hierarchyFile, sep=delimiter).to_numpy(
+        attributeName: pd.read_csv(hierarchyFile, sep=delimiter, header=None).to_numpy(
             dtype=str
         )
         for attributeName, hierarchyFile in __findHierarchyFile(path)
