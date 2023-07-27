@@ -334,6 +334,45 @@ $ python3 l-diversity.py
 }
 ```
 
+#### Compute the t-closeness
+
+```python
+from PETWorks import PETValidation, report
+from PETWorks.attributetypes import (
+    SENSITIVE_ATTRIBUTE,
+    QUASI_IDENTIFIER,
+)
+
+anonymized = "data/patient_anonymized.csv"
+dataHierarchy = "data/patient_hierarchy"
+
+attributeTypes = {
+    "ZIPCode": QUASI_IDENTIFIER,
+    "Age": QUASI_IDENTIFIER,
+    "Disease": SENSITIVE_ATTRIBUTE,
+}
+
+result = PETValidation(
+    None,
+    anonymized,
+    "t-closeness",
+    dataHierarchy=dataHierarchy,
+    attributeTypes=attributeTypes,
+    tLimit=0.376,
+)
+report(result, "json")
+```
+
+Execution Result
+
+```  
+$ python3 t-closeness.py
+{
+    "t": 0.376,
+    "fulfill t-closeness": true
+}
+```
+
 #### Anonymize with the k-anonymity
 
 ```python

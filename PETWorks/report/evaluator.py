@@ -113,7 +113,6 @@ class Metrics:
         t = 1 - max(
             [
                 measureTCloseness(
-                    originalDataFrame,
                     anonymizedDataFrame,
                     sensitive,
                     qiNames,
