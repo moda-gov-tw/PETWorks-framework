@@ -1,0 +1,88 @@
+theory example_DP
+begin
+
+/*本地端1*/
+//本地資料和參數須保密
+rule client1_Send:
+  [ Fr(~data1) //生成本地資料
+  , Fr(~pa1) //生成本地模型
+  , Fr(~lm1) //生成受保護參數
+  ]
+--[ Secret(~data1)//資料保密
+  , Train(~data1, ~pa1)//使用本地資料訓練得到模型參數
+  , Secret(~pa1)//模型參數保密
+  , Laplace(~pa1, ~lm1)//將模型參數加入差分隱私
+  , Sent(~lm1)//送出受保護參數
+  ]->
+  [ Out(~lm1) ]
+
+/*本地端2*/
+rule client2_Send:
+  [ Fr(~data2) //生成本地資料
+  , Fr(~pa2) //生成本地模型
+  , Fr(~lm2) //生成受保護參數
+  ]
+--[ Secret(~data2)//資料保密
+  , Train(~data2, ~pa2)//使用本地資料訓練得到模型參數
+  , Secret(~pa2)//模型參數保密
+  , Laplace(~pa2, ~lm2)//將模型參數加入差分隱私
+  , Sent(~lm2)//送出受保護參數
+  ]->
+  [ Out(~lm2) ]
+
+/*服務器接收本地參數並進行聚合*/
+rule Server_Receive:
+  [ In(lm1)//收到本地模型1
+  , In(lm2)//收到本地模型2
+  , Fr(~gm)//生成全局模型
+  ]
+--[ Received(lm1)//收到local1
+  , Received(lm2)//收到local2
+  , Cul(lm1, lm2)//聚合
+  , Sent(~gm)//送出gm
+  ]->
+  [ Out(~gm) ]//送出全局模型
+
+/*本地端1接收全局模型*/
+rule client1_Receive:
+  [In(gm)]
+--[Received(gm)]->
+  []
+
+/*本地端2接收全局模型*/
+rule client2_Receive:
+  [In(gm)]
+--[Received(gm)]->
+  []
+
+/*透過參數揭露本地數據*/
+rule adversary:
+  [ In(pa) //獲得模型參數
+  , Train(data, pa) //推理
+  ]
+--[ Reveal(data)]-> //揭露數據
+  [ Out(data)]
+
+//保密性
+lemma secrecy:
+  "All x #i.
+    Secret(x) @i ==> not (Ex #j. K(x) @j)"	
+
+//本地數據的保密性
+lemma data_secrecy:
+  "All d p l #i #j. Train(d, p) @i & Sent(l) @j
+  ==> 
+	not (Ex #s #r #t . K(d) @r & Received(d) @s & Reveal(d) @t )"
+
+//本地參數的保密性
+lemma pa_secrecy:
+  "All p l #j #k.  Laplace(p, l) @j & Sent(l) @k
+  ==> 
+	not (Ex #s #r . K(p) @r & Received(p) @s )"
+
+//可執行性
+lemma executable:
+  exists-trace
+    "Ex m #i #j. Sent(m) @i & Received(m) @j & #i < #j"
+
+end
