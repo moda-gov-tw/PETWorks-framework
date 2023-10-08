@@ -1,14 +1,14 @@
 import scapy.all
 from scapy.plist import PacketList
 
-load_layer("tls")
+scapy.all.load_layer("tls")
 
 
 def capturePackets(timeout: int, interface: str) -> PacketList:
     if timeout is None:
         timeout = 5  # Sniff for 5 seconds
 
-    packets = sniff(timeout=timeout, iface=interface)
+    packets = scapy.all.sniff(timeout=timeout, iface=interface)
     return packets
 
 
