@@ -13,6 +13,10 @@ import PETWorks.dpresence as DPresence
 import PETWorks.profitability as Profitability
 import PETWorks.tcloseness as TCloseness
 import PETWorks.ldiversity as LDiversity
+import PETWorks.differential_privacy.SinglingOutRisk as SinglingOutRisk
+import PETWorks.differential_privacy.LinkabilityRisk as LinkabilityRisk
+import PETWorks.differential_privacy.InferenceRisk as InferenceRisk
+import PETWorks.differential_privacy.MIATester as MIATester
 from web.generate import generateWebView
 
 HISTORY = "images/history.png"
@@ -52,6 +56,16 @@ def PETValidation(recover, origin, tech, **keywordArgs):
         return TCloseness.PETValidation(recover, origin, tech, **keywordArgs)
     elif tech == "l-diversity":
         return LDiversity.PETValidation(recover, origin, tech, **keywordArgs)
+    elif tech == "SinglingOutRisk":
+        return SinglingOutRisk.PETValidation(recover, origin, **keywordArgs)
+    elif tech == "LinkabilityRisk":
+        return LinkabilityRisk.PETValidation(recover, origin, **keywordArgs)
+    elif tech == "InferenceRisk":
+        return InferenceRisk.PETValidation(recover, origin, **keywordArgs)
+    elif tech == "TLSv1.2OrAbove":
+        return Communication.PETValidation(recover)
+    elif tech == "DifferentialPrivacy":
+        return MIATester.PETValidation(recover, origin, **keywordArgs)
 
 
 def report(result, format):
