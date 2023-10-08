@@ -11,8 +11,18 @@ matplotlib = "*"
 tqdm = "*"
 ssim-pil = "*"
 py4j = "*"
+pandas = "*"
+sklearn = "*"
+numpy = "==1.25"
+phe = "*"
+scrapy = "*"
+scapy = "*"
+swifter = "*"
 
 [dev-packages]
+pytest = "*"
+black = "*"
+pycodestyle = "*"
 
 [requires]
 python_version = "3.9"
