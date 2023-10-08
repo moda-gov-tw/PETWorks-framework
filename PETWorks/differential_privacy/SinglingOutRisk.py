@@ -1,6 +1,6 @@
 from typing import Dict
 import pandas as pd
-from PETWorks.differential_privacy.anonymeter import resultToDict
+from PETWorks.differential_privacy.anonymeter import _resultToDict
 from anonymeter.evaluators import SinglingOutEvaluator
 
 
@@ -23,8 +23,8 @@ def PETValidation(
     try:
         evaluator.evaluate(mode="multivariate")
         result = evaluator.results()
-        return resultToDict(result)
+        return _resultToDict(result)
     except RuntimeError as ex:
         pass
 
-    return resultToDict(None)
+    return _resultToDict(None)

@@ -1,6 +1,6 @@
 from typing import Dict
 import pandas as pd
-from PETWorks.differential_privacy.anonymeter import resultToDict
+from PETWorks.differential_privacy.anonymeter import _resultToDict
 from anonymeter.evaluators import InferenceEvaluator
 
 
@@ -26,6 +26,6 @@ def PETValidation(
             n_attacks=nAttack,
         )
         evaluator.evaluate(n_jobs=-2)
-        results[secret] = resultToDict(evaluator.results())
+        results[secret] = _resultToDict(evaluator.results())
 
     return results

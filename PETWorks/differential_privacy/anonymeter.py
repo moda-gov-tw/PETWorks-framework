@@ -2,7 +2,7 @@ from typing import Dict
 from anonymeter.stats.confidence import EvaluationResults
 
 
-def resultToDict(result: EvaluationResults = None) -> Dict[str, int]:
+def _resultToDict(result: EvaluationResults = None) -> Dict[str, int]:
     if result:
         return {
             "Success rate of main attack": result.attack_rate.value,

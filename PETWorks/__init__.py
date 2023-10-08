@@ -17,6 +17,8 @@ import PETWorks.differential_privacy.SinglingOutRisk as SinglingOutRisk
 import PETWorks.differential_privacy.LinkabilityRisk as LinkabilityRisk
 import PETWorks.differential_privacy.InferenceRisk as InferenceRisk
 import PETWorks.differential_privacy.MIATester as MIATester
+import PETWorks.homomorphic_encryption as HomomorphicEncryption
+import PETWorks.homomorphic_encryption.Communication as Communication
 from web.generate import generateWebView
 
 HISTORY = "images/history.png"
@@ -25,6 +27,10 @@ HISTORY = "images/history.png"
 def dataProcess(model, gradient, tech, method, **keywordArgs):
     if tech == "FL":
         return FL.dataProcess(model, gradient, tech, method, **keywordArgs)
+    elif tech == "HomomorphicEncryption":
+        return HomomorphicEncryption.dataProcess(
+            model, gradient, method, **keywordArgs
+        )
 
 
 def PETValidation(recover, origin, tech, **keywordArgs):
@@ -62,7 +68,7 @@ def PETValidation(recover, origin, tech, **keywordArgs):
         return LinkabilityRisk.PETValidation(recover, origin, **keywordArgs)
     elif tech == "InferenceRisk":
         return InferenceRisk.PETValidation(recover, origin, **keywordArgs)
-    elif tech == "TLSv1.2OrAbove":
+    elif tech == "TLSv1.2OrLater":
         return Communication.PETValidation(recover)
     elif tech == "DifferentialPrivacy":
         return MIATester.PETValidation(recover, origin, **keywordArgs)

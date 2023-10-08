@@ -1,6 +1,6 @@
 from typing import Dict
 import pandas as pd
-from PETWorks.differential_privacy.anonymeter import resultToDict
+from PETWorks.differential_privacy.anonymeter import _resultToDict
 from anonymeter.evaluators import LinkabilityEvaluator
 
 
@@ -24,4 +24,4 @@ def PETValidation(
     evaluator.evaluate(n_jobs=-2)  # -2 means using all expect one CPUs.
     result = evaluator.results()
 
-    return resultToDict(result)
+    return _resultToDict(result)
