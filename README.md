@@ -6,21 +6,9 @@ Data Privacy is the keystone promoting stronger and deeper analysis of problem i
 
 Here we provide a framework dealing with the validation problem of PET enhanced data.
 
-### Showcase
+## Showcase
 
-#### Validation of Data Processed With Federated Learning
-
-```python
-from PETWorks import dataProcess, PETValidation, report
-
-gradient = "/home/Doc/gradient"
-model = "/home/Doc/model"
-originalData = "/home/Doc/o.png"
-
-recoveredData = dataProcess(model, gradient, "FL", "recover")
-result = PETValidation(recoveredData, originalData, "FL")
-report(result, "web")
-```
+### Traditional De-identification Technologies
 
 #### Measurement of the Re-Identification Risk
 
@@ -482,6 +470,272 @@ result = PETAnonymization(
 output(result, "output.csv")
 ```
 
+### Differential Privacy
+
+#### Validate Data Processed With Differential Privacy
+
+```python
+from PETWorks import PETValidation, report
+
+synthetic = "data/synthetic_NHANES.csv"
+original = "data/NHANES.csv"
+epsilon = 10
+
+result = PETValidation(synthetic, original, "DifferentialPrivacy", epsilon=epsilon)
+report(result, "json")
+```
+
+Execution Result
+```bash
+$ python3 validateDP.py
+{
+    "Does the data processed with differential privacy": "Possibly Yes"
+}
+```
+
+
+#### Measurement of the Singling Out Risk
+
+```python
+from PETWorks import PETValidation, report
+
+synthetic = "data/adults_syn_ctgan.csv"
+original = "data/adults_train.csv"
+control = "data/adults_control.csv"
+
+result = PETValidation(synthetic, original, "SinglingOutRisk", control=control)
+report(result, "json")
+```
+
+Execution Result
+```bash
+$ python3 singlingOutRisk.py
+{
+    "Success rate of main attack": 0.2110980494620957,
+    "Success rate of baseline attack": 0.037756879139353126,
+    "Success rate of control attack": 0.06360101455367315
+}
+```
+
+#### Measurement of the Inference Risk
+
+```python
+from PETWorks import PETValidation, report
+
+synthetic = "data/adults_syn_ctgan.csv"
+original = "data/adults_train.csv"
+control = "data/adults_control.csv"
+
+result = PETValidation(synthetic, original, "InferenceRisk", control=control)
+report(result, "json")
+```
+
+Execution Result
+```bash
+$ python3 inferenceRisk.py
+{
+    "age": {
+        "Success rate of main attack": 0.07961489208090426,
+        "Success rate of baseline attack": 0.06666463994121648,
+        "Success rate of control attack": 0.06865698642424536
+    },
+    "type_employer": {
+        "Success rate of main attack": 0.48107270841122557,
+        "Success rate of baseline attack": 0.4561683773733644,
+        "Success rate of control attack": 0.48107270841122557
+    },
+    "fnlwgt": {
+        "Success rate of main attack": 0.03877178917881202,
+        "Success rate of baseline attack": 0.05570673428455759,
+        "Success rate of control attack": 0.05570673428455759
+    }
+}
+```
+
+#### Measurement of the Linkability Risk
+
+```python
+from PETWorks import PETValidation, report
+
+synthetic = "data/adults_syn_ctgan.csv"
+original = "data/adults_train.csv"
+control = "data/adults_control.csv"
+
+auxiliaryColumns = [
+    ["type_employer", "fnlwgt"],
+    ["age"]
+]
+
+result = PETValidation(
+    synthetic,
+    original,
+    "LinkabilityRisk",
+    control=control,
+    auxiliaryColumns=auxiliaryColumns,
+)
+report(result, "json")
+```
+
+Execution Result
+```bash
+$ python3 linkabilityRisk.py
+{
+    "Success rate of main attack": 0.001956606593345214,
+    "Success rate of baseline attack": 0.004451813975142082,
+    "Success rate of control attack": 0.0029546895460639613
+}
+```
+
+### Federated Learning
+
+#### Validation of Data Processed With Federated Learning
+
+```python
+from PETWorks import dataProcess, PETValidation, report
+
+gradient = "/home/Doc/gradient"
+model = "/home/Doc/model"
+originalData = "/home/Doc/o.png"
+
+recoveredData = dataProcess(model, gradient, "FL", "recover")
+result = PETValidation(recoveredData, originalData, "FL")
+report(result, "web")
+```
+
+### Homomorphic Encryption
+
+#### Generate Key for Homomorphic Encryption
+
+```python
+from PETWorks import dataProcess, report
+
+library = "phe"
+keySize = 128
+
+keys = dataProcess(
+    keySize, None, "HomomorphicEncryption", "GenerateKey", library=library
+)
+report(keys, "json")
+```
+
+Execution Result
+```bash
+$ python3 generateKey.py
+{
+    "Public Key": 176498358747162177292711947860102193361,
+    "Private Key": {
+        "p": 10056745993628924791,
+        "q": 17550245264121825271
+    }
+}
+```
+
+#### Encrypt Value Using Homomorphic Encryption
+
+```python
+from PETWorks import dataProcess, report
+
+library = "phe"
+keySize = 128
+publicKey = 240537853022521961474293276399056393697
+
+value = 16
+
+encryptedValue = dataProcess(
+    value,
+    keySize,
+    "HomomorphicEncryption",
+    "Encrypt",
+    library=library,
+    publicKey=publicKey,
+)
+report(encryptedValue, "json")
+```
+
+Execution Result
+```bash
+$ python3 encryptValue.py
+{
+    "Encrypted Value": 21895940939293354723904335349274645110736347403968508239398892528574591099866
+}
+```
+
+#### Decrypt Value Using Homomorphic Encryption
+
+```python
+from PETWorks import dataProcess, report
+
+library = "phe"
+keySize = 128
+publicKey = 240537853022521961474293276399056393697
+privateKey = {"p": 15077889811522283831, "q": 15953018361939928487}
+
+encryptedValue = 54460907148015048399650723031319333758655292473353853450480678347318563444904
+
+decryptedValue = dataProcess(
+    encryptedValue,
+    keySize,
+    "HomomorphicEncryption",
+    "Decrypt",
+    library=library,
+    publicKey=publicKey,
+    privateKey=privateKey,
+)
+report(decryptedValue, "json")
+```
+
+Execution Result
+```bash
+$ python3 decryptValue.py
+{
+    "Decrypted Value": 16
+}
+```
+
+#### Detect the Use of TLS Protocol (v1.2 or later) 
+
+```python
+from PETWorks import dataProcess, PETValidation, report
+
+packets = dataProcess(None, None, "HomomorphicEncryption", "CapturePackets")
+result = PETValidation(packets, None, "TLSv1.2OrLater")
+report(result, "json")
+```
+
+Execution Result
+```bash
+$ python3 detectTLS.py
+{
+    "Use TLS v1.2 or later": true
+}
+```
+
+#### Find External Functions
+
+```python
+from PETWorks import dataProcess, report
+
+executable = "/usr/bin/ls"
+
+result = dataProcess(
+    executable, None, "HomomorphicEncryption", "FindExternalFunctions"
+)
+report(result, "json")
+
+```
+
+Execution Result
+```bash
+$ python3 findExternalFunctions.py
+{
+    "External Functions": [
+        "abort@GLIBC_2.2.5",
+        "__assert_fail@GLIBC_2.2.5",
+        "bindtextdomain@GLIBC_2.2.5",
+        ...
+    ]
+}
+```
 
 
 ### How it works?
