@@ -24,9 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install imagehash torch torchvision 
-          python -m pip install matplotlib tqdm ssim-pil py4j
-          python -m pip install numpy pandas
+          python -m pip install -r requirements.txt
           
       - name: Setup arx
         run : |
