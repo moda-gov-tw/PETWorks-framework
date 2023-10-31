@@ -257,7 +257,7 @@ K = 5
 BATCH_SIZE = 10
 
 
-def PETValidation(synthetic: PathLike, original: PathLike, epsilon: float):
+def PETValidation(synthetic: PathLike, original: PathLike):
     real_data = pd.read_csv(original)
     synthetic_data = pd.read_csv(synthetic)
 

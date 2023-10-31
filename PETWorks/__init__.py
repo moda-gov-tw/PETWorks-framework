@@ -71,7 +71,7 @@ def PETValidation(recover, origin, tech, **keywordArgs):
     elif tech == "TLSv1.2OrLater":
         return Communication.PETValidation(recover)
     elif tech == "DifferentialPrivacy":
-        return MIATester.PETValidation(recover, origin, **keywordArgs)
+        return MIATester.PETValidation(recover, origin)
 
 
 def report(result, format):

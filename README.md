@@ -479,9 +479,8 @@ from PETWorks import PETValidation, report
 
 synthetic = "data/synthetic_NHANES.csv"
 original = "data/NHANES.csv"
-epsilon = 10
 
-result = PETValidation(synthetic, original, "DifferentialPrivacy", epsilon=epsilon)
+result = PETValidation(synthetic, original, "DifferentialPrivacy")
 report(result, "json")
 ```
 
