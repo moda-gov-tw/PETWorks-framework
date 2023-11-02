@@ -23,3 +23,4 @@ PETWorks-framework Documentation
    ldiversity_de-identify
    dpresence_de-identify
    tcloseness_de-identify
+   tamarin
