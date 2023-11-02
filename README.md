@@ -587,6 +587,10 @@ $ python3 linkabilityRisk.py
 
 ### Federated Learning
 
+#### Validation of the Federated Learning Protocol Design
+
+Please refer [here](https://petworks-doc.readthedocs.io/en/latest/tamarin.html) to validate the protocol design with Tamarin Prover.
+
 #### Validation of Data Processed With Federated Learning
 
 ```python
