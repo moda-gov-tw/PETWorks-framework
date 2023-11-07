@@ -361,6 +361,36 @@ $ python3 t-closeness.py
 }
 ```
 
+#### Compute the utility bias
+
+```python
+from PETWorks import PETValidation, report
+import pandas as pd
+
+origin = "data/presence.csv"
+anonymized = "data/presence_anonymized2.csv"
+
+
+def averageAge(source):
+    data = pd.read_csv(source, sep=";")
+    return data["age"].mean()
+
+
+result = PETValidation(
+    origin, anonymized, "UtilityBias", processingFunc=averageAge, maxBias=2
+)
+report(result, "json")
+```
+
+Execution Result
+
+```  
+$ python3 utilityBias.py
+{
+    "UtilityBias": true
+}
+```
+
 #### Anonymize with the k-anonymity
 
 ```python

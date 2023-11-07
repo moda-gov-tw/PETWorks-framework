@@ -13,6 +13,7 @@ import PETWorks.dpresence as DPresence
 import PETWorks.profitability as Profitability
 import PETWorks.tcloseness as TCloseness
 import PETWorks.ldiversity as LDiversity
+import PETWorks.utilitybias as UtilityBias
 import PETWorks.differential_privacy.SinglingOutRisk as SinglingOutRisk
 import PETWorks.differential_privacy.LinkabilityRisk as LinkabilityRisk
 import PETWorks.differential_privacy.InferenceRisk as InferenceRisk
@@ -62,6 +63,8 @@ def PETValidation(recover, origin, tech, **keywordArgs):
         return TCloseness.PETValidation(recover, origin, tech, **keywordArgs)
     elif tech == "l-diversity":
         return LDiversity.PETValidation(recover, origin, tech, **keywordArgs)
+    elif tech == "UtilityBias":
+        return UtilityBias.PETValidation(recover, origin, **keywordArgs)
     elif tech == "SinglingOutRisk":
         return SinglingOutRisk.PETValidation(recover, origin, **keywordArgs)
     elif tech == "LinkabilityRisk":

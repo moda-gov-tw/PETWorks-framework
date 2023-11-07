@@ -19,6 +19,7 @@ PETWorks-framework Documentation
    dpresence
    tcloseness
    profitability
+   utilitybias
    kanonymity_de-identify
    ldiversity_de-identify
    dpresence_de-identify
