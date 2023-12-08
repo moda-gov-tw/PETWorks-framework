@@ -17,7 +17,7 @@ import PETWorks.utilitybias as UtilityBias
 import PETWorks.differential_privacy.SinglingOutRisk as SinglingOutRisk
 import PETWorks.differential_privacy.LinkabilityRisk as LinkabilityRisk
 import PETWorks.differential_privacy.InferenceRisk as InferenceRisk
-import PETWorks.differential_privacy.MIATester as MIATester
+import PETWorks.differential_privacy.DPMIATester as DPMIATester
 import PETWorks.homomorphic_encryption as HomomorphicEncryption
 import PETWorks.homomorphic_encryption.Communication as Communication
 from web.generate import generateWebView
@@ -74,7 +74,7 @@ def PETValidation(recover, origin, tech, **keywordArgs):
     elif tech == "TLSv1.2OrLater":
         return Communication.PETValidation(recover)
     elif tech == "DifferentialPrivacy":
-        return MIATester.PETValidation(recover, origin)
+        return DPMIATester.PETValidation(recover, origin)
 
 
 def report(result, format):
