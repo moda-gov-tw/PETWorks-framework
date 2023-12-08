@@ -14,9 +14,9 @@ import PETWorks.profitability as Profitability
 import PETWorks.tcloseness as TCloseness
 import PETWorks.ldiversity as LDiversity
 import PETWorks.utilitybias as UtilityBias
-import PETWorks.differential_privacy.SinglingOutRisk as SinglingOutRisk
-import PETWorks.differential_privacy.LinkabilityRisk as LinkabilityRisk
-import PETWorks.differential_privacy.InferenceRisk as InferenceRisk
+import PETWorks.synthetic_data.SinglingOutRisk as SinglingOutRisk
+import PETWorks.synthetic_data.LinkabilityRisk as LinkabilityRisk
+import PETWorks.synthetic_data.InferenceRisk as InferenceRisk
 import PETWorks.differential_privacy.DPMIATester as DPMIATester
 import PETWorks.homomorphic_encryption as HomomorphicEncryption
 import PETWorks.homomorphic_encryption.Communication as Communication

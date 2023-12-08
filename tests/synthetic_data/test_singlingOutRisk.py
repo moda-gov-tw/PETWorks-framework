@@ -1,4 +1,4 @@
-import PETWorks.differential_privacy.SinglingOutRisk as SinglingOutRisk
+import PETWorks.synthetic_data.SinglingOutRisk as SinglingOutRisk
 
 
 def testPETValidation():

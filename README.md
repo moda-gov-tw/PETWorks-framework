@@ -522,6 +522,7 @@ $ python3 validateDP.py
 }
 ```
 
+### Synthetic Data
 
 #### Measurement of the Singling Out Risk
 

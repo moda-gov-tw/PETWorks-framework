@@ -1,6 +1,6 @@
 from typing import Dict
 import pandas as pd
-from PETWorks.differential_privacy.anonymeter import _resultToDict
+from PETWorks.synthetic_data.anonymeter import _resultToDict
 from anonymeter.evaluators import InferenceEvaluator
 
 

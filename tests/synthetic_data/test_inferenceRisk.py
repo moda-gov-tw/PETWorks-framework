@@ -1,4 +1,4 @@
-import PETWorks.differential_privacy.InferenceRisk as InferenceRisk
+import PETWorks.synthetic_data.InferenceRisk as InferenceRisk
 
 
 def testPETValidation():

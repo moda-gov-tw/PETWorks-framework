@@ -1,4 +1,4 @@
-import PETWorks.differential_privacy.LinkabilityRisk as LinkabilityRisk
+import PETWorks.synthetic_data.LinkabilityRisk as LinkabilityRisk
 
 
 def testPETValidation():
