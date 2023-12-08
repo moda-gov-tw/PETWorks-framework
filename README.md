@@ -502,7 +502,7 @@ output(result, "output.csv")
 
 ### Differential Privacy
 
-#### Validate Data Processed With Differential Privacy
+#### Validate Data With the Man-in-the-Middle Attack Test
 
 ```python
 from PETWorks import PETValidation, report
@@ -510,7 +510,7 @@ from PETWorks import PETValidation, report
 synthetic = "data/synthetic_NHANES.csv"
 original = "data/NHANES.csv"
 
-result = PETValidation(synthetic, original, "DifferentialPrivacy")
+result = PETValidation(synthetic, original, "MIATest")
 report(result, "json")
 ```
 
@@ -617,11 +617,11 @@ $ python3 linkabilityRisk.py
 
 ### Federated Learning
 
-#### Validation of the Federated Learning Protocol Design
+#### Validate the Federated Learning Protocol Design
 
 Please refer [here](https://petworks-doc.readthedocs.io/en/latest/tamarin.html) to validate the protocol design with Tamarin Prover.
 
-#### Validation of Data Processed With Federated Learning
+#### Validate Data With the Image Similarity
 
 ```python
 from PETWorks import dataProcess, PETValidation, report
@@ -631,7 +631,7 @@ model = "/home/Doc/model"
 originalData = "/home/Doc/o.png"
 
 recoveredData = dataProcess(model, gradient, "FL", "recover")
-result = PETValidation(recoveredData, originalData, "FL")
+result = PETValidation(recoveredData, originalData, "ImageSimilarity")
 report(result, "web")
 ```
 

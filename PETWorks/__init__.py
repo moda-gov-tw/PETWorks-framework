@@ -34,47 +34,47 @@ def dataProcess(model, gradient, tech, method, **keywordArgs):
         )
 
 
-def PETValidation(recover, origin, tech, **keywordArgs):
-    if tech == "FL":
-        return FL.PETValidation(recover, origin, tech, **keywordArgs)
-    elif tech == "ReidentificationRisk":
+def PETValidation(arg0, arg1, metric, **keywordArgs):
+    if metric == "ImageSimilarity":
+        return FL.PETValidation(arg0, arg1, metric, **keywordArgs)
+    elif metric == "ReidentificationRisk":
         return ReidentificationRisk.PETValidation(
-            recover, origin, tech, **keywordArgs
+            arg0, arg1, metric, **keywordArgs
         )
-    elif tech == "Ambiguity":
-        return Ambiguity.PETValidation(recover, origin, tech, **keywordArgs)
-    elif tech == "Precision":
-        return Precision.PETValidation(recover, origin, tech, **keywordArgs)
-    elif tech == "Non-Uniform Entropy":
+    elif metric == "Ambiguity":
+        return Ambiguity.PETValidation(arg0, arg1, metric, **keywordArgs)
+    elif metric == "Precision":
+        return Precision.PETValidation(arg0, arg1, metric, **keywordArgs)
+    elif metric == "Non-Uniform Entropy":
         return NonUniformEntropy.PETValidation(
-            recover, origin, tech, **keywordArgs
+            arg0, arg1, metric, **keywordArgs
         )
-    elif tech == "AECS":
-        return AECS.PETValidation(recover, origin, tech, **keywordArgs)
-    elif tech == "k-anonymity":
-        return KAnonymity.PETValidation(recover, origin, tech, **keywordArgs)
-    elif tech == "d-presence":
-        return DPresence.PETValidation(recover, origin, tech, **keywordArgs)
-    elif tech == "profitability":
+    elif metric == "AECS":
+        return AECS.PETValidation(arg0, arg1, metric, **keywordArgs)
+    elif metric == "k-anonymity":
+        return KAnonymity.PETValidation(arg0, arg1, metric, **keywordArgs)
+    elif metric == "d-presence":
+        return DPresence.PETValidation(arg0, arg1, metric, **keywordArgs)
+    elif metric == "profitability":
         return Profitability.PETValidation(
-            recover, origin, tech, **keywordArgs
+            arg0, arg1, metric, **keywordArgs
         )
-    elif tech == "t-closeness":
-        return TCloseness.PETValidation(recover, origin, tech, **keywordArgs)
-    elif tech == "l-diversity":
-        return LDiversity.PETValidation(recover, origin, tech, **keywordArgs)
-    elif tech == "UtilityBias":
-        return UtilityBias.PETValidation(recover, origin, **keywordArgs)
-    elif tech == "SinglingOutRisk":
-        return SinglingOutRisk.PETValidation(recover, origin, **keywordArgs)
-    elif tech == "LinkabilityRisk":
-        return LinkabilityRisk.PETValidation(recover, origin, **keywordArgs)
-    elif tech == "InferenceRisk":
-        return InferenceRisk.PETValidation(recover, origin, **keywordArgs)
-    elif tech == "TLSv1.2OrLater":
-        return Communication.PETValidation(recover)
-    elif tech == "DifferentialPrivacy":
-        return DPMIATester.PETValidation(recover, origin)
+    elif metric == "t-closeness":
+        return TCloseness.PETValidation(arg0, arg1, metric, **keywordArgs)
+    elif metric == "l-diversity":
+        return LDiversity.PETValidation(arg0, arg1, metric, **keywordArgs)
+    elif metric == "UtilityBias":
+        return UtilityBias.PETValidation(arg0, arg1, **keywordArgs)
+    elif metric == "SinglingOutRisk":
+        return SinglingOutRisk.PETValidation(arg0, arg1, **keywordArgs)
+    elif metric == "LinkabilityRisk":
+        return LinkabilityRisk.PETValidation(arg0, arg1, **keywordArgs)
+    elif metric == "InferenceRisk":
+        return InferenceRisk.PETValidation(arg0, arg1, **keywordArgs)
+    elif metric == "TLSv1.2OrLater":
+        return Communication.PETValidation(arg0)
+    elif metric == "MIATest":
+        return DPMIATester.PETValidation(arg0, arg1)
 
 
 def report(result, format):
