@@ -1,6 +1,6 @@
-from PETWorks.attributetypes import IDENTIFIER, QUASI_IDENTIFIER
-from PETWorks.attributetypes import SENSITIVE_ATTRIBUTE
-from PETWorks.dpresence import (
+from PETWorks.deidentification.attributetypes import IDENTIFIER, QUASI_IDENTIFIER
+from PETWorks.deidentification.attributetypes import SENSITIVE_ATTRIBUTE
+from PETWorks.deidentification.dpresence import (
     measureDPresence,
     validateDPresence,
     PETValidation,

@@ -1,4 +1,4 @@
-from PETWorks.arx import Data, loadDataFromCsv, createJavaGateway, JavaApi
+from PETWorks.deidentification.arx import Data, loadDataFromCsv, createJavaGateway, JavaApi
 from py4j.java_collections import JavaClass
 
 RiskModelSampleRisks = JavaClass

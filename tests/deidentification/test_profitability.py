@@ -1,5 +1,5 @@
-from PETWorks.attributetypes import QUASI_IDENTIFIER, INSENSITIVE_ATTRIBUTE
-from PETWorks.profitability import PETValidation
+from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER, INSENSITIVE_ATTRIBUTE
+from PETWorks.deidentification.profitability import PETValidation
 
 
 def testPETValidation(DATASET_PATH_DELTA):

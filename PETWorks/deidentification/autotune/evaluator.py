@@ -3,8 +3,8 @@ from os import PathLike
 from typing import Dict, Generator, Iterator, Tuple
 from dataclasses import dataclass
 from collections import namedtuple
-from PETWorks.report import AnonymityConfig
-from PETWorks.arx import (
+from PETWorks.deidentification.autotune import AnonymityConfig
+from PETWorks.deidentification.arx import (
     Data,
     getDataFrame,
     UtilityMetrics,
@@ -16,7 +16,7 @@ from PETWorks.arx import (
     setDataHierarchies,
     getAttributeNameByType,
 )
-from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
+from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
 
 import pandas as pd
@@ -24,11 +24,11 @@ import pandas as pd
 from multiprocessing.pool import Pool
 from multiprocessing import cpu_count
 
-from PETWorks.tcloseness import (
+from PETWorks.deidentification.tcloseness import (
     measureTCloseness,
 )
-from PETWorks.ldiversity import measureLDiversity
-from PETWorks.profitability import _measureProfitabilityPayoffNoAttack
+from PETWorks.deidentification.ldiversity import measureLDiversity
+from PETWorks.deidentification.profitability import _measureProfitabilityPayoffNoAttack
 
 from py4j.java_gateway import Py4JJavaError
 

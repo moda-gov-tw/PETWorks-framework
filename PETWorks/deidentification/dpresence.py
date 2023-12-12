@@ -2,7 +2,7 @@ from typing import Dict
 
 import pandas as pd
 
-from PETWorks.arx import (
+from PETWorks.deidentification.arx import (
     JavaApi,
     applyAnonymousLevels,
     getAnonymousLevels,
@@ -12,7 +12,7 @@ from PETWorks.arx import (
     setDataHierarchies,
     anonymizeData,
 )
-from PETWorks.attributetypes import QUASI_IDENTIFIER
+from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER
 
 
 def measureDPresence(

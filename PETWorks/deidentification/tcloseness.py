@@ -1,6 +1,6 @@
 import pandas as pd
 
-from PETWorks.arx import (
+from PETWorks.deidentification.arx import (
     loadDataHierarchyNatively,
     getAttributeNameByType,
     loadDataFromCsv,
@@ -10,7 +10,7 @@ from PETWorks.arx import (
     getDataFrame,
     anonymizeData,
 )
-from PETWorks.attributetypes import SENSITIVE_ATTRIBUTE, QUASI_IDENTIFIER
+from PETWorks.deidentification.attributetypes import SENSITIVE_ATTRIBUTE, QUASI_IDENTIFIER
 import numpy as np
 from math import fabs
 from typing import Dict

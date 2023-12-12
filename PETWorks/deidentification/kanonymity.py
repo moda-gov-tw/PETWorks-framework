@@ -1,4 +1,4 @@
-from PETWorks.arx import (
+from PETWorks.deidentification.arx import (
     getAttributeNameByType,
     JavaApi,
     anonymizeData,
@@ -7,7 +7,7 @@ from PETWorks.arx import (
     loadDataHierarchy,
     setDataHierarchies,
 )
-from PETWorks.attributetypes import QUASI_IDENTIFIER
+from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER
 import pandas as pd
 from typing import Dict
 

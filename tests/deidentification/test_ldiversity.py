@@ -1,6 +1,6 @@
-from PETWorks.attributetypes import QUASI_IDENTIFIER
-from PETWorks.attributetypes import SENSITIVE_ATTRIBUTE
-from PETWorks.ldiversity import (
+from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER
+from PETWorks.deidentification.attributetypes import SENSITIVE_ATTRIBUTE
+from PETWorks.deidentification.ldiversity import (
     measureLDiversity,
     validateLDiversity,
     PETValidation,

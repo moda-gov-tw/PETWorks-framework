@@ -5,7 +5,7 @@ import numpy as np
 from os import PathLike, listdir
 from os.path import join
 from typing import Dict, Iterator, List, Tuple
-from PETWorks.attributetypes import (
+from PETWorks.deidentification.attributetypes import (
     IDENTIFIER,
     INSENSITIVE_ATTRIBUTE,
     QUASI_IDENTIFIER,

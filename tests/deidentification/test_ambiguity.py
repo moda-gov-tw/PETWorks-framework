@@ -1,4 +1,4 @@
-from PETWorks.precision import PETValidation
+from PETWorks.deidentification.ambiguity import PETValidation
 
 
 def testPETValidation(DATASET_PATH_ADULT, attributeTypesForAdult):
@@ -6,9 +6,9 @@ def testPETValidation(DATASET_PATH_ADULT, attributeTypesForAdult):
         PETValidation(
             DATASET_PATH_ADULT["originalData"],
             DATASET_PATH_ADULT["anonymizedData"],
-            "Precision",
+            "Ambiguity",
             dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
             attributeTypes=attributeTypesForAdult,
-        )["precision"]
+        )["ambiguity"]
         == 0.7271401100722763
     )

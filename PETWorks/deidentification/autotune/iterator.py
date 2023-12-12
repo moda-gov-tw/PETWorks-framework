@@ -1,4 +1,4 @@
-from PETWorks.report import *
+from PETWorks.deidentification.autotune import AnonymityConfig
 
 from itertools import product
 from os import PathLike

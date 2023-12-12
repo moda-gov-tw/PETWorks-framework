@@ -1,10 +1,10 @@
-from PETWorks.attributetypes import (
+from PETWorks.deidentification.attributetypes import (
     QUASI_IDENTIFIER,
     SENSITIVE_ATTRIBUTE,
     INSENSITIVE_ATTRIBUTE,
 )
-from PETWorks.tcloseness import PETAnonymization, measureTCloseness
-from PETWorks.arx import loadDataHierarchyNatively, getAttributeNameByType
+from PETWorks.deidentification.tcloseness import PETAnonymization, measureTCloseness
+from PETWorks.deidentification.arx import loadDataHierarchyNatively, getAttributeNameByType
 import pandas as pd
 
 

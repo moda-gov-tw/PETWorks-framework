@@ -9,7 +9,7 @@ from typing import Callable, Dict, Generator, List, Tuple, TypeVar
 
 import numpy as np
 import pandas as pd
-from PETWorks.arx import (
+from PETWorks.deidentification.arx import (
     createJavaGateway,
     JavaApi,
     loadDataFromCsv,
@@ -19,10 +19,10 @@ from PETWorks.arx import (
     setDataHierarchies,
     getDataFrame,
 )
-from PETWorks.report import toFile
-from PETWorks.report.iterator import generateConfigs
-from PETWorks.report.evaluator import filterWithKAnonymityParallelly, Metrics
-from PETWorks.report.validator import isAnalysiable
+from PETWorks.deidentification.autotune import toFile
+from PETWorks.deidentification.autotune.iterator import generateConfigs
+from PETWorks.deidentification.autotune.evaluator import filterWithKAnonymityParallelly, Metrics
+from PETWorks.deidentification.autotune.validator import isAnalyzable
 
 T = TypeVar("T")
 
@@ -81,7 +81,7 @@ def __findQualifiedConfigsImplement(argumentSets: List):
 
     originalDataFrame = getDataFrame(originalData)
     anonymizedDataFrame = getDataFrame(anonymizedData)
-    if isAnalysiable(
+    if isAnalyzable(
         originalDataFrame, anonymizedDataFrame, __analysisFunction, bias
     ):
         # Make a copy of the original data for ARX API to evaluate metrics.

@@ -4,7 +4,7 @@ import pandas as pd
 import pytest
 from py4j.java_collections import JavaArray
 
-from PETWorks.arx import (
+from PETWorks.deidentification.arx import (
     Data,
     JavaApi,
     loadDataFromCsv,
@@ -13,7 +13,7 @@ from PETWorks.arx import (
     anonymizeData,
     getDataFrame,
 )
-from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
+from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
 
 @pytest.fixture(scope="session")

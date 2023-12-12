@@ -1,8 +1,8 @@
 from typing import List
-from PETWorks.arx import (
+from PETWorks.deidentification.arx import (
     getAttributeNameByType,
 )
-from PETWorks.attributetypes import QUASI_IDENTIFIER
+from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER
 
 import pandas as pd
 

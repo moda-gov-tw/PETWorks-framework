@@ -1,4 +1,4 @@
-from PETWorks.nonUniformEntropy import PETValidation
+from PETWorks.deidentification.aecs import PETValidation
 
 
 def testPETValidation(DATASET_PATH_ADULT, attributeTypesForAdult):
@@ -6,9 +6,8 @@ def testPETValidation(DATASET_PATH_ADULT, attributeTypesForAdult):
         PETValidation(
             DATASET_PATH_ADULT["originalData"],
             DATASET_PATH_ADULT["anonymizedData"],
-            "Non-Uniform Entropy",
-            dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
+            "AECS",
             attributeTypes=attributeTypesForAdult,
-        )["Non-Uniform Entropy"]
-        == 0.6385286721819015
+        )["AECS"]
+        == 0.991558195882348
     )

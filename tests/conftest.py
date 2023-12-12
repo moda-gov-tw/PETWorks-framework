@@ -1,4 +1,4 @@
-from PETWorks.attributetypes import (
+from PETWorks.deidentification.attributetypes import (
     IDENTIFIER,
     QUASI_IDENTIFIER,
     INSENSITIVE_ATTRIBUTE,

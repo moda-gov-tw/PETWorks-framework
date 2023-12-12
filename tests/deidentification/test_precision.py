@@ -1,4 +1,4 @@
-from PETWorks.aecs import PETValidation
+from PETWorks.deidentification.precision import PETValidation
 
 
 def testPETValidation(DATASET_PATH_ADULT, attributeTypesForAdult):
@@ -6,8 +6,9 @@ def testPETValidation(DATASET_PATH_ADULT, attributeTypesForAdult):
         PETValidation(
             DATASET_PATH_ADULT["originalData"],
             DATASET_PATH_ADULT["anonymizedData"],
-            "AECS",
+            "Precision",
+            dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
             attributeTypes=attributeTypesForAdult,
-        )["AECS"]
-        == 0.991558195882348
+        )["precision"]
+        == 0.7271401100722763
     )

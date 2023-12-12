@@ -2,7 +2,7 @@ from typing import Dict
 
 import pandas as pd
 
-from PETWorks.arx import (
+from PETWorks.deidentification.arx import (
     JavaApi,
     anonymizeData,
     getDataFrame,
@@ -10,7 +10,7 @@ from PETWorks.arx import (
     loadDataHierarchy,
     setDataHierarchies,
 )
-from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
+from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
 
 def measureLDiversity(

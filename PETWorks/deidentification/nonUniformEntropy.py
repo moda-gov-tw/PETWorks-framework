@@ -1,15 +1,15 @@
-from PETWorks.arx import (
+from PETWorks.deidentification.arx import (
     Data,
+    JavaApi,
+    UtilityMetrics,
     loadDataFromCsv,
     loadDataHierarchy,
     setDataHierarchies,
-    JavaApi,
-    UtilityMetrics,
 )
 
 
-def _measureAmbiguity(original: Data, anonymized: Data) -> float:
-    return UtilityMetrics.evaluate(original, anonymized).ambiguity
+def _measureNonUniformEntropy(original: Data, anonymized: Data) -> float:
+    return UtilityMetrics.evaluate(original, anonymized).nonUniformEntropy
 
 
 def PETValidation(original, anonymized, _, dataHierarchy, attributeTypes):
@@ -29,5 +29,5 @@ def PETValidation(original, anonymized, _, dataHierarchy, attributeTypes):
     setDataHierarchies(original, dataHierarchy, attributeTypes, javaApi)
     setDataHierarchies(anonymized, dataHierarchy, attributeTypes, javaApi)
 
-    ambiguity = _measureAmbiguity(original, anonymized)
-    return {"ambiguity": ambiguity}
+    nonUniformEntropy = _measureNonUniformEntropy(original, anonymized)
+    return {"Non-Uniform Entropy": nonUniformEntropy}

@@ -3,7 +3,7 @@ import pandas as pd
 from typing import Callable
 
 
-def isAnalysiable(
+def isAnalyzable(
     originalData: pd.DataFrame,
     anonymizedData: pd.DataFrame,
     analyzingFunction: Callable,

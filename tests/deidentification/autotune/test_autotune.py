@@ -3,8 +3,11 @@ import json
 import pandas as pd
 import pytest
 
-import PETWorks.autoturn as at
-from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
+import PETWorks.deidentification.autotune.autotune as at
+from PETWorks.deidentification.attributetypes import (
+    QUASI_IDENTIFIER,
+    SENSITIVE_ATTRIBUTE,
+)
 
 TestSet = namedtuple(
     "TestSet", ["originalData", "dataHierarchy", "attributeTypes"]

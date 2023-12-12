@@ -1,4 +1,4 @@
-import PETWorks.utilitybias as UtilityBias
+import PETWorks.deidentification.utilitybias as UtilityBias
 
 
 def testPETValidationSuccess():

@@ -1,4 +1,4 @@
-from PETWorks.ambiguity import PETValidation
+from PETWorks.deidentification.nonUniformEntropy import PETValidation
 
 
 def testPETValidation(DATASET_PATH_ADULT, attributeTypesForAdult):
@@ -6,9 +6,9 @@ def testPETValidation(DATASET_PATH_ADULT, attributeTypesForAdult):
         PETValidation(
             DATASET_PATH_ADULT["originalData"],
             DATASET_PATH_ADULT["anonymizedData"],
-            "Ambiguity",
+            "Non-Uniform Entropy",
             dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
             attributeTypes=attributeTypesForAdult,
-        )["ambiguity"]
-        == 0.7271401100722763
+        )["Non-Uniform Entropy"]
+        == 0.6385286721819015
     )

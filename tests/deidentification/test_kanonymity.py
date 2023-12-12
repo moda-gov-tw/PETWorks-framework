@@ -1,4 +1,4 @@
-from PETWorks.kanonymity import PETValidation, PETAnonymization
+from PETWorks.deidentification.kanonymity import PETValidation, PETAnonymization
 import pandas as pd
 
 
