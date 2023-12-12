@@ -2,7 +2,7 @@ import json
 
 import pandas as pd
 
-import PETWorks.federatedlearning as FL
+import PETWorks.federated_learning as FL
 import PETWorks.deidentification.reidentificationrisk as ReidentificationRisk
 import PETWorks.deidentification.ambiguity as Ambiguity
 import PETWorks.deidentification.precision as Precision
@@ -20,7 +20,7 @@ import PETWorks.synthetic_data.InferenceRisk as InferenceRisk
 import PETWorks.differential_privacy.DPMIATester as DPMIATester
 import PETWorks.homomorphic_encryption as HomomorphicEncryption
 import PETWorks.homomorphic_encryption.Communication as Communication
-from web.generate import generateWebView
+from PETWorks.federated_learning.web.generate import generateWebView
 
 HISTORY = "images/history.png"
 
