@@ -1,15 +1,16 @@
 import matplotlib.pyplot as plt
+import os.path as path
 import torch
+from dataclasses import dataclass
 from PIL import Image
 from SSIM_PIL import compare_ssim
 from torchvision.transforms import transforms
 from tqdm import tqdm
 
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-HISTORY = "images/history.png"
 
 
-def weights_init(m):
+def __weights_init(m):
     if hasattr(m, "weight"):
         m.weight.data.uniform_(-0.5, 0.5)
     if hasattr(m, "bias"):
@@ -38,11 +39,10 @@ class Net(torch.nn.Module):
         return out
 
 
-def dataProcess(model, gradient, tech, method, iteration=50):
-
+def dataProcess(model, gradient, tech, method, iteration=50, outputFolder="."):
     gradient = torch.load(gradient)
     net = Net().to(DEVICE)
-    net.apply(weights_init)
+    net.apply(__weights_init)
     net.load_state_dict(torch.load(model))
 
     labelSize = torch.empty(1, 100).size()
@@ -94,15 +94,29 @@ def dataProcess(model, gradient, tech, method, iteration=50):
         plt.title("iter=%d" % (i * 10))
         plt.axis("off")
 
-    plt.savefig(HISTORY)
+    outputFiles = {
+        "history": path.abspath(path.join(outputFolder, "history.png")),
+        "recovered": path.abspath(
+            path.join(outputFolder, "recovered_image.png")
+        ),
+    }
 
-    return history[-1]
+    plt.savefig(outputFiles["history"])
+    history[-1].save(outputFiles["recovered"])
+
+    return outputFiles
 
 
-def PETValidation(recover, origin, tech):
+def PETValidation(recover, origin, metric):
+    if metric == "ImageSimilarity":
+        recoveredImage = Image.open(recover["recovered"])
+        originalImage = Image.open(origin)
+        similarity = compare_ssim(recoveredImage, originalImage, GPU=False)
 
-    if tech == "ImageSimilarity":
-        origin = Image.open(origin)
-        similarity = compare_ssim(recover, origin, GPU=False)
-
-        return {"recover": recover, "origin": origin, "similarity": similarity}
+        return {
+            "metric": metric,
+            "recovered": recover["recovered"],
+            "history": recover["history"],
+            "original": origin,
+            "similarity": similarity,
+        }

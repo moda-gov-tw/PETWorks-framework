@@ -2,7 +2,7 @@ import json
 
 import pandas as pd
 
-import PETWorks.federated_learning as FL
+import PETWorks.federated_learning as FederatedLearning
 import PETWorks.deidentification.reidentificationrisk as ReidentificationRisk
 import PETWorks.deidentification.ambiguity as Ambiguity
 import PETWorks.deidentification.precision as Precision
@@ -27,7 +27,9 @@ HISTORY = "images/history.png"
 
 def dataProcess(model, gradient, tech, method, **keywordArgs):
     if tech == "FL":
-        return FL.dataProcess(model, gradient, tech, method, **keywordArgs)
+        return FederatedLearning.dataProcess(
+            model, gradient, tech, method, **keywordArgs
+        )
     elif tech == "HomomorphicEncryption":
         return HomomorphicEncryption.dataProcess(
             model, gradient, method, **keywordArgs
@@ -36,7 +38,9 @@ def dataProcess(model, gradient, tech, method, **keywordArgs):
 
 def PETValidation(arg0, arg1, metric, **keywordArgs):
     if metric == "ImageSimilarity":
-        return FL.PETValidation(arg0, arg1, metric, **keywordArgs)
+        return FederatedLearning.PETValidation(
+            arg0, arg1, metric, **keywordArgs
+        )
     elif metric == "ReidentificationRisk":
         return ReidentificationRisk.PETValidation(
             arg0, arg1, metric, **keywordArgs
@@ -56,9 +60,7 @@ def PETValidation(arg0, arg1, metric, **keywordArgs):
     elif metric == "d-presence":
         return DPresence.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "profitability":
-        return Profitability.PETValidation(
-            arg0, arg1, metric, **keywordArgs
-        )
+        return Profitability.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "t-closeness":
         return TCloseness.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "l-diversity":
@@ -83,15 +85,18 @@ def report(result, format):
         return
 
     if format == "web":
-        originPath = "images/original_image.png"
-        recoverPath = "images/recovered_image.png"
-        result["origin"].save(originPath)
-        result["recover"].save(recoverPath)
-        html = generateWebView(
-            originPath, recoverPath, HISTORY, result["similarity"]
-        )
-        with open("output.html", "w") as f:
-            f.write(html)
+        if result.get("metric", None) == "ImageSimilarity":
+            html = generateWebView(
+                result["original"],
+                result["recovered"],
+                result["history"],
+                result["similarity"],
+            )
+
+            with open("output.html", "w") as f:
+                f.write(html)
+        else:
+            raise ValueError("The result does not support the web format.")
     return
 
 
