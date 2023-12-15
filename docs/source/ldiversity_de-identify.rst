@@ -5,9 +5,9 @@ De-identification for l-diversity
 
 The following code snippet de-identify the data to satisfy :math:`l`-diversity [1]_。
 
-We use ``data/adult.csv`` as the original data, ``data/adult_hierarchy`` as the data hierarchy, and ``attributeTypes`` as the attribute type definitions to demonstrate how to perform de-identification through PETWorks-framework.
+We use ``data/adult/adult.csv`` as the original data, the data hierarchy, ``data/adult/adult_hierarchy``, and the attribute type definitions in ``data/adult/adult.yaml`` to demonstrate how to perform de-identification through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETAnonymization(originalData, tech, dataHierarchy, attributeTypes, maxSuppressionRate, l)`` with the data, the string “l-diversity”, the attribute type definitions, the maximal suppression rate, and the target l value as the parameters to perform de-identification for l-diversity.
+In the following code snippet, we use the API ``PETAnonymization(originalData, tech, maxSuppressionRate, l)`` with the data, the string “l-diversity”, the attribute type definitions, the maximal suppression rate, and the target l value as the parameters to perform de-identification for l-diversity.
 
 Then, we use the API ``report(result, path)`` with the result and the string "path" as parameters to write the result to the path.
 
@@ -17,22 +17,12 @@ Example: l-diversity.py
 .. code-block:: python
 
   from PETWorks import PETAnonymization, output
-  from PETWorks.attributetypes import *
-  
-  originalData = "data/adult.csv"
-  dataHierarchy = "data/adult_hierarchy"
-  
-  attributeTypes = {
-      "sex": QUASI_IDENTIFIER,
-      "age": QUASI_IDENTIFIER,
-      "workclass": SENSITIVE_ATTRIBUTE,
-  }
-  
+
+  originalData = "data/adult/adult.csv"
+
   result = PETAnonymization(
       originalData,
       "l-diversity",
-      dataHierarchy,
-      attributeTypes,
       maxSuppressionRate=0.6,
       l=6,
   )
@@ -43,7 +33,7 @@ Example: l-diversity.py
 Execution Result
 ---------------------------
 
-上述程式碼將輸出滿足 :math:`l = 6` 之 :math:`l`-多樣性去識別化結果至 `output.csv`。檔案內容節錄如下：
+The above code snippet will output a de-identification result satisfying :math:`l`-diversity with :math:`l = 6` to ``output.csv``. The excerpt of the file content is as follows:
 
 +--------+-----+------+----------------+-----------+----------------+------------------+------------+--------------+
 | sex    | age | race | marital-status | education | native-country | workclass        | occupation | salary-class |
@@ -77,8 +67,7 @@ Execution Result
 | ...    | ... | ...  | ...            | ...       | ...            | ...              | ...        | ...          |
 +--------+-----+------+----------------+-----------+----------------+------------------+------------+--------------+
 
-
-以本專案開發之 `l-多樣性再識別化工具 <https://petworks-doc.readthedocs.io/en/latest/ldiversity.html>`_ 進行檢測，可確認去識別化結果已滿足 :math:`l = 6` 之 :math:`l`-多樣性。
+Use `the validation API <https://petworks-doc.readthedocs.io/en/latest/ldiversity.html>`_ to verify the result satisfies :math:`l`-diversity with :math:`l = 6`.
 
 .. code-block:: json
 

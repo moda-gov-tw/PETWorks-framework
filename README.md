@@ -33,30 +33,11 @@ Execution Result
 
 ```python
 from PETWorks import PETValidation, report
-from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
-originalData = "data/adult.csv"
-anonymizedData = "data/adult_anonymized.csv"
-dataHierarchy = "data/adult_hierarchy"
+originalData = "data/adult/adult.csv"
+anonymizedData = "data/adult/adult_anonymized.csv"
 
-attributeTypes = {
-    "age": QUASI_IDENTIFIER,
-    "education": QUASI_IDENTIFIER,
-    "marital-status": QUASI_IDENTIFIER,
-    "native-country": QUASI_IDENTIFIER,
-    "occupation": QUASI_IDENTIFIER,
-    "race": QUASI_IDENTIFIER,
-    "salary-class": QUASI_IDENTIFIER,
-    "sex": QUASI_IDENTIFIER,
-    "workclass": SENSITIVE_ATTRIBUTE,
-}
-
-result = PETValidation(
-    originalData, anonymizedData,
-    "Ambiguity",
-    dataHierarchy=dataHierarchy,
-    attributeTypes=attributeTypes
-)
+result = PETValidation(originalData, anonymizedData, "Ambiguity")
 report(result, "json")
 ```
 
@@ -73,30 +54,11 @@ $ python3 ambiguity.py
 
 ```python
 from PETWorks import PETValidation, report
-from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
-originalData = "data/adult.csv"
-anonymizedData = "data/adult_anonymized.csv"
-dataHierarchy = "data/adult_hierarchy"
+originalData = "data/adult/adult.csv"
+anonymizedData = "data/adult/adult_anonymized.csv"
 
-attributeTypes = {
-    "age": QUASI_IDENTIFIER,
-    "education": QUASI_IDENTIFIER,
-    "marital-status": QUASI_IDENTIFIER,
-    "native-country": QUASI_IDENTIFIER,
-    "occupation": QUASI_IDENTIFIER,
-    "race": QUASI_IDENTIFIER,
-    "salary-class": QUASI_IDENTIFIER,
-    "sex": QUASI_IDENTIFIER,
-    "workclass": SENSITIVE_ATTRIBUTE,
-}
-
-result = PETValidation(
-    originalData, anonymizedData,
-    "Precision",
-    dataHierarchy=dataHierarchy,
-    attributeTypes=attributeTypes
-)
+result = PETValidation(originalData, anonymizedData, "Precision")
 report(result, "json")
 ```
 
@@ -113,30 +75,11 @@ $ python3 precision.py
 
 ```python
 from PETWorks import PETValidation, report
-from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
-originalData = "data/adult.csv"
-anonymizedData = "data/adult_anonymized.csv"
-dataHierarchy = "data/adult_hierarchy"
+originalData = "data/adult/adult.csv"
+anonymizedData = "data/adult/adult_anonymized.csv"
 
-attributeTypes = {
-    "age": QUASI_IDENTIFIER,
-    "education": QUASI_IDENTIFIER,
-    "marital-status": QUASI_IDENTIFIER,
-    "native-country": QUASI_IDENTIFIER,
-    "occupation": QUASI_IDENTIFIER,
-    "race": QUASI_IDENTIFIER,
-    "salary-class": QUASI_IDENTIFIER,
-    "sex": QUASI_IDENTIFIER,
-    "workclass": SENSITIVE_ATTRIBUTE,
-}
-
-result = PETValidation(
-    originalData, anonymizedData,
-    "Non-Uniform Entropy",
-    dataHierarchy=dataHierarchy,
-    attributeTypes=attributeTypes
-)
+result = PETValidation(originalData, anonymizedData, "Non-Uniform Entropy")
 report(result, "json")
 ```
 
@@ -152,28 +95,11 @@ $ python nonUniformEntropy.py
 
 ```python
 from PETWorks import PETValidation, report
-from PETWorks.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
-originalData = "data/adult.csv"
-anonymizedData = "data/adult_anonymized.csv"
+originalData = "data/adult/adult.csv"
+anonymizedData = "data/adult/adult_anonymized.csv"
 
-attributeTypes = {
-    "age": QUASI_IDENTIFIER,
-    "education": QUASI_IDENTIFIER,
-    "marital-status": QUASI_IDENTIFIER,
-    "native-country": QUASI_IDENTIFIER,
-    "occupation": QUASI_IDENTIFIER,
-    "race": QUASI_IDENTIFIER,
-    "salary-class": QUASI_IDENTIFIER,
-    "sex": QUASI_IDENTIFIER,
-    "workclass": SENSITIVE_ATTRIBUTE,
-}
-
-result = PETValidation(
-    originalData, anonymizedData,
-    "AECS",
-    attributeTypes=attributeTypes
-)
+result = PETValidation(originalData, anonymizedData, "AECS")
 report(result, "json")
 ```
 
@@ -189,18 +115,10 @@ $ python aecs.py
 
 ```python
 from PETWorks import PETValidation, report
-from PETWorks.attributetypes import QUASI_IDENTIFIER
 
-anonymizedData = "data/adult_anonymized.csv"
+anonymizedData = "data/adult/adult_anonymized.csv"
 
-attributeTypes = {
-    "age": QUASI_IDENTIFIER,
-    "sex": QUASI_IDENTIFIER,
-}
-
-result = PETValidation(
-        None, anonymizedData, "k-anonymity", attributeTypes=attributeTypes, k=6
-)
+result = PETValidation(None, anonymizedData, "k-anonymity", k=5)
 report(result, "json")
 ```
 
@@ -208,8 +126,8 @@ Execution Result
 ```python
 $ python3 k-anonymity.py
 {
-    "k": 6,
-    "k-anonymity": true
+    "k": 5,
+    "fulfill k-anonymity": true
 }
 ```
 
@@ -217,23 +135,13 @@ $ python3 k-anonymity.py
 #### Compute the δ-presence
 ```python
 from PETWorks import PETValidation, report
-from PETWorks.attributetypes import SENSITIVE_ATTRIBUTE, QUASI_IDENTIFIER
 
-
-origin = "data/delta.csv"
-anonymized = "data/delta_anonymized.csv"
-dataHierarchy = "data/delta_hierarchy"
-
-attributeTypes = {
-    "zip": QUASI_IDENTIFIER,
-    "age": QUASI_IDENTIFIER,
-    "nationality": QUASI_IDENTIFIER,
-    "salary-class": SENSITIVE_ATTRIBUTE
-}
+origin = "data/delta/delta.csv"
+anonymized = "data/delta/delta_anonymized.csv"
 
 result = PETValidation(
-        origin, anonymized, "d-presence", dataHierarchy=dataHierarchy, attributeTypes=attributeTypes, dMin=1/2, dMax=2/3
-    )
+    origin, anonymized, "d-presence", dMin=1 / 2, dMax=2 / 3
+)
 report(result, "json")
 ```
 
@@ -251,30 +159,19 @@ $ python3 d-presence.py
 #### Compute the Profitability
 ```python
 from PETWorks import PETValidation, report
-from PETWorks.attributetypes import QUASI_IDENTIFIER, INSENSITIVE_ATTRIBUTE
 
-origin = "data/delta.csv"
-anonymized = "data/delta_anonymized.csv"
-dataHierarchy = "data/delta_hierarchy"
-
-attributeTypes = {
-    "zip": QUASI_IDENTIFIER,
-    "age": QUASI_IDENTIFIER,
-    "nationality": QUASI_IDENTIFIER,
-    "salary-class": INSENSITIVE_ATTRIBUTE
-}
+origin = "data/delta/delta.csv"
+anonymized = "data/delta/delta_anonymized.csv"
 
 result = PETValidation(
     origin,
     anonymized,
     "profitability",
-    dataHierarchy=dataHierarchy,
-    attributeTypes=attributeTypes,
     allowAttack=True,
     adversaryCost=4,
     adversaryGain=300,
     publisherLost=300,
-    publisherBenefit=1200
+    publisherBenefit=1200,
 )
 report(result, "json")
 ```
@@ -296,20 +193,10 @@ $ python3 profitability.py
 #### Compute the l-diversity
 ```python
 from PETWorks import PETValidation, report
-from PETWorks.attributetypes import SENSITIVE_ATTRIBUTE, QUASI_IDENTIFIER
 
-anonymized = "data/inpatient_anonymized.csv"
+anonymized = "data/inpatient/inpatient_anonymized.csv"
 
-attributeTypes = {
-    "zipcode": QUASI_IDENTIFIER,
-    "age": QUASI_IDENTIFIER,
-    "nationality": QUASI_IDENTIFIER,
-    "condition": SENSITIVE_ATTRIBUTE
-}
-
-result = PETValidation(
-    None, anonymized, "l-diversity", attributeTypes=attributeTypes, l=3
-)
+result = PETValidation(None, anonymized, "l-diversity", l=3)
 report(result, "json")
 ```
 
@@ -326,26 +213,13 @@ $ python3 l-diversity.py
 
 ```python
 from PETWorks import PETValidation, report
-from PETWorks.attributetypes import (
-    SENSITIVE_ATTRIBUTE,
-    QUASI_IDENTIFIER,
-)
 
-anonymized = "data/patient_anonymized.csv"
-dataHierarchy = "data/patient_hierarchy"
-
-attributeTypes = {
-    "ZIPCode": QUASI_IDENTIFIER,
-    "Age": QUASI_IDENTIFIER,
-    "Disease": SENSITIVE_ATTRIBUTE,
-}
+anonymized = "data/patient/patient_anonymized.csv"
 
 result = PETValidation(
     None,
     anonymized,
     "t-closeness",
-    dataHierarchy=dataHierarchy,
-    attributeTypes=attributeTypes,
     tLimit=0.376,
 )
 report(result, "json")
@@ -367,8 +241,8 @@ $ python3 t-closeness.py
 from PETWorks import PETValidation, report
 import pandas as pd
 
-origin = "data/presence.csv"
-anonymized = "data/presence_anonymized2.csv"
+origin = "data/presence/presence.csv"
+anonymized = "data/presence/presence_anonymized2.csv"
 
 
 def averageAge(source):
@@ -395,21 +269,13 @@ $ python3 utilityBias.py
 
 ```python
 from PETWorks import PETAnonymization, output
-from PETWorks.attributetypes import *
+from PETWorks.deidentification.attributetypes import *
 
-originalData = "data/adult.csv"
-dataHierarchy = "data/adult_hierarchy"
-
-attributeTypes = {
-    "age": QUASI_IDENTIFIER,
-    "sex": QUASI_IDENTIFIER,
-}
+originalData = "data/adult/adult.csv"
 
 result = PETAnonymization(
     originalData,
     "k-anonymity",
-    dataHierarchy,
-    attributeTypes,
     maxSuppressionRate=0.6,
     k=6,
 )
@@ -421,25 +287,16 @@ output(result, "output.csv")
 
 ```python
 from PETWorks import PETAnonymization, output
-from PETWorks.attributetypes import *
 
-originalData = "data/adult.csv"
-dataHierarchy = "data/adult_hierarchy"
-subsetData = "data/adult10.csv"
-
-attributeTypes = {
-    "age": QUASI_IDENTIFIER,
-    "race": QUASI_IDENTIFIER,
-}
+originalData = "data/adult/adult.csv"
+subsetData = "data/adult/adult10.csv"
 
 result = PETAnonymization(
     originalData,
     "d-presence",
-    dataHierarchy,
-    attributeTypes,
     maxSuppressionRate=0.6,
     dMin=0.0,
-    dMax=0.8,
+    dMax=0.7,
     subsetData=subsetData,
 )
 
@@ -450,22 +307,12 @@ output(result, "output.csv")
 
 ```python
 from PETWorks import PETAnonymization, output
-from PETWorks.attributetypes import *
 
-originalData = "data/adult.csv"
-dataHierarchy = "data/adult_hierarchy"
-
-attributeTypes = {
-    "age": QUASI_IDENTIFIER,
-    "race": QUASI_IDENTIFIER,
-    "workclass": SENSITIVE_ATTRIBUTE,
-}
+originalData = "data/adult/adult.csv"
 
 result = PETAnonymization(
     originalData,
     "l-diversity",
-    dataHierarchy,
-    attributeTypes,
     maxSuppressionRate=0.6,
     l=6,
 )
@@ -476,28 +323,17 @@ output(result, "output.csv")
 #### Anonymize with the t-closeness
 
 ```python
-from PETWorks import PETAnonymization, output
-from PETWorks.attributetypes import *
+from PETWorks import PETValidation, report
 
-originalData = "data/adult.csv"
-dataHierarchy = "data/adult_hierarchy"
+anonymized = "data/patient/patient_anonymized.csv"
 
-attributeTypes = {
-    "age": QUASI_IDENTIFIER,
-    "race": QUASI_IDENTIFIER,
-    "workclass": SENSITIVE_ATTRIBUTE,
-}
-
-result = PETAnonymization(
-    originalData,
+result = PETValidation(
+    None,
+    anonymized,
     "t-closeness",
-    dataHierarchy,
-    attributeTypes,
-    maxSuppressionRate=0.6,
-    t=6,
+    tLimit=0.376,
 )
-
-output(result, "output.csv")
+report(result, "json")
 ```
 
 ### Differential Privacy
@@ -529,9 +365,9 @@ $ python3 validateDP.py
 ```python
 from PETWorks import PETValidation, report
 
-synthetic = "data/adults_syn_ctgan.csv"
-original = "data/adults_train.csv"
-control = "data/adults_control.csv"
+synthetic = "data/adult/adults_syn_ctgan.csv"
+original = "data/adult/adults_train.csv"
+control = "data/adult/adults_control.csv"
 
 result = PETValidation(synthetic, original, "SinglingOutRisk", control=control)
 report(result, "json")
@@ -552,9 +388,9 @@ $ python3 singlingOutRisk.py
 ```python
 from PETWorks import PETValidation, report
 
-synthetic = "data/adults_syn_ctgan.csv"
-original = "data/adults_train.csv"
-control = "data/adults_control.csv"
+synthetic = "data/adult/adults_syn_ctgan.csv"
+original = "data/adult/adults_train.csv"
+control = "data/adult/adults_control.csv"
 
 result = PETValidation(synthetic, original, "InferenceRisk", control=control)
 report(result, "json")
@@ -587,9 +423,9 @@ $ python3 inferenceRisk.py
 ```python
 from PETWorks import PETValidation, report
 
-synthetic = "data/adults_syn_ctgan.csv"
-original = "data/adults_train.csv"
-control = "data/adults_control.csv"
+synthetic = "data/adult/adults_syn_ctgan.csv"
+original = "data/adult/adults_train.csv"
+control = "data/adult/adults_control.csv"
 
 auxiliaryColumns = [
     ["type_employer", "fnlwgt"],

@@ -4,7 +4,7 @@ Utility Bias
 
 The following code snippet assesses whether the data satisfies the utility bias.
 
-We use ``data/presence.csv`` as the original data and ``data/presence_anonymized2.csv`` as the anonymized data to demonstrate how to evaluate this indicator through PETWorks-framework.
+We use ``data/presence.csv`` as the original data and ``data/presence_anonymized2.csv`` as the anonymized data to demonstrate how to evaluate this metric through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETValidation(origin, anonymized, "UtilityBias", processingFunc, maxBias)`` with the original data, the anonymized data, the string "UtilityBias," the processing function, and the maximal acceptable bias to determine whether the data satisfies the utility bias.
 
@@ -18,8 +18,8 @@ Example: utilityBias.py
     from PETWorks import PETValidation, report
     import pandas as pd
 
-    origin = "data/presence.csv"
-    anonymized = "data/presence_anonymized2.csv"
+    origin = "data/presence/presence.csv"
+    anonymized = "data/presence/presence_anonymized2.csv"
 
 
     def averageAge(source):

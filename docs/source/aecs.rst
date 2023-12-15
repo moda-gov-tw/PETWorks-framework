@@ -4,9 +4,9 @@ Average Equivalence Class Size
 
 The following code snippet evaluate the average equivalence class size [1]_.
 
-We use ``data/adult.csv`` as the original data and ``data/adult_anonymized.csv`` as the anonymized data to demonstrate how to evaluate this indicator through PETWorks-framework.
+We use ``data/adult/adult.csv`` as the original data, ``data/adult/adult_anonymized.csv`` as the anonymized data, and the attribute type definitions in ``data/adult/adult.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETValidation(original, anonymized, tech)`` with the data and the string “AECS” as parameters to evaluate the ambiguity.
+In the following code snippet, we use the API ``PETValidation(original, anonymized, "AECS")`` with the data and the string “AECS” as parameters to evaluate the ambiguity.
 
 Then, we use the API ``report(result, format)`` with the evaluation result and the string "json" as parameters to print the evaluation result in JSON format.
 
@@ -17,12 +17,10 @@ Example: aecs.py
 
     from PETWorks import PETValidation, report
 
-    originalData = "data/adult.csv"
-    anonymizedData = "data/adult_anonymized.csv"
+    originalData = "data/adult/adult.csv"
+    anonymizedData = "data/adult/adult_anonymized.csv"
 
-    result = PETValidation(
-        originalData, anonymizedData, "AECS"
-        )
+    result = PETValidation(originalData, anonymizedData, "AECS")
     report(result, "json")
 
 
@@ -33,7 +31,7 @@ Execution Result
 
     $ python aecs.py
     {
-        "AECS": 0.9992930131052006
+        "AECS": 0.9992707253704929
     }
 
 

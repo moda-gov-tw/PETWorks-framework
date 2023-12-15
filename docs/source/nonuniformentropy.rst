@@ -4,9 +4,9 @@ Non-Uniform Entropy
 
 The following code snippet evaluate the non-uniform entropy [1]_。
 
-We use ``data/adult.csv`` as the original data, ``data/adult_anonymized.csv`` as the anonymized data, and ``data/adult_hierarchy`` as the data hierarchy to demonstrate how to evaluate this indicator through PETWorks-framework.
+We use ``data/adult/adult.csv`` as the original data, ``data/adult/adult_anonymized.csv`` as the anonymized data, and the data hierarchy, ``data/adult/adult_hierarchy``, defined in ``data/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETValidation(original, anonymized, tech, dataHierarchy)`` with the data and the string “Non-Uniform Entropy” as the parameters to evaluate the non-uniform entropy.
+In the following code snippet, we use the API ``PETValidation(original, anonymized, "Non-Uniform Entropy")`` with the data and the string “Non-Uniform Entropy” as the parameters to evaluate the non-uniform entropy.
 
 Then, we use the API ``report(result, format)`` with the evaluation result and the string "json" as parameters to print the evaluation result in JSON format.
 
@@ -17,13 +17,10 @@ Example: nonUniformEntropy.py
 
     from PETWorks import PETValidation, report
 
-    originalData = "data/adult.csv"
-    anonymizedData = "data/adult_anonymized.csv"
-    dataHierarchy = "data/adult_hierarchy"
+    originalData = "data/adult/adult.csv"
+    anonymizedData = "data/adult/adult_anonymized.csv"
 
-    result = PETValidation(
-        originalData, anonymizedData, "Non-Uniform Entropy", dataHierarchy=dataHierarchy
-    )
+    result = PETValidation(originalData, anonymizedData, "Non-Uniform Entropy")
     report(result, "json")
 
 Execution Result
@@ -33,9 +30,8 @@ Execution Result
 
     $ python nonUniformEntropy.py
     {
-        "Non-Uniform Entropy": 0.6691909578638351
+        "Non-Uniform Entropy": 0.6740002378300514
     }
-
 
 Reference
 -----------
