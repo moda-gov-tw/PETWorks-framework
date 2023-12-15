@@ -52,7 +52,7 @@ def validateDPresence(
 
 
 def PETValidation(
-    original, sample, _, dataHierarchy, attributeTypes, dMin, dMax
+    original, sample, _, dMin, dMax, dataHierarchy=None, attributeTypes={}
 ):
     javaApi = JavaApi()
     dataHierarchy = loadDataHierarchy(
@@ -94,12 +94,12 @@ def PETValidation(
 
 def PETAnonymization(
     originalData: str,
-    dataHierarchy: str,
-    attributeTypes: Dict[str, str],
     maxSuppressionRate: float,
     dMin: float,
     dMax: float,
     subsetData: str,
+    dataHierarchy: str = None,
+    attributeTypes: Dict[str, str] = {},
 ) -> pd.DataFrame:
     javaApi = JavaApi()
 

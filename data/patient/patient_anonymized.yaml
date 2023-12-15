@@ -1,0 +1,8 @@
+DATASET:
+  ATTRIBUTE_TYPE:
+    QUASI_IDENTIFIER:
+      - "ZIPCode"
+      - "Age"
+    SENSITIVE_ATTRIBUTE:
+      - "Disease"
+  HIERARCHY: "patient_hierarchy"

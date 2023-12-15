@@ -108,7 +108,7 @@ def dataProcess(model, gradient, tech, method, iteration=50, outputFolder="."):
 
 
 def PETValidation(recover, origin, metric):
-    if metric == "ImageSimilarity":
+    if metric == "FL":
         recoveredImage = Image.open(recover["recovered"])
         originalImage = Image.open(origin)
         similarity = compare_ssim(recoveredImage, originalImage, GPU=False)

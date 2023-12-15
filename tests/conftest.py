@@ -7,16 +7,18 @@ from PETWorks.deidentification.attributetypes import (
 from typing import Dict
 import pytest
 
+from PETWorks.deidentification.config import Config
+
 DATASET_PATHS = [
     {
-        "originalData": "data/adult.csv",
-        "anonymizedData": "data/adult_anonymized.csv",
-        "dataHierarchy": "data/adult_hierarchy",
+        "originalData": "data/adult/adult.csv",
+        "anonymizedData": "data/adult/adult_anonymized.csv",
+        "dataHierarchy": "data/adult/adult_hierarchy",
     },
     {
-        "originalData": "data/delta.csv",
-        "anonymizedData": "data/delta_anonymized.csv",
-        "dataHierarchy": "data/delta_hierarchy",
+        "originalData": "data/delta/delta.csv",
+        "anonymizedData": "data/delta/delta_anonymized.csv",
+        "dataHierarchy": "data/delta/delta_hierarchy",
     },
 ]
 

@@ -10,7 +10,7 @@ from typing import Dict
 import pytest
 import pandas as pd
 
-ANONYMIZED_DATA_PATH = "data/inpatient_anonymized.csv"
+ANONYMIZED_DATA_PATH = "data/inpatient/inpatient_anonymized.csv"
 
 
 @pytest.fixture(scope="module")
@@ -89,10 +89,10 @@ def testPETAnonymization(DATASET_PATH_ADULT):
 
     result = PETAnonymization(
         DATASET_PATH_ADULT["originalData"],
-        DATASET_PATH_ADULT["dataHierarchy"],
-        attributeTypes,
         maxSuppressionRate=0.04,
         l=5,
+        dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
+        attributeTypes=attributeTypes,
     )
 
     assert result.equals(

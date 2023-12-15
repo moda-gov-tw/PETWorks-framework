@@ -12,7 +12,7 @@ def _measureAmbiguity(original: Data, anonymized: Data) -> float:
     return UtilityMetrics.evaluate(original, anonymized).ambiguity
 
 
-def PETValidation(original, anonymized, _, dataHierarchy, attributeTypes):
+def PETValidation(original, anonymized, _, dataHierarchy, attributeTypes, *__):
     javaApi = JavaApi()
 
     dataHierarchy = loadDataHierarchy(

@@ -24,7 +24,9 @@ def _validateKAnonymity(kValue: int, k: int) -> bool:
     return k <= kValue
 
 
-def PETValidation(foo, anonymized, bar, attributeTypes, k):
+def PETValidation(
+    foo, anonymized, bar, k, dataHierarchy=None, attributeTypes={}
+):
     anonymized = pd.read_csv(anonymized, sep=";", skipinitialspace=True)
     qiNames = list(getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER))
 
@@ -36,10 +38,10 @@ def PETValidation(foo, anonymized, bar, attributeTypes, k):
 
 def PETAnonymization(
     originalData: str,
-    dataHierarchy: str,
-    attributeTypes: Dict[str, str],
     maxSuppressionRate: float,
     k: int,
+    dataHierarchy: str = None,
+    attributeTypes: Dict[str, str] = {},
 ) -> pd.DataFrame:
     javaApi = JavaApi()
     originalData = loadDataFromCsv(

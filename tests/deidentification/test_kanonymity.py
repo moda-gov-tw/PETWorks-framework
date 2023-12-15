@@ -1,4 +1,7 @@
-from PETWorks.deidentification.kanonymity import PETValidation, PETAnonymization
+from PETWorks.deidentification.kanonymity import (
+    PETValidation,
+    PETAnonymization,
+)
 import pandas as pd
 
 
@@ -29,10 +32,10 @@ def testPETValidationNotFulfilled(DATASET_PATH_ADULT, attributeTypesForAdult):
 def testPETAnonymization(DATASET_PATH_ADULT, attributeTypesForAdultAllQi):
     result = PETAnonymization(
         DATASET_PATH_ADULT["originalData"],
-        DATASET_PATH_ADULT["dataHierarchy"],
-        attributeTypesForAdultAllQi,
         maxSuppressionRate=0.04,
         k=5,
+        dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
+        attributeTypes=attributeTypesForAdultAllQi,
     )
 
     assert result.equals(

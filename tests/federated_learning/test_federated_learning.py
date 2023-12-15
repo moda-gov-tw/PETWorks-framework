@@ -33,11 +33,11 @@ def testPETValidation():
     }
     originalData = "data/original_image.png"
 
-    result = PETValidation(recoveredData, originalData, "ImageSimilarity")
+    result = PETValidation(recoveredData, originalData, "FL")
 
     result["similarity"] = math.floor(result["similarity"] * 10000) / 10000
     assert result == {
-        "metric": "ImageSimilarity",
+        "metric": "FL",
         "recovered": "data/recovered_image.png",
         "history": "data/history.png",
         "original": "data/original_image.png",

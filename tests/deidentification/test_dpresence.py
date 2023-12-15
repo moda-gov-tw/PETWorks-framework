@@ -1,4 +1,7 @@
-from PETWorks.deidentification.attributetypes import IDENTIFIER, QUASI_IDENTIFIER
+from PETWorks.deidentification.attributetypes import (
+    IDENTIFIER,
+    QUASI_IDENTIFIER,
+)
 from PETWorks.deidentification.attributetypes import SENSITIVE_ATTRIBUTE
 from PETWorks.deidentification.dpresence import (
     measureDPresence,
@@ -11,10 +14,10 @@ from typing import Dict
 import pytest
 import pandas as pd
 
-ORIGINAL_POPULATION_DATA_PATH = "data/presence.csv"
-ANONYMIZED_POPULATION_DATA_PATH = "data/presence_transformed.csv"
-ANONYMIZED_SAMPLE_DATA_PATH = "data/presence_anonymized.csv"
-DATA_HIERARCHY_PATH = "data/presence_hierarchy"
+ORIGINAL_POPULATION_DATA_PATH = "data/presence/presence.csv"
+ANONYMIZED_POPULATION_DATA_PATH = "data/presence/presence_transformed.csv"
+ANONYMIZED_SAMPLE_DATA_PATH = "data/presence/presence_anonymized.csv"
+DATA_HIERARCHY_PATH = "data/presence/presence_hierarchy"
 
 
 @pytest.fixture(scope="module")
@@ -99,12 +102,12 @@ def testPETValidationNotFulfilled(attributeTypesForPresence):
 def testPETAnonymization(DATASET_PATH_ADULT, attributeTypesForAdultAllQi):
     result = PETAnonymization(
         DATASET_PATH_ADULT["originalData"],
-        DATASET_PATH_ADULT["dataHierarchy"],
-        attributeTypesForAdultAllQi,
         maxSuppressionRate=0.05,
         dMin=0.0,
         dMax=0.2,
-        subsetData="data/adult10.csv",
+        subsetData="data/adult/adult10.csv",
+        dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
+        attributeTypes=attributeTypesForAdultAllQi,
     )
     result["age"] = result["age"].astype(float)
     assert result.equals(

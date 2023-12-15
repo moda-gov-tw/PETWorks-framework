@@ -3,8 +3,14 @@ from PETWorks.deidentification.attributetypes import (
     SENSITIVE_ATTRIBUTE,
     INSENSITIVE_ATTRIBUTE,
 )
-from PETWorks.deidentification.tcloseness import PETAnonymization, measureTCloseness
-from PETWorks.deidentification.arx import loadDataHierarchyNatively, getAttributeNameByType
+from PETWorks.deidentification.tcloseness import (
+    PETAnonymization,
+    measureTCloseness,
+)
+from PETWorks.deidentification.arx import (
+    loadDataHierarchyNatively,
+    getAttributeNameByType,
+)
 import pandas as pd
 
 
@@ -25,9 +31,11 @@ def testMeasureTClosenessNumeral():
 
 def testMeasureTClosenessHierarchical():
     anonymizedData = pd.read_csv(
-        "data/disease.csv", sep=";", skipinitialspace=True
+        "data/disease/disease.csv", sep=";", skipinitialspace=True
     )
-    dataHierarchy = loadDataHierarchyNatively("data/disease_hierarchy", ";")
+    dataHierarchy = loadDataHierarchyNatively(
+        "data/disease/disease_hierarchy", ";"
+    )
     attributeTypes = {
         "ZIPCode": QUASI_IDENTIFIER,
         "Age": QUASI_IDENTIFIER,
@@ -52,7 +60,7 @@ def testMeasureTClosenessHierarchical():
 
 def testMeasureTClosenessEqual():
     anonymizedData = pd.read_csv(
-        "data/disease.csv", sep=";", skipinitialspace=True
+        "data/disease/disease.csv", sep=";", skipinitialspace=True
     )
     attributeTypes = {
         "ZIPCode": QUASI_IDENTIFIER,
@@ -86,10 +94,10 @@ def testPETAnonymizationOrderedTCloseness(DATASET_PATH_ADULT):
 
     result = PETAnonymization(
         DATASET_PATH_ADULT["originalData"],
-        DATASET_PATH_ADULT["dataHierarchy"],
-        attributeTypes,
         maxSuppressionRate=0.04,
         t=0.2,
+        dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
+        attributeTypes=attributeTypes,
     )
     result["age"] = result["age"].astype(int)
     assert result.equals(
@@ -114,10 +122,10 @@ def testPETAnonymizationHierarchicalTCloseness(DATASET_PATH_ADULT):
 
     result = PETAnonymization(
         DATASET_PATH_ADULT["originalData"],
-        DATASET_PATH_ADULT["dataHierarchy"],
-        attributeTypes,
         maxSuppressionRate=0.04,
         t=0.2,
+        dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
+        attributeTypes=attributeTypes,
     )
 
     assert result.equals(

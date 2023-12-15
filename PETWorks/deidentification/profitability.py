@@ -44,13 +44,13 @@ def PETValidation(
     original,
     subset,
     tech,
-    dataHierarchy,
-    attributeTypes,
     allowAttack,
     adversaryCost,
     adversaryGain,
     publisherLost,
     publisherBenefit,
+    dataHierarchy=None,
+    attributeTypes={},
 ):
     subset = pd.read_csv(subset, sep=";")
     qiNames = getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER)

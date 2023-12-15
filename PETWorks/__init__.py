@@ -1,6 +1,7 @@
 import json
 
 import pandas as pd
+from PETWorks.deidentification.config import Config
 
 import PETWorks.federated_learning as FederatedLearning
 import PETWorks.deidentification.reidentificationrisk as ReidentificationRisk
@@ -36,8 +37,21 @@ def dataProcess(model, gradient, tech, method, **keywordArgs):
         )
 
 
+def loadConfig(pathToData):
+    config = Config(Config.getDefaultConfigPath(pathToData))
+
+    keywordArgs = {}
+    if config.attributeTypes:
+        keywordArgs["attributeTypes"] = config.attributeTypes
+
+    if config.hierarchy is not None:
+        keywordArgs["dataHierarchy"] = config.hierarchy
+
+    return keywordArgs
+
+
 def PETValidation(arg0, arg1, metric, **keywordArgs):
-    if metric == "ImageSimilarity":
+    if metric == "FL":
         return FederatedLearning.PETValidation(
             arg0, arg1, metric, **keywordArgs
         )
@@ -46,26 +60,36 @@ def PETValidation(arg0, arg1, metric, **keywordArgs):
             arg0, arg1, metric, **keywordArgs
         )
     elif metric == "Ambiguity":
+        keywordArgs.update(loadConfig(arg1))
         return Ambiguity.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "Precision":
+        keywordArgs.update(loadConfig(arg1))
         return Precision.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "Non-Uniform Entropy":
+        keywordArgs.update(loadConfig(arg1))
         return NonUniformEntropy.PETValidation(
             arg0, arg1, metric, **keywordArgs
         )
     elif metric == "AECS":
+        keywordArgs.update(loadConfig(arg1))
         return AECS.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "k-anonymity":
+        keywordArgs.update(loadConfig(arg1))
         return KAnonymity.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "d-presence":
+        keywordArgs.update(loadConfig(arg1))
         return DPresence.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "profitability":
+        keywordArgs.update(loadConfig(arg1))
         return Profitability.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "t-closeness":
+        keywordArgs.update(loadConfig(arg1))
         return TCloseness.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "l-diversity":
+        keywordArgs.update(loadConfig(arg1))
         return LDiversity.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "UtilityBias":
+        keywordArgs.update(loadConfig(arg1))
         return UtilityBias.PETValidation(arg0, arg1, **keywordArgs)
     elif metric == "SinglingOutRisk":
         return SinglingOutRisk.PETValidation(arg0, arg1, **keywordArgs)
@@ -85,7 +109,7 @@ def report(result, format):
         return
 
     if format == "web":
-        if result.get("metric", None) == "ImageSimilarity":
+        if result.get("metric", None) == "FL":
             html = generateWebView(
                 result["original"],
                 result["recovered"],
@@ -100,14 +124,9 @@ def report(result, format):
     return
 
 
-def PETAnonymization(
-    originalData,
-    tech,
-    dataHierarchy,
-    attributeTypes,
-    maxSuppressionRate,
-    **keywordArgs
-):
+def PETAnonymization(originalData, tech, maxSuppressionRate, **keywordArgs):
+    keywordArgs.update(loadConfig(originalData))
+
     if tech == "k-anonymity":
         anonymization = KAnonymity
     elif tech == "l-diversity":
@@ -119,10 +138,8 @@ def PETAnonymization(
 
     return anonymization.PETAnonymization(
         originalData,
-        dataHierarchy,
-        attributeTypes,
         maxSuppressionRate,
-        **keywordArgs
+        **keywordArgs,
     )
 
 
