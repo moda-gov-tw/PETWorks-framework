@@ -39,5 +39,5 @@ def testPETAnonymization(DATASET_PATH_ADULT, attributeTypesForAdultAllQi):
     )
 
     assert result.equals(
-        pd.read_csv("data/KAnonymization.csv", sep=";", skipinitialspace=True)
+        pd.read_csv("datasets/KAnonymization.csv", sep=";", skipinitialspace=True)
     )

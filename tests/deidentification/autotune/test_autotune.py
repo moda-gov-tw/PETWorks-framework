@@ -13,8 +13,8 @@ TestSet = namedtuple(
 @pytest.fixture(scope="module")
 def simpleTestSet():
     return TestSet(
-        originalData="data/adult/adult10.csv",
-        dataHierarchy="data/adult/adult_hierarchy",
+        originalData="datasets/adult/adult10.csv",
+        dataHierarchy="datasets/adult/adult_hierarchy",
         attributeTypes={
             "sex": "quasi_identifier",
             "age": "quasi_identifier",

@@ -15,7 +15,7 @@ Here we provide a framework dealing with the validation problem of PET enhanced 
 ```python
 from PETWorks import PETValidation, report
 
-originalData = "data/deidentifiedData.csv"
+originalData = "datasets/deidentifiedData.csv"
 
 result = PETValidation(originalData, None, "ReidentificationRisk")
 report(result, "json")
@@ -34,8 +34,8 @@ Execution Result
 ```python
 from PETWorks import PETValidation, report
 
-originalData = "data/adult/adult.csv"
-anonymizedData = "data/adult/adult_anonymized.csv"
+originalData = "datasets/adult/adult.csv"
+anonymizedData = "datasets/adult/adult_anonymized.csv"
 
 result = PETValidation(originalData, anonymizedData, "Ambiguity")
 report(result, "json")
@@ -55,8 +55,8 @@ $ python3 ambiguity.py
 ```python
 from PETWorks import PETValidation, report
 
-originalData = "data/adult/adult.csv"
-anonymizedData = "data/adult/adult_anonymized.csv"
+originalData = "datasets/adult/adult.csv"
+anonymizedData = "datasets/adult/adult_anonymized.csv"
 
 result = PETValidation(originalData, anonymizedData, "Precision")
 report(result, "json")
@@ -76,8 +76,8 @@ $ python3 precision.py
 ```python
 from PETWorks import PETValidation, report
 
-originalData = "data/adult/adult.csv"
-anonymizedData = "data/adult/adult_anonymized.csv"
+originalData = "datasets/adult/adult.csv"
+anonymizedData = "datasets/adult/adult_anonymized.csv"
 
 result = PETValidation(originalData, anonymizedData, "Non-Uniform Entropy")
 report(result, "json")
@@ -96,8 +96,8 @@ $ python nonUniformEntropy.py
 ```python
 from PETWorks import PETValidation, report
 
-originalData = "data/adult/adult.csv"
-anonymizedData = "data/adult/adult_anonymized.csv"
+originalData = "datasets/adult/adult.csv"
+anonymizedData = "datasets/adult/adult_anonymized.csv"
 
 result = PETValidation(originalData, anonymizedData, "AECS")
 report(result, "json")
@@ -116,7 +116,7 @@ $ python aecs.py
 ```python
 from PETWorks import PETValidation, report
 
-anonymizedData = "data/adult/adult_anonymized.csv"
+anonymizedData = "datasets/adult/adult_anonymized.csv"
 
 result = PETValidation(None, anonymizedData, "k-anonymity", k=5)
 report(result, "json")
@@ -136,8 +136,8 @@ $ python3 k-anonymity.py
 ```python
 from PETWorks import PETValidation, report
 
-origin = "data/delta/delta.csv"
-anonymized = "data/delta/delta_anonymized.csv"
+origin = "datasets/delta/delta.csv"
+anonymized = "datasets/delta/delta_anonymized.csv"
 
 result = PETValidation(
     origin, anonymized, "d-presence", dMin=1 / 2, dMax=2 / 3
@@ -160,8 +160,8 @@ $ python3 d-presence.py
 ```python
 from PETWorks import PETValidation, report
 
-origin = "data/delta/delta.csv"
-anonymized = "data/delta/delta_anonymized.csv"
+origin = "datasets/delta/delta.csv"
+anonymized = "datasets/delta/delta_anonymized.csv"
 
 result = PETValidation(
     origin,
@@ -194,7 +194,7 @@ $ python3 profitability.py
 ```python
 from PETWorks import PETValidation, report
 
-anonymized = "data/inpatient/inpatient_anonymized.csv"
+anonymized = "datasets/inpatient/inpatient_anonymized.csv"
 
 result = PETValidation(None, anonymized, "l-diversity", l=3)
 report(result, "json")
@@ -214,7 +214,7 @@ $ python3 l-diversity.py
 ```python
 from PETWorks import PETValidation, report
 
-anonymized = "data/patient/patient_anonymized.csv"
+anonymized = "datasets/patient/patient_anonymized.csv"
 
 result = PETValidation(
     None,
@@ -241,8 +241,8 @@ $ python3 t-closeness.py
 from PETWorks import PETValidation, report
 import pandas as pd
 
-origin = "data/presence/presence.csv"
-anonymized = "data/presence/presence_anonymized2.csv"
+origin = "datasets/presence/presence.csv"
+anonymized = "datasets/presence/presence_anonymized2.csv"
 
 
 def averageAge(source):
@@ -270,7 +270,7 @@ $ python3 utilityBias.py
 ```python
 from PETWorks import PETAnonymization, output
 
-originalData = "data/adult/adult.csv"
+originalData = "datasets/adult/adult.csv"
 
 result = PETAnonymization(
     originalData,
@@ -287,8 +287,8 @@ output(result, "output.csv")
 ```python
 from PETWorks import PETAnonymization, output
 
-originalData = "data/adult/adult.csv"
-subsetData = "data/adult/adult10.csv"
+originalData = "datasets/adult/adult.csv"
+subsetData = "datasets/adult/adult10.csv"
 
 result = PETAnonymization(
     originalData,
@@ -307,7 +307,7 @@ output(result, "output.csv")
 ```python
 from PETWorks import PETAnonymization, output
 
-originalData = "data/adult/adult.csv"
+originalData = "datasets/adult/adult.csv"
 
 result = PETAnonymization(
     originalData,
@@ -324,7 +324,7 @@ output(result, "output.csv")
 ```python
 from PETWorks import PETAnonymization, output
 
-anonymized = "data/patient/patient_anonymized.csv"
+anonymized = "datasets/patient/patient_anonymized.csv"
 
 result = PETAnonymization(
     originalData,
@@ -343,8 +343,8 @@ output(result, "output.csv")
 ```python
 from PETWorks import PETValidation, report
 
-synthetic = "data/synthetic_NHANES.csv"
-original = "data/NHANES.csv"
+synthetic = "datasets/synthetic_NHANES.csv"
+original = "datasets/NHANES.csv"
 
 result = PETValidation(synthetic, original, "MIATest")
 report(result, "json")
@@ -365,9 +365,9 @@ $ python3 validateDP.py
 ```python
 from PETWorks import PETValidation, report
 
-synthetic = "data/adult/adults_syn_ctgan.csv"
-original = "data/adult/adults_train.csv"
-control = "data/adult/adults_control.csv"
+synthetic = "datasets/adult/adults_syn_ctgan.csv"
+original = "datasets/adult/adults_train.csv"
+control = "datasets/adult/adults_control.csv"
 
 result = PETValidation(synthetic, original, "SinglingOutRisk", control=control)
 report(result, "json")
@@ -388,9 +388,9 @@ $ python3 singlingOutRisk.py
 ```python
 from PETWorks import PETValidation, report
 
-synthetic = "data/adult/adults_syn_ctgan.csv"
-original = "data/adult/adults_train.csv"
-control = "data/adult/adults_control.csv"
+synthetic = "datasets/adult/adults_syn_ctgan.csv"
+original = "datasets/adult/adults_train.csv"
+control = "datasets/adult/adults_control.csv"
 
 result = PETValidation(synthetic, original, "InferenceRisk", control=control)
 report(result, "json")
@@ -423,9 +423,9 @@ $ python3 inferenceRisk.py
 ```python
 from PETWorks import PETValidation, report
 
-synthetic = "data/adult/adults_syn_ctgan.csv"
-original = "data/adult/adults_train.csv"
-control = "data/adult/adults_control.csv"
+synthetic = "datasets/adult/adults_syn_ctgan.csv"
+original = "datasets/adult/adults_train.csv"
+control = "datasets/adult/adults_control.csv"
 
 auxiliaryColumns = [
     ["type_employer", "fnlwgt"],

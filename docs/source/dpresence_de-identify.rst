@@ -17,8 +17,8 @@ Example: d-presence.py
                                                                                                   
   from PETWorks import PETAnonymization, output
 
-  originalData = "data/adult/adult.csv"
-  subsetData = "data/adult/adult10.csv"
+  originalData = "datasets/adult/adult.csv"
+  subsetData = "datasets/adult/adult10.csv"
 
   result = PETAnonymization(
       originalData,

@@ -17,7 +17,7 @@ Example: t-closeness.py
 
     from PETWorks import PETValidation, report
 
-    anonymized = "data/patient/patient_anonymized.csv"
+    anonymized = "datasets/patient/patient_anonymized.csv"
 
     result = PETValidation(
         None,

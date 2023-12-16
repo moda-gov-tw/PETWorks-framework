@@ -17,8 +17,8 @@ Example: profitability.py
 
     from PETWorks import PETValidation, report
 
-    origin = "data/delta/delta.csv"
-    anonymized = "data/delta/delta_anonymized.csv"
+    origin = "datasets/delta/delta.csv"
+    anonymized = "datasets/delta/delta_anonymized.csv"
 
     result = PETValidation(
         origin,

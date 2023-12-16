@@ -9,10 +9,10 @@ from typing import Dict
 import pytest
 import pandas as pd
 
-ORIGINAL_POPULATION_DATA_PATH = "data/presence/presence.csv"
-ANONYMIZED_POPULATION_DATA_PATH = "data/presence/presence_transformed.csv"
-ANONYMIZED_SAMPLE_DATA_PATH = "data/presence/presence_anonymized.csv"
-DATA_HIERARCHY_PATH = "data/presence/presence_hierarchy"
+ORIGINAL_POPULATION_DATA_PATH = "datasets/presence/presence.csv"
+ANONYMIZED_POPULATION_DATA_PATH = "datasets/presence/presence_transformed.csv"
+ANONYMIZED_SAMPLE_DATA_PATH = "datasets/presence/presence_anonymized.csv"
+DATA_HIERARCHY_PATH = "datasets/presence/presence_hierarchy"
 
 
 @pytest.fixture(scope="module")
@@ -100,11 +100,11 @@ def testPETAnonymization(DATASET_PATH_ADULT, attributeTypesForAdultAllQi):
         maxSuppressionRate=0.05,
         dMin=0.0,
         dMax=0.2,
-        subsetData="data/adult/adult10.csv",
+        subsetData="datasets/adult/adult10.csv",
         dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
         attributeTypes=attributeTypesForAdultAllQi,
     )
     result["age"] = result["age"].astype(float)
     assert result.equals(
-        pd.read_csv("data/DAnonymization.csv", sep=";", skipinitialspace=True)
+        pd.read_csv("datasets/DAnonymization.csv", sep=";", skipinitialspace=True)
     )

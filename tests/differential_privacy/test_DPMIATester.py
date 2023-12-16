@@ -3,8 +3,8 @@ import PETWorks.differential_privacy.DPMIATester as DPMIATester
 
 @pytest.mark.skip(reason="Take too much time that GitHub action can tolerate. (Over than 30 mins)")
 def testPETValidation():
-    synthetic = "data/synthetic_NHANES.csv"
-    original = "data/NHANES.csv"
+    synthetic = "datasets/synthetic_NHANES.csv"
+    original = "datasets/NHANES.csv"
 
     result = DPMIATester.PETValidation(synthetic, original)
 

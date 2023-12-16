@@ -11,7 +11,7 @@ import pandas as pd
 
 def testMeasureTClosenessNumeral():
     anonymizedData = pd.read_csv(
-        "data/merit.csv", sep=";", skipinitialspace=True
+        "datasets/merit.csv", sep=";", skipinitialspace=True
     )
     attributeTypes = {"Name": "quasi_identifier", "Merit": "sensitive_attribute"}
     qiNames = getAttributeNameByType(attributeTypes, "quasi_identifier")
@@ -26,10 +26,10 @@ def testMeasureTClosenessNumeral():
 
 def testMeasureTClosenessHierarchical():
     anonymizedData = pd.read_csv(
-        "data/disease/disease.csv", sep=";", skipinitialspace=True
+        "datasets/disease/disease.csv", sep=";", skipinitialspace=True
     )
     dataHierarchy = loadDataHierarchyNatively(
-        "data/disease/disease_hierarchy", ";"
+        "datasets/disease/disease_hierarchy", ";"
     )
     attributeTypes = {
         "ZIPCode": "quasi_identifier",
@@ -55,7 +55,7 @@ def testMeasureTClosenessHierarchical():
 
 def testMeasureTClosenessEqual():
     anonymizedData = pd.read_csv(
-        "data/disease/disease.csv", sep=";", skipinitialspace=True
+        "datasets/disease/disease.csv", sep=";", skipinitialspace=True
     )
     attributeTypes = {
         "ZIPCode": "quasi_identifier",
@@ -97,7 +97,7 @@ def testPETAnonymizationOrderedTCloseness(DATASET_PATH_ADULT):
     result["age"] = result["age"].astype(int)
     assert result.equals(
         pd.read_csv(
-            "data/OrderedTAnonymization.csv", sep=";", skipinitialspace=True
+            "datasets/OrderedTAnonymization.csv", sep=";", skipinitialspace=True
         )
     )
 
@@ -125,7 +125,7 @@ def testPETAnonymizationHierarchicalTCloseness(DATASET_PATH_ADULT):
 
     assert result.equals(
         pd.read_csv(
-            "data/HierarchicalTAnonymization.csv",
+            "datasets/HierarchicalTAnonymization.csv",
             sep=";",
             skipinitialspace=True,
         )

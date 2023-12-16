@@ -18,7 +18,7 @@ Example: k-anonymity.py
 
     from PETWorks import PETValidation, report
 
-    anonymizedData = "data/adult/adult_anonymized.csv"
+    anonymizedData = "datasets/adult/adult_anonymized.csv"
 
     result = PETValidation(None, anonymizedData, "k-anonymity", k=5)
     report(result, "json")

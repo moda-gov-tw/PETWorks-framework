@@ -18,8 +18,8 @@ Example: utilityBias.py
     from PETWorks import PETValidation, report
     import pandas as pd
 
-    origin = "data/presence/presence.csv"
-    anonymized = "data/presence/presence_anonymized2.csv"
+    origin = "datasets/presence/presence.csv"
+    anonymized = "datasets/presence/presence_anonymized2.csv"
 
 
     def averageAge(source):

@@ -18,7 +18,7 @@ Example: l-diversity.py
 
   from PETWorks import PETAnonymization, output
 
-  originalData = "data/adult/adult.csv"
+  originalData = "datasets/adult/adult.csv"
 
   result = PETAnonymization(
       originalData,

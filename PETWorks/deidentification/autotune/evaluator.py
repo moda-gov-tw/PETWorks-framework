@@ -161,7 +161,9 @@ def __filterWithKAnonymity(args: Tuple):
         pathToHierarchy, __javaApi.StandardCharsets.UTF_8, ";", __javaApi
     )
 
-    attributeTypes = {key: "quasi_identifier" for key, _ in hierarchies.items()}
+    attributeTypes = {
+        key: "quasi_identifier" for key, _ in hierarchies.items()
+    }
 
     setDataHierarchies(originalData, hierarchies, attributeTypes, __javaApi)
 

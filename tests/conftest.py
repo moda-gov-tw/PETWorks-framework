@@ -5,14 +5,14 @@ from PETWorks.deidentification.config import Config
 
 DATASET_PATHS = [
     {
-        "originalData": "data/adult/adult.csv",
-        "anonymizedData": "data/adult/adult_anonymized.csv",
-        "dataHierarchy": "data/adult/adult_hierarchy",
+        "originalData": "datasets/adult/adult.csv",
+        "anonymizedData": "datasets/adult/adult_anonymized.csv",
+        "dataHierarchy": "datasets/adult/adult_hierarchy",
     },
     {
-        "originalData": "data/delta/delta.csv",
-        "anonymizedData": "data/delta/delta_anonymized.csv",
-        "dataHierarchy": "data/delta/delta_hierarchy",
+        "originalData": "datasets/delta/delta.csv",
+        "anonymizedData": "datasets/delta/delta_anonymized.csv",
+        "dataHierarchy": "datasets/delta/delta_hierarchy",
     },
 ]
 

@@ -8,7 +8,7 @@ from typing import Dict
 import pytest
 import pandas as pd
 
-ANONYMIZED_DATA_PATH = "data/inpatient/inpatient_anonymized.csv"
+ANONYMIZED_DATA_PATH = "datasets/inpatient/inpatient_anonymized.csv"
 
 
 @pytest.fixture(scope="module")
@@ -94,5 +94,5 @@ def testPETAnonymization(DATASET_PATH_ADULT):
     )
 
     assert result.equals(
-        pd.read_csv("data/LAnonymization.csv", sep=";", skipinitialspace=True)
+        pd.read_csv("datasets/LAnonymization.csv", sep=";", skipinitialspace=True)
     )

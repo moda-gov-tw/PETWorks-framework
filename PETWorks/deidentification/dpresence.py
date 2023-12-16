@@ -20,7 +20,9 @@ def measureDPresence(
     attributeTypes: Dict[str, str],
 ) -> list[float]:
     qiNames = [
-        qi for qi, value in attributeTypes.items() if value == "quasi_identifier"
+        qi
+        for qi, value in attributeTypes.items()
+        if value == "quasi_identifier"
     ]
     populationGroups = populationTable.groupby(qiNames).groups
     sampleGroups = sampleTable.groupby(qiNames).groups

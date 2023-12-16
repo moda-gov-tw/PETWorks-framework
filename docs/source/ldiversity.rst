@@ -17,7 +17,7 @@ Example: l-diversity.py
 
     from PETWorks import PETValidation, report
 
-    anonymized = "data/inpatient/inpatient_anonymized.csv"
+    anonymized = "datasets/inpatient/inpatient_anonymized.csv"
 
     result = PETValidation(None, anonymized, "l-diversity", l=3)
     report(result, "json")

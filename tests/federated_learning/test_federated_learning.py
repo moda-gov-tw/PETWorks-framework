@@ -4,8 +4,8 @@ import math
 
 
 def testDataProcess(tmp_path):
-    model = "data/net.pth"
-    gradient = "data/grad.pt"
+    model = "datasets/net.pth"
+    gradient = "datasets/grad.pt"
 
     recoveredData = dataProcess(
         model,
@@ -28,18 +28,18 @@ def testDataProcess(tmp_path):
 
 def testPETValidation():
     recoveredData = {
-        "history": "data/history.png",
-        "recovered": "data/recovered_image.png",
+        "history": "datasets/history.png",
+        "recovered": "datasets/recovered_image.png",
     }
-    originalData = "data/original_image.png"
+    originalData = "datasets/original_image.png"
 
     result = PETValidation(recoveredData, originalData, "FL")
 
     result["similarity"] = math.floor(result["similarity"] * 10000) / 10000
     assert result == {
         "metric": "FL",
-        "recovered": "data/recovered_image.png",
-        "history": "data/history.png",
-        "original": "data/original_image.png",
+        "recovered": "datasets/recovered_image.png",
+        "history": "datasets/history.png",
+        "original": "datasets/original_image.png",
         "similarity": 0.9943,
     }

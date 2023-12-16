@@ -17,8 +17,8 @@ Example: nonUniformEntropy.py
 
     from PETWorks import PETValidation, report
 
-    originalData = "data/adult/adult.csv"
-    anonymizedData = "data/adult/adult_anonymized.csv"
+    originalData = "datasets/adult/adult.csv"
+    anonymizedData = "datasets/adult/adult_anonymized.csv"
 
     result = PETValidation(originalData, anonymizedData, "Non-Uniform Entropy")
     report(result, "json")

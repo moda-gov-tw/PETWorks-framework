@@ -2,9 +2,9 @@ import PETWorks.synthetic_data.LinkabilityRisk as LinkabilityRisk
 
 
 def testPETValidation():
-    synthetic = "data/adult/adults_syn_ctgan.csv"
-    original = "data/adult/adults_train.csv"
-    control = "data/adult/adults_control.csv"
+    synthetic = "datasets/adult/adults_syn_ctgan.csv"
+    original = "datasets/adult/adults_train.csv"
+    control = "datasets/adult/adults_control.csv"
 
     auxiliaryColumns = [["type_employer", "fnlwgt"], ["age"]]
 
