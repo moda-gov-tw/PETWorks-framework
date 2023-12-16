@@ -1,8 +1,3 @@
-from PETWorks.deidentification.attributetypes import (
-    IDENTIFIER,
-    QUASI_IDENTIFIER,
-)
-from PETWorks.deidentification.attributetypes import SENSITIVE_ATTRIBUTE
 from PETWorks.deidentification.dpresence import (
     measureDPresence,
     validateDPresence,
@@ -23,12 +18,12 @@ DATA_HIERARCHY_PATH = "data/presence/presence_hierarchy"
 @pytest.fixture(scope="module")
 def attributeTypesForPresence() -> Dict[str, str]:
     attributeTypes = {
-        "identifier": IDENTIFIER,
-        "name": IDENTIFIER,
-        "zip": QUASI_IDENTIFIER,
-        "age": QUASI_IDENTIFIER,
-        "nationality": QUASI_IDENTIFIER,
-        "sen": SENSITIVE_ATTRIBUTE,
+        "identifier": "identifier",
+        "name": "identifier",
+        "zip": "quasi_identifier",
+        "age": "quasi_identifier",
+        "nationality": "quasi_identifier",
+        "sen": "sensitive_attribute",
     }
     return attributeTypes
 

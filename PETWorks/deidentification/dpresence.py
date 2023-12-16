@@ -12,7 +12,6 @@ from PETWorks.deidentification.arx import (
     setDataHierarchies,
     anonymizeData,
 )
-from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER
 
 
 def measureDPresence(
@@ -21,7 +20,7 @@ def measureDPresence(
     attributeTypes: Dict[str, str],
 ) -> list[float]:
     qiNames = [
-        qi for qi, value in attributeTypes.items() if value == QUASI_IDENTIFIER
+        qi for qi, value in attributeTypes.items() if value == "quasi_identifier"
     ]
     populationGroups = populationTable.groupby(qiNames).groups
     sampleGroups = sampleTable.groupby(qiNames).groups

@@ -5,13 +5,6 @@ import numpy as np
 from os import PathLike, listdir
 from os.path import join
 from typing import Dict, Iterator, List, Tuple
-from PETWorks.deidentification.attributetypes import (
-    IDENTIFIER,
-    INSENSITIVE_ATTRIBUTE,
-    QUASI_IDENTIFIER,
-    SENSITIVE_ATTRIBUTE,
-)
-
 
 from py4j.java_gateway import JavaGateway, JavaClass
 from py4j.java_collections import JavaArray
@@ -161,21 +154,21 @@ def setDataHierarchies(
                 attributeName, javaApi.Hierarchy.create()
             )
         elif attributeName in hierarchies.keys():
-            if attributeType == QUASI_IDENTIFIER:
+            if attributeType == "quasi_identifier":
                 data.getDefinition().setAttributeType(
                     attributeName, hierarchies[attributeName]
                 )
 
-        if attributeType == QUASI_IDENTIFIER:
+        if attributeType == "quasi_identifier":
             continue
-        elif attributeType == IDENTIFIER:
+        elif attributeType == "identifier":
             javaAttributeType = javaApi.AttributeType.IDENTIFYING_ATTRIBUTE
-        elif attributeType == SENSITIVE_ATTRIBUTE:
+        elif attributeType == "sensitive_attribute":
             if enableSensitiveAttribute:
                 javaAttributeType = javaApi.AttributeType.SENSITIVE_ATTRIBUTE
             else:
                 javaAttributeType = javaApi.AttributeType.INSENSITIVE_ATTRIBUTE
-        elif attributeType == INSENSITIVE_ATTRIBUTE:
+        elif attributeType == "insensitive_attribute":
             javaAttributeType = javaApi.AttributeType.INSENSITIVE_ATTRIBUTE
         else:
             raise ValueError(f"Unexpected attribute type: {attributeType}")

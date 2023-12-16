@@ -17,7 +17,6 @@ Example: k-anonymization.py
 .. code-block:: python
                                                            
   from PETWorks import PETAnonymization, output
-  from PETWorks.deidentification.attributetypes import *
 
   originalData = "data/adult/adult.csv"
 

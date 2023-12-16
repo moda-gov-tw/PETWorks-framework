@@ -1,8 +1,3 @@
-from PETWorks.deidentification.attributetypes import (
-    QUASI_IDENTIFIER,
-    SENSITIVE_ATTRIBUTE,
-    INSENSITIVE_ATTRIBUTE,
-)
 from PETWorks.deidentification.tcloseness import (
     PETAnonymization,
     measureTCloseness,
@@ -18,10 +13,10 @@ def testMeasureTClosenessNumeral():
     anonymizedData = pd.read_csv(
         "data/merit.csv", sep=";", skipinitialspace=True
     )
-    attributeTypes = {"Name": QUASI_IDENTIFIER, "Merit": SENSITIVE_ATTRIBUTE}
-    qiNames = getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER)
+    attributeTypes = {"Name": "quasi_identifier", "Merit": "sensitive_attribute"}
+    qiNames = getAttributeNameByType(attributeTypes, "quasi_identifier")
     sensitiveAttribute = getAttributeNameByType(
-        attributeTypes, SENSITIVE_ATTRIBUTE
+        attributeTypes, "sensitive_attribute"
     )[0]
     assert (
         measureTCloseness(anonymizedData, sensitiveAttribute, qiNames, None)
@@ -37,14 +32,14 @@ def testMeasureTClosenessHierarchical():
         "data/disease/disease_hierarchy", ";"
     )
     attributeTypes = {
-        "ZIPCode": QUASI_IDENTIFIER,
-        "Age": QUASI_IDENTIFIER,
-        "Salary": INSENSITIVE_ATTRIBUTE,
-        "Disease": SENSITIVE_ATTRIBUTE,
+        "ZIPCode": "quasi_identifier",
+        "Age": "quasi_identifier",
+        "Salary": "insensitive_attribute",
+        "Disease": "sensitive_attribute",
     }
-    qiNames = getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER)
+    qiNames = getAttributeNameByType(attributeTypes, "quasi_identifier")
     sensitiveAttribute = getAttributeNameByType(
-        attributeTypes, SENSITIVE_ATTRIBUTE
+        attributeTypes, "sensitive_attribute"
     )[0]
 
     assert (
@@ -63,14 +58,14 @@ def testMeasureTClosenessEqual():
         "data/disease/disease.csv", sep=";", skipinitialspace=True
     )
     attributeTypes = {
-        "ZIPCode": QUASI_IDENTIFIER,
-        "Age": QUASI_IDENTIFIER,
-        "Salary": INSENSITIVE_ATTRIBUTE,
-        "Disease": SENSITIVE_ATTRIBUTE,
+        "ZIPCode": "quasi_identifier",
+        "Age": "quasi_identifier",
+        "Salary": "insensitive_attribute",
+        "Disease": "sensitive_attribute",
     }
-    qiNames = getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER)
+    qiNames = getAttributeNameByType(attributeTypes, "quasi_identifier")
     sensitiveAttribute = getAttributeNameByType(
-        attributeTypes, SENSITIVE_ATTRIBUTE
+        attributeTypes, "sensitive_attribute"
     )[0]
 
     assert (
@@ -81,15 +76,15 @@ def testMeasureTClosenessEqual():
 
 def testPETAnonymizationOrderedTCloseness(DATASET_PATH_ADULT):
     attributeTypes = {
-        "age": SENSITIVE_ATTRIBUTE,
-        "education": QUASI_IDENTIFIER,
-        "marital-status": QUASI_IDENTIFIER,
-        "native-country": QUASI_IDENTIFIER,
-        "occupation": QUASI_IDENTIFIER,
-        "race": QUASI_IDENTIFIER,
-        "salary-class": QUASI_IDENTIFIER,
-        "sex": QUASI_IDENTIFIER,
-        "workclass": QUASI_IDENTIFIER,
+        "age": "sensitive_attribute",
+        "education": "quasi_identifier",
+        "marital-status": "quasi_identifier",
+        "native-country": "quasi_identifier",
+        "occupation": "quasi_identifier",
+        "race": "quasi_identifier",
+        "salary-class": "quasi_identifier",
+        "sex": "quasi_identifier",
+        "workclass": "quasi_identifier",
     }
 
     result = PETAnonymization(
@@ -109,15 +104,15 @@ def testPETAnonymizationOrderedTCloseness(DATASET_PATH_ADULT):
 
 def testPETAnonymizationHierarchicalTCloseness(DATASET_PATH_ADULT):
     attributeTypes = {
-        "age": QUASI_IDENTIFIER,
-        "education": QUASI_IDENTIFIER,
-        "marital-status": QUASI_IDENTIFIER,
-        "native-country": QUASI_IDENTIFIER,
-        "occupation": SENSITIVE_ATTRIBUTE,
-        "race": QUASI_IDENTIFIER,
-        "salary-class": QUASI_IDENTIFIER,
-        "sex": QUASI_IDENTIFIER,
-        "workclass": QUASI_IDENTIFIER,
+        "age": "quasi_identifier",
+        "education": "quasi_identifier",
+        "marital-status": "quasi_identifier",
+        "native-country": "quasi_identifier",
+        "occupation": "sensitive_attribute",
+        "race": "quasi_identifier",
+        "salary-class": "quasi_identifier",
+        "sex": "quasi_identifier",
+        "workclass": "quasi_identifier",
     }
 
     result = PETAnonymization(

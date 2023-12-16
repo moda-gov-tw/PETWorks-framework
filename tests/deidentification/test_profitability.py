@@ -1,13 +1,12 @@
-from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER, INSENSITIVE_ATTRIBUTE
 from PETWorks.deidentification.profitability import PETValidation
 
 
 def testPETValidation(DATASET_PATH_DELTA):
     attributeTypes = {
-        "zip": QUASI_IDENTIFIER,
-        "age": QUASI_IDENTIFIER,
-        "nationality": QUASI_IDENTIFIER,
-        "salary-class": INSENSITIVE_ATTRIBUTE,
+        "zip": "quasi_identifier",
+        "age": "quasi_identifier",
+        "nationality": "quasi_identifier",
+        "salary-class": "insensitive_attribute",
     }
 
     result = PETValidation(

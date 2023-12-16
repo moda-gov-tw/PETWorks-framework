@@ -13,8 +13,6 @@ from PETWorks.deidentification.arx import (
     anonymizeData,
     getDataFrame,
 )
-from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
-
 
 @pytest.fixture(scope="session")
 def javaApi() -> JavaApi:
@@ -105,7 +103,7 @@ def testSetDataHierarchiesSensitiveEnabled(
     arxDataAdult, arxHierarchyAdult, javaApi
 ):
     attributeTypes = {
-        "age": SENSITIVE_ATTRIBUTE,
+        "age": "sensitive_attribute",
     }
     setDataHierarchies(
         arxDataAdult, arxHierarchyAdult, attributeTypes, javaApi, True

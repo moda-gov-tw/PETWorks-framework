@@ -10,10 +10,6 @@ from PETWorks.deidentification.arx import (
     loadDataHierarchy,
     setDataHierarchies,
 )
-from PETWorks.deidentification.attributetypes import (
-    QUASI_IDENTIFIER,
-    SENSITIVE_ATTRIBUTE,
-)
 
 
 def measureLDiversity(
@@ -25,9 +21,9 @@ def measureLDiversity(
     lValues = []
 
     for attribute, value in attributeTypes.items():
-        if value == QUASI_IDENTIFIER:
+        if value == "quasi_identifier":
             qis.append(attribute)
-        if value == SENSITIVE_ATTRIBUTE:
+        if value == "sensitive_attribute":
             sensitiveAttributes.append(attribute)
 
     for index in range(len(sensitiveAttributes)):
@@ -81,7 +77,7 @@ def PETAnonymization(
 
     privacyModels = []
     for attributeName, attributeType in attributeTypes.items():
-        if attributeType == SENSITIVE_ATTRIBUTE:
+        if attributeType == "sensitive_attribute":
             privacyModels.append(javaApi.DistinctLDiversity(attributeName, l))
 
     anonymizedResult = anonymizeData(

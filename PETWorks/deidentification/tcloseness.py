@@ -10,10 +10,6 @@ from PETWorks.deidentification.arx import (
     getDataFrame,
     anonymizeData,
 )
-from PETWorks.deidentification.attributetypes import (
-    SENSITIVE_ATTRIBUTE,
-    QUASI_IDENTIFIER,
-)
 import numpy as np
 from math import fabs
 from typing import Dict
@@ -173,9 +169,9 @@ def PETValidation(
     dataHierarchy = loadDataHierarchyNatively(dataHierarchy, ";")
     anonymizedData = pd.read_csv(anonymized, sep=";", skipinitialspace=True)
 
-    qiNames = getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER)
+    qiNames = getAttributeNameByType(attributeTypes, "quasi_identifier")
     sensitiveAttributes = getAttributeNameByType(
-        attributeTypes, SENSITIVE_ATTRIBUTE
+        attributeTypes, "sensitive_attribute"
     )
 
     tList = [
@@ -219,7 +215,7 @@ def PETAnonymization(
 
     privacyModels = []
     for attributeName, attributeType in attributeTypes.items():
-        if attributeType == SENSITIVE_ATTRIBUTE:
+        if attributeType == "sensitive_attribute":
             isNumerical = True
             try:
                 float(originalDataFrame[attributeName].iloc[0])

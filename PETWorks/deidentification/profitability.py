@@ -2,8 +2,6 @@ from typing import List
 from PETWorks.deidentification.arx import (
     getAttributeNameByType,
 )
-from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER
-
 import pandas as pd
 
 
@@ -53,7 +51,7 @@ def PETValidation(
     attributeTypes={},
 ):
     subset = pd.read_csv(subset, sep=";")
-    qiNames = getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER)
+    qiNames = getAttributeNameByType(attributeTypes, "quasi_identifier")
 
     if allowAttack:
         isProfitable = bool(

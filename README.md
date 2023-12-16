@@ -269,7 +269,6 @@ $ python3 utilityBias.py
 
 ```python
 from PETWorks import PETAnonymization, output
-from PETWorks.deidentification.attributetypes import *
 
 originalData = "data/adult/adult.csv"
 
@@ -323,17 +322,18 @@ output(result, "output.csv")
 #### Anonymize with the t-closeness
 
 ```python
-from PETWorks import PETValidation, report
+from PETWorks import PETAnonymization, output
 
 anonymized = "data/patient/patient_anonymized.csv"
 
-result = PETValidation(
-    None,
-    anonymized,
+result = PETAnonymization(
+    originalData,
     "t-closeness",
-    tLimit=0.376,
+    maxSuppressionRate=0.6,
+    t=0.2,
 )
-report(result, "json")
+
+output(result, "output.csv")
 ```
 
 ### Differential Privacy
@@ -468,7 +468,7 @@ model = "/home/Doc/model"
 originalData = "/home/Doc/o.png"
 
 recoveredData = dataProcess(model, gradient, "FL", "recover")
-result = PETValidation(recoveredData, originalData, "ImageSimilarity")
+result = PETValidation(recoveredData, originalData, "FL")
 report(result, "web")
 ```
 

@@ -7,7 +7,6 @@ from PETWorks.deidentification.arx import (
     loadDataHierarchy,
     setDataHierarchies,
 )
-from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER
 import pandas as pd
 from typing import Dict
 
@@ -28,7 +27,7 @@ def PETValidation(
     foo, anonymized, bar, k, dataHierarchy=None, attributeTypes={}
 ):
     anonymized = pd.read_csv(anonymized, sep=";", skipinitialspace=True)
-    qiNames = list(getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER))
+    qiNames = list(getAttributeNameByType(attributeTypes, "quasi_identifier"))
 
     kValue = int(_measureKAnonymity(anonymized, qiNames))
     fulFillKAnonymity = _validateKAnonymity(kValue, k)
