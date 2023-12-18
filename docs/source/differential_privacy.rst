@@ -3,7 +3,7 @@ Differential Privacy
 ++++++++++++++++++++++++++
 
 
-Man-in-teh-Middle Attack
+Man-in-the-Middle Attack
 ============================
 
 
