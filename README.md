@@ -30,7 +30,20 @@ pip install -r requirement.txt
 ## APIs
 
 - [k-anonymity](docs/source/k-anonymity.rst)
-    - The re-identification and de-identification capabilities of k-anonymity.
+    - Average Equivalence Class Size
+    - Ambiguity
+    - d-presence
+    - k-anonymity
+    - l-diversity
+    - Non-Uniform Entropy
+    - Precision
+    - Profitability
+    - t-closeness
+    - Utility Bias
+    - De-identification for d-presence
+    - De-identification for k-anonymity
+    - De-identification for l-diversity
+    - De-identification for t-closeness
 - [Differential Privacy](docs/source/differential_privacy.rst)
     - Using Man-in-the-Middle Attack to examine whether data employs differential privacy.
 - [Federated Learning](docs/source/federated_learning.rst)
@@ -51,9 +64,9 @@ pip install -r requirement.txt
 ```python
 from PETWorks import dataProcess, PETValidation, report
 
-gradient = "/home/Doc/gradient"
-model = "/home/Doc/model"
-originalData = "/home/Doc/o.png"
+gradient = "datasets/grad.pt"
+model = "datasets/net.pth"
+originalData = "datasets/original_image.png"
 
 recoveredData = dataProcess(model, gradient, "FL", "recover")
 result = PETValidation(recoveredData, originalData, "ImageSimilarity")
