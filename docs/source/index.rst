@@ -7,21 +7,11 @@ PETWorks-framework Documentation
 ==============================================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
    :caption: Contents:
 
-   ambiguity
-   precision
-   nonuniformentropy
-   aecs
-   kanonymity
-   ldiversity
-   dpresence
-   tcloseness
-   profitability
-   utilitybias
-   kanonymity_de-identify
-   ldiversity_de-identify
-   dpresence_de-identify
-   tcloseness_de-identify
-   tamarin
+   k-anonymity
+   differential_privacy
+   federated_learning
+   homomorphic_encryption
+   syntehtic_data

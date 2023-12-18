@@ -1,6 +1,10 @@
-+++++++++++++++++++++
+++++++++++++++++++++++++++
+Differential Privacy
+++++++++++++++++++++++++++
+
+
 Man-in-teh-Middle Attack
-+++++++++++++++++++++
+============================
 
 
 We use two datasets for this assessment: ``datasets/synthetic_NHANES.csv`` as the synthetic data, and ``datasets/NHANES.csv`` as the original dataset.

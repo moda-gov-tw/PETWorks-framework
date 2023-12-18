@@ -1,6 +1,9 @@
 +++++++++++++++++++++++++++++++++++++++++++++++++++
-Federated Learning Validation With Tamarin Prover
+Federated Learning
 +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Federated Learning Validation With Tamarin Prover
+===================================================
 Using Tamarin Prover [1]_ to validate the security of the Federated Learning Protocol design before beginning the implementation of Federated Learning helps in identifying potential vulnerabilities, security and privacy issues, and potential design flaws.
 
 Please follow `the instructions <https://tamarin-prover.github.io/manual/master/book/002_installation.html>`__ in the Tamarin Prover manual to install the tool. The following is the procedure to validate the Federated Learning protocol design with Tamarin Prover.
