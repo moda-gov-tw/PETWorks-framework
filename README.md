@@ -45,13 +45,15 @@ pip install -r requirement.txt
     - De-identification for l-diversity
     - De-identification for t-closeness
 - [Differential Privacy](docs/source/differential_privacy.rst)
-    - Using Man-in-the-Middle Attack to examine whether data employs differential privacy.
+    - Man-in-the-Middle Attack
 - [Federated Learning](docs/source/federated_learning.rst)
-    - Using Tamarin to verify the security of federated machine learning architectures.
+    - Federated Learning Validation With Tamarin Prover
 - [Homomorphic Encryption](docs/source/homomorphic_encryption.rst)
-    - Inspecting whether the implementation of homomorphic encryption complies with standards.
+    - Testing Method for Homomorphic Encryption Technology
 - [Synthetic Data](docs/source/syntehtic_data.rst)
-    - Quantifying three different types of privacy risks in synthetic data.
+    - Singling Out Attack
+    - Inference Attack
+    - Linkalility Attack
 
 
 
