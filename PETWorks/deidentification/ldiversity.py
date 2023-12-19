@@ -10,7 +10,6 @@ from PETWorks.deidentification.arx import (
     loadDataHierarchy,
     setDataHierarchies,
 )
-from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
 
 
 def measureLDiversity(
@@ -22,16 +21,16 @@ def measureLDiversity(
     lValues = []
 
     for attribute, value in attributeTypes.items():
-        if value == QUASI_IDENTIFIER:
+        if value == "quasi_identifier":
             qis.append(attribute)
-        if value == SENSITIVE_ATTRIBUTE:
+        if value == "sensitive_attribute":
             sensitiveAttributes.append(attribute)
 
     for index in range(len(sensitiveAttributes)):
         columns = (
             qis
             + sensitiveAttributes[:index]
-            + sensitiveAttributes[index + 1:]
+            + sensitiveAttributes[index + 1 :]
         )
         groups = anonymizedData.groupby(columns)
 
@@ -45,7 +44,9 @@ def validateLDiversity(lValues: list[int], lLimit: int) -> bool:
     return all(value >= lLimit for value in lValues)
 
 
-def PETValidation(original, anonymized, _, attributeTypes, l):
+def PETValidation(
+    original, anonymized, _, l, dataHierarchy=None, attributeTypes={}
+):
     anonymizedDataFrame = pd.read_csv(anonymized, sep=";")
 
     lValues = measureLDiversity(anonymizedDataFrame, attributeTypes)
@@ -56,10 +57,10 @@ def PETValidation(original, anonymized, _, attributeTypes, l):
 
 def PETAnonymization(
     originalData: str,
-    dataHierarchy: str,
-    attributeTypes: Dict[str, str],
     maxSuppressionRate: float,
     l: int,
+    dataHierarchy: str = None,
+    attributeTypes: Dict[str, str] = {},
 ) -> pd.DataFrame:
     javaApi = JavaApi()
     originalData = loadDataFromCsv(
@@ -76,7 +77,7 @@ def PETAnonymization(
 
     privacyModels = []
     for attributeName, attributeType in attributeTypes.items():
-        if attributeType == SENSITIVE_ATTRIBUTE:
+        if attributeType == "sensitive_attribute":
             privacyModels.append(javaApi.DistinctLDiversity(attributeName, l))
 
     anonymizedResult = anonymizeData(

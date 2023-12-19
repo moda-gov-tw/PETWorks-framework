@@ -4,10 +4,6 @@ import pandas as pd
 import pytest
 
 import PETWorks.deidentification.autotune.autotune as at
-from PETWorks.deidentification.attributetypes import (
-    QUASI_IDENTIFIER,
-    SENSITIVE_ATTRIBUTE,
-)
 
 TestSet = namedtuple(
     "TestSet", ["originalData", "dataHierarchy", "attributeTypes"]
@@ -17,18 +13,18 @@ TestSet = namedtuple(
 @pytest.fixture(scope="module")
 def simpleTestSet():
     return TestSet(
-        originalData="data/adult10.csv",
-        dataHierarchy="data/adult_hierarchy",
+        originalData="datasets/adult/adult10.csv",
+        dataHierarchy="datasets/adult/adult_hierarchy",
         attributeTypes={
-            "sex": QUASI_IDENTIFIER,
-            "age": QUASI_IDENTIFIER,
-            "race": QUASI_IDENTIFIER,
-            "marital-status": QUASI_IDENTIFIER,
-            "education": QUASI_IDENTIFIER,
-            "native-country": QUASI_IDENTIFIER,
-            "workclass": SENSITIVE_ATTRIBUTE,
-            "occupation": SENSITIVE_ATTRIBUTE,
-            "salary-class": SENSITIVE_ATTRIBUTE,
+            "sex": "quasi_identifier",
+            "age": "quasi_identifier",
+            "race": "quasi_identifier",
+            "marital-status": "quasi_identifier",
+            "education": "quasi_identifier",
+            "native-country": "quasi_identifier",
+            "workclass": "sensitive_attribute",
+            "occupation": "sensitive_attribute",
+            "salary-class": "sensitive_attribute",
         },
     )
 

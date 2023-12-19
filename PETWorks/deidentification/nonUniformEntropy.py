@@ -12,7 +12,9 @@ def _measureNonUniformEntropy(original: Data, anonymized: Data) -> float:
     return UtilityMetrics.evaluate(original, anonymized).nonUniformEntropy
 
 
-def PETValidation(original, anonymized, _, dataHierarchy, attributeTypes):
+def PETValidation(
+    original, anonymized, _, dataHierarchy=None, attributeTypes={}
+):
     javaApi = JavaApi()
 
     dataHierarchy = loadDataHierarchy(

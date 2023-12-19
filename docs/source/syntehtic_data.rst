@@ -6,9 +6,9 @@ Synthetic Data
 Singling Out Attack
 ======================
 
-We employ three datasets: ``data/adults_syn_ctgan.csv`` as the synthetic data, ``data/adults_train.csv`` as the original training data, and ``data/adults_control.csv`` as control dataset. This setup is intended to demonstrate the assessment of the singling out attack risk.
+We employ three datasets: ``datasets/adult/adults_syn_ctgan.csv`` as the synthetic data, ``datasets/adult/adults_train.csv`` as the original training data, and ``datasets/adult/adults_control.csv`` as control dataset. This setup is intended to demonstrate the assessment of the singling out attack risk.
 
-In this code, we utilize the PETWorks API ``PETValidation(synthetic, original, "SinglingOutRisk", control=control)`` with the synthetic data, original training data, and control data as parameters.
+In this code, we utilize the PETWorks API ``PETValidation(synthetic, original, "SinglingOutRisk", control)`` with the synthetic data, original training data, and control data as parameters.
 
 Following the risk assessment, we apply the ``report(result, "json")`` function, passing the evaluation result and the format parameter "json". This function will output the evaluation result in JSON format, providing the success rate of the singling out attack.
 
@@ -19,9 +19,9 @@ Example: singlingOutRisk.py
 
     from PETWorks import PETValidation, report
 
-    synthetic = "data/adults_syn_ctgan.csv"
-    original = "data/adults_train.csv"
-    control = "data/adults_control.csv"
+    synthetic = "datasets/adult/adults_syn_ctgan.csv"
+    original = "datasets/adult/adults_train.csv"
+    control = "datasets/adult/adults_control.csv"
 
     result = PETValidation(synthetic, original, "SinglingOutRisk", control=control)
     report(result, "json")
@@ -45,9 +45,9 @@ Execution Result
 Inference Attack
 ====================
 
-We employ three datasets: ``data/adults_syn_ctgan.csv`` as the synthetic data, ``data/adults_train.csv`` as the original training data, and ``data/adults_control.csv`` as control dataset. This setup is intended to demonstrate the assessment of the inference attack risk.
+We employ three datasets: ``datasets/adult/adults_syn_ctgan.csv`` as the synthetic data, ``datasets/adult/adults_train.csv`` as the original training data, and ``datasets/adult/adults_control.csv`` as control dataset. This setup is intended to demonstrate the assessment of the inference attack risk.
 
-In this code, we utilize the PETWorks API ``PETValidation(synthetic, original, "InferenceRisk", control=control)`` with the synthetic data, original training data, and control data as parameters.
+In this code, we utilize the PETWorks API ``PETValidation(synthetic, original, "InferenceRisk", control)`` with the synthetic data, original training data, and control data as parameters.
 
 Following the risk assessment, we apply the ``report(result, "json")`` function, passing the evaluation result and the format parameter "json". This function will output the evaluation result in JSON format, providing the success rate of the inference attack.
 
@@ -58,9 +58,9 @@ Example: inferenceRisk.py
 
     from PETWorks import PETValidation, report
 
-    synthetic = "data/adults_syn_ctgan.csv"
-    original = "data/adults_train.csv"
-    control = "data/adults_control.csv"
+    synthetic = "datasets/adult/adults_syn_ctgan.csv"
+    original = "datasets/adult/adults_train.csv"
+    control = "datasets/adult/adults_control.csv"
 
     result = PETValidation(synthetic, original, "InferenceRisk", control=control)
     report(result, "json")
@@ -97,9 +97,9 @@ Linkalility Attack
 
 This code evaluates the risk of linkability attacks on data using the PETWorks-framework.
 
-For the evaluation, three datasets are utilized: ``data/adults_syn_ctgan.csv`` as the synthetic data, ``data/adults_train.csv`` as the original training data, and ``data/adults_control.csv`` as control data. Additionally, specific auxiliary columns are identified, including combinations like ["type_employer", "fnlwgt"] and ["age"], to enhance the accuracy of the linkability risk assessment.
+For the evaluation, three datasets are utilized: ``datasets/adult/adults_syn_ctgan.csv`` as the synthetic data, ``datasets/adult/adults_train.csv`` as the original training data, and ``datasets/adult/adults_control.csv`` as control data. Additionally, specific auxiliary columns are identified, including combinations like ["type_employer", "fnlwgt"] and ["age"], to enhance the accuracy of the linkability risk assessment.
 
-In this code, the PETWorks API ``PETValidation(synthetic, original, "LinkabilityRisk", control=control, auxiliaryColumns=auxiliaryColumns)`` is used. It takes the synthetic data, original training data, control data, and auxiliary columns as parameters. This API is tailored to assess the risk of linkability attacks, considering the specified auxiliary information.
+In this code, the PETWorks API ``PETValidation(synthetic, original, "LinkabilityRisk", control=control, auxiliaryColumns)`` is used. It takes the synthetic data, original training data, control data, and auxiliary columns as parameters. This API is tailored to assess the risk of linkability attacks, considering the specified auxiliary information.
 
 After the linkability risk evaluation, the report(result, "json") function is utilized. This function, taking the evaluation result and the format parameter "json", outputs the assessment findings. The results are presented in JSON format, providing the success rate of the linkability attack.
 

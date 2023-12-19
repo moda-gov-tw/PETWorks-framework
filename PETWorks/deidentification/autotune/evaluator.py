@@ -16,8 +16,6 @@ from PETWorks.deidentification.arx import (
     setDataHierarchies,
     getAttributeNameByType,
 )
-from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER, SENSITIVE_ATTRIBUTE
-
 
 import pandas as pd
 
@@ -28,7 +26,9 @@ from PETWorks.deidentification.tcloseness import (
     measureTCloseness,
 )
 from PETWorks.deidentification.ldiversity import measureLDiversity
-from PETWorks.deidentification.profitability import _measureProfitabilityPayoffNoAttack
+from PETWorks.deidentification.profitability import (
+    _measureProfitabilityPayoffNoAttack,
+)
 
 from py4j.java_gateway import Py4JJavaError
 
@@ -54,7 +54,7 @@ class Metrics:
         qiNames = [
             attributeName
             for attributeName, attributeType in attributeTypes.items()
-            if attributeType == QUASI_IDENTIFIER
+            if attributeType == "quasi_identifier"
         ]
         qiIndices = [
             originalData.columns.get_loc(qiName) for qiName in qiNames
@@ -100,10 +100,10 @@ class Metrics:
         anonymizedDataFrame = getDataFrame(anonymizedData)
 
         sensitiveAttributes = getAttributeNameByType(
-            attributeTypes, SENSITIVE_ATTRIBUTE
+            attributeTypes, "sensitive_attribute"
         )
         qiNames = list(
-            getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER)
+            getAttributeNameByType(attributeTypes, "quasi_identifier")
         )
 
         d = Metrics.__evaluateDPresence(
@@ -161,7 +161,9 @@ def __filterWithKAnonymity(args: Tuple):
         pathToHierarchy, __javaApi.StandardCharsets.UTF_8, ";", __javaApi
     )
 
-    attributeTypes = {key: QUASI_IDENTIFIER for key, _ in hierarchies.items()}
+    attributeTypes = {
+        key: "quasi_identifier" for key, _ in hierarchies.items()
+    }
 
     setDataHierarchies(originalData, hierarchies, attributeTypes, __javaApi)
 

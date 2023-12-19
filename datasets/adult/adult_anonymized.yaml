@@ -1,0 +1,14 @@
+DATASET:
+  ATTRIBUTE_TYPE:
+    QUASI_IDENTIFIER:
+      - "age"
+      - "education"
+      - "marital-status"
+      - "native-country"
+      - "occupation"
+      - "race"
+      - "salary-class"
+      - "sex"
+    SENSITIVE_ATTRIBUTE:
+      - "workclass"
+  HIERARCHY: "adult_hierarchy"

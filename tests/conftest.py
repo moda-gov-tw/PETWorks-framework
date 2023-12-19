@@ -1,22 +1,18 @@
-from PETWorks.deidentification.attributetypes import (
-    IDENTIFIER,
-    QUASI_IDENTIFIER,
-    INSENSITIVE_ATTRIBUTE,
-    SENSITIVE_ATTRIBUTE,
-)
 from typing import Dict
 import pytest
 
+from PETWorks.deidentification.config import Config
+
 DATASET_PATHS = [
     {
-        "originalData": "data/adult.csv",
-        "anonymizedData": "data/adult_anonymized.csv",
-        "dataHierarchy": "data/adult_hierarchy",
+        "originalData": "datasets/adult/adult.csv",
+        "anonymizedData": "datasets/adult/adult_anonymized.csv",
+        "dataHierarchy": "datasets/adult/adult_hierarchy",
     },
     {
-        "originalData": "data/delta.csv",
-        "anonymizedData": "data/delta_anonymized.csv",
-        "dataHierarchy": "data/delta_hierarchy",
+        "originalData": "datasets/delta/delta.csv",
+        "anonymizedData": "datasets/delta/delta_anonymized.csv",
+        "dataHierarchy": "datasets/delta/delta_hierarchy",
     },
 ]
 
@@ -34,15 +30,15 @@ def DATASET_PATH_DELTA():
 @pytest.fixture(scope="session")
 def attributeTypesForAdult() -> Dict[str, str]:
     attributeTypes = {
-        "age": IDENTIFIER,
-        "education": IDENTIFIER,
-        "marital-status": QUASI_IDENTIFIER,
-        "native-country": QUASI_IDENTIFIER,
-        "occupation": QUASI_IDENTIFIER,
-        "race": INSENSITIVE_ATTRIBUTE,
-        "salary-class": INSENSITIVE_ATTRIBUTE,
-        "sex": SENSITIVE_ATTRIBUTE,
-        "workclass": SENSITIVE_ATTRIBUTE,
+        "age": "identifier",
+        "education": "identifier",
+        "marital-status": "quasi_identifier",
+        "native-country": "quasi_identifier",
+        "occupation": "quasi_identifier",
+        "race": "insensitive_attribute",
+        "salary-class": "insensitive_attribute",
+        "sex": "sensitive_attribute",
+        "workclass": "sensitive_attribute",
     }
     return attributeTypes
 
@@ -50,14 +46,14 @@ def attributeTypesForAdult() -> Dict[str, str]:
 @pytest.fixture(scope="session")
 def attributeTypesForAdultAllQi() -> Dict[str, str]:
     attributeTypes = {
-        "age": QUASI_IDENTIFIER,
-        "education": QUASI_IDENTIFIER,
-        "marital-status": QUASI_IDENTIFIER,
-        "native-country": QUASI_IDENTIFIER,
-        "occupation": QUASI_IDENTIFIER,
-        "race": QUASI_IDENTIFIER,
-        "salary-class": QUASI_IDENTIFIER,
-        "sex": QUASI_IDENTIFIER,
-        "workclass": QUASI_IDENTIFIER,
+        "age": "quasi_identifier",
+        "education": "quasi_identifier",
+        "marital-status": "quasi_identifier",
+        "native-country": "quasi_identifier",
+        "occupation": "quasi_identifier",
+        "race": "quasi_identifier",
+        "salary-class": "quasi_identifier",
+        "sex": "quasi_identifier",
+        "workclass": "quasi_identifier",
     }
     return attributeTypes

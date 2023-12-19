@@ -59,9 +59,7 @@ pip install -r requirement.txt
 
 ## Showcase
 
-### Federated Learning
-
-#### Validate Data With the Image Similarity
+### Validate the Federated Learning Enhanced Image
 
 ```python
 from PETWorks import dataProcess, PETValidation, report
@@ -71,11 +69,11 @@ model = "datasets/net.pth"
 originalData = "datasets/original_image.png"
 
 recoveredData = dataProcess(model, gradient, "FL", "recover")
-result = PETValidation(recoveredData, originalData, "ImageSimilarity")
+result = PETValidation(recoveredData, originalData, "FL")
 report(result, "web")
 ```                     
 
-#### Web Report
+### Web Report
 
 Here is the showcase of the web report.
 

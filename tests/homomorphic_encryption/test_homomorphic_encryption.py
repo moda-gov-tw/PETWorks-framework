@@ -7,7 +7,7 @@ from PETWorks.homomorphic_encryption import (
 )
 
 
-def test_generateKey():
+def testGenerateKey():
     library = "phe"
     keySize = 128
 
@@ -17,7 +17,7 @@ def test_generateKey():
     assert set(privateKey.keys()) == {"p", "q"}
 
 
-def test_encrypt():
+def testEncrypt():
     library = "phe"
     keySize = 128
     publicKey = 240537853022521961474293276399056393697
@@ -29,7 +29,7 @@ def test_encrypt():
     assert encryptedValue != value
 
 
-def test_decrypt():
+def testDecrypt():
     library = "phe"
     keySize = 128
     publicKey = 240537853022521961474293276399056393697

@@ -1,7 +1,7 @@
 import PETWorks.homomorphic_encryption.Binary as Binary
 
 
-def test_findExternalFunctions():
+def testFindExternalFunctions():
     executable = "tests/homomorphic_encryption/helloWorld"
 
     externalFunctions = Binary.listExternalFunction(executable)

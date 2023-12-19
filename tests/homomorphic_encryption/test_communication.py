@@ -5,7 +5,7 @@ from scapy.all import rdpcap
 
 
 @patch("scapy.all.sniff")
-def test_capturePackets(mock_sniff):
+def testCapturePackets(mock_sniff):
     mock_sniff.return_value = ["TCP", "UDP", "TLS"]
 
     Communication.capturePackets(timeout=5, interface="test interface")

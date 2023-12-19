@@ -12,7 +12,9 @@ def _measurePrecision(original: Data, anonymized: Data) -> float:
     return UtilityMetrics.evaluate(original, anonymized).precision
 
 
-def PETValidation(original, anonymized, _, dataHierarchy, attributeTypes):
+def PETValidation(
+    original, anonymized, _, dataHierarchy=None, attributeTypes={}
+):
     javaApi = JavaApi()
 
     dataHierarchy = loadDataHierarchy(

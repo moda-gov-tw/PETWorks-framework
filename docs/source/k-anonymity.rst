@@ -7,9 +7,9 @@ Average Equivalence Class Size
 
 The following code snippet evaluate the average equivalence class size [1]_.
 
-We use ``data/adult.csv`` as the original data and ``data/adult_anonymized.csv`` as the anonymized data to demonstrate how to evaluate this indicator through PETWorks-framework.
+We use ``data/adult/adult.csv`` as the original data, ``data/adult/adult_anonymized.csv`` as the anonymized data, and the attribute type definitions in ``data/adult/adult.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETValidation(original, anonymized, tech)`` with the data and the string “AECS” as parameters to evaluate the ambiguity.
+In the following code snippet, we use the API ``PETValidation(original, anonymized, "AECS")`` with the data and the string “AECS” as parameters to evaluate the ambiguity.
 
 Then, we use the API ``report(result, format)`` with the evaluation result and the string "json" as parameters to print the evaluation result in JSON format.
 
@@ -20,12 +20,10 @@ Example: aecs.py
 
     from PETWorks import PETValidation, report
 
-    originalData = "data/adult.csv"
-    anonymizedData = "data/adult_anonymized.csv"
+    originalData = "datasets/adult/adult.csv"
+    anonymizedData = "datasets/adult/adult_anonymized.csv"
 
-    result = PETValidation(
-        originalData, anonymizedData, "AECS"
-        )
+    result = PETValidation(originalData, anonymizedData, "AECS")
     report(result, "json")
 
 
@@ -39,21 +37,14 @@ Execution Result
         "AECS": 0.9992930131052006
     }
 
-
-Reference
------------
-
-.. [1] K. LeFevre, D. J. DeWitt and R. Ramakrishnan, "Mondrian Multidimensional K-Anonymity," 22nd International Conference on Data Engineering (ICDE'06), Atlanta, GA, USA, 2006, pp. 25-25, doi: 10.1109/ICDE.2006.101. 
-
-
 Ambiguity
 ==============
 
 The following code snippet evaluate the ambiguity of the data [2]_ .
 
-We use ``data/adult.csv`` as the original data, ``data/adult_anonymized.csv`` as the anonymized data, and ``data/adult_hierarchy`` as the data hierarchy to demonstrate how to evaluate this indicator through PETWorks-framework.
+We use ``data/adult/adult.csv`` as the original data, ``data/adult/adult_anonymized.csv`` as the anonymized data, and the data hierarchy, ``data/adult/adult_hierarchy``, defined in ``data/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETValidation(original, anonymized, tech, dataHierarchy)`` with the data and the string "Ambiguity" as parameters to evaluate the ambiguity.
+In the following code snippet, we use the API ``PETValidation(original, anonymized, "Ambiguity")`` with the data and the string "Ambiguity" as parameters to evaluate the ambiguity.
 
 Then, we use the API ``report(result, format)`` with the evaluation result and the string "json" as parameters to print the evaluation result in JSON format.
 
@@ -64,13 +55,10 @@ Example: ambiguity.py
 
     from PETWorks import PETValidation, report
 
-    originalData = "data/adult.csv"
-    anonymizedData = "data/adult_anonymized.csv"
-    dataHierarchy = "data/adult_hierarchy"
+    originalData = "datasets/adult/adult.csv"
+    anonymizedData = "datasets/adult/adult_anonymized.csv"
 
-    result = PETValidation(
-        originalData, anonymizedData, "Ambiguity", dataHierarchy=dataHierarchy
-    )
+    result = PETValidation(originalData, anonymizedData, "Ambiguity")
     report(result, "json")
 
 
@@ -84,21 +72,14 @@ Execution Result
         "ambiguity": 0.7271401100722763
     }
 
-Reference
------------
-
-.. [2] J. Goldberger and T. Tassa, “Efficient Anonymizations with Enhanced Utility,” in 2009 IEEE International Conference on Data Mining Workshops, Miami, FL, USA, Dec. 2009, pp. 106–113. doi: 10.1109/ICDMW.2009.15.
-
-
-
 d-presence
 ===============
 
 The following code snippet assesses whether the data satisfies :math:`\delta`-presence [3]_。
 
-We use ``data/delta.csv`` as the original data, ``data/delta_anonymized.csv`` as the anonymized data, ``data/delta_hierarchy`` as the data hierarchy, and ``attributeTypes`` as the attribute type definitions to demonstrate how to evaluate this indicator through PETWorks-framework.
+We use ``data/delta/delta.csv`` as the original data, ``data/delta/delta_anonymized.csv`` as the anonymized data, and the data hierarchy, ``data/delta/delta_hierarchy``, and the attribute type definitions in ``data/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETValidation(origin, anonymized, "d-presence", dataHierarchy, attributeTypes, dMin, dMax)`` with the data, the string “d-presence,” and the variables dMin and dMax as parameters to determine whether the data satisfies :math:`\delta`-presence.
+In the following code snippet, we use the API ``PETValidation(origin, anonymized, "d-presence", dMin, dMax)`` with the data, the string “d-presence,” and the variables dMin and dMax as parameters to determine whether the data satisfies :math:`\delta`-presence.
 
 Then, we use the API ``report(result, format)`` with the evaluation result and the string "json" as parameters to print the evaluation result in JSON format.
 
@@ -108,23 +89,13 @@ Example: d-presence.py
 .. code-block:: python
 
     from PETWorks import PETValidation, report
-    from PETWorks.attributetypes import SENSITIVE_ATTRIBUTE, QUASI_IDENTIFIER
 
-
-    origin = "data/delta.csv"
-    anonymized = "data/delta_anonymized.csv"
-    dataHierarchy = "data/delta_hierarchy"
-
-    attributeTypes = {
-        "zip": QUASI_IDENTIFIER,
-        "age": QUASI_IDENTIFIER,
-        "nationality": QUASI_IDENTIFIER,
-        "salary-class": SENSITIVE_ATTRIBUTE
-    }
+    origin = "datasets/delta/delta.csv"
+    anonymized = "datasets/delta/delta_anonymized.csv"
 
     result = PETValidation(
-            origin, anonymized, "d-presence", dataHierarchy=dataHierarchy, attributeTypes=attributeTypes, dMin=1/2, dMax=2/3
-        )
+        origin, anonymized, "d-presence", dMin=1 / 2, dMax=2 / 3
+    )
     report(result, "json")
 
 
@@ -140,20 +111,14 @@ Execution Result
         "d-presence": true
     }
 
-
-Reference
----------
-.. [3] M. E. Nergiz, M. Atzori, and C. Clifton, “Hiding the presence of individuals from shared databases,” Proceedings of the 2007 ACM SIGMOD international conference on Management of data, 2007. 
-
-
 k-anonymity
 ================
 
 The following code snippet assesses whether the data satisfies k-anonymity [4]_。
 
-We use ``data/adult_anonymized.csv`` as the anonymized data and ``attributeTypes`` as the attribute type definitions to demonstrate the evaluation of this indicator through PETWorks-Framework.
+We use ``data/adult/adult_anonymized.csv`` as the anonymized data and the attribute type definitions in ``data/adult/adult_anonymized.yaml`` to demonstrate the evaluation of this metric through PETWorks-Framework.
 
-In the following code snippet, we use the API ``PETValidation(None, anonymized, tech, attributeTypes, k)`` with the data, the string "k-anonymity", and the k value as parameters to determine whether the data satisfies k-anonymity.
+In the following code snippet, we use the API ``PETValidation(None, anonymized, "k-anonymity", k)`` with the data, the string "k-anonymity", and the k value as parameters to determine whether the data satisfies k-anonymity.
 
 Then, we use the API ``report(result, format)`` with the evaluation result and the string "json" as parameters to print the evaluation result in JSON format.
 
@@ -164,18 +129,10 @@ Example: k-anonymity.py
 .. code-block:: python
 
     from PETWorks import PETValidation, report
-    from PETWorks.attributetypes import QUASI_IDENTIFIER
 
-    anonymizedData = "data/adult_anonymized.csv"
+    anonymizedData = "datasets/adult/adult_anonymized.csv"
 
-    attributeTypes = {
-        "age": QUASI_IDENTIFIER,
-        "sex": QUASI_IDENTIFIER,
-    }
-
-    result = PETValidation(
-            None, anonymizedData, "k-anonymity", attributeTypes=attributeTypes, k=6
-    )
+    result = PETValidation(None, anonymizedData, "k-anonymity", k=5)
     report(result, "json")
 
 Execution Result
@@ -185,24 +142,18 @@ Execution Result
 
     $ python3 k-anonymity.py
     {
-        "k": 6,
-        "k-anonymity": true
+        "k": 5,
+        "fulfill k-anonymity": true
     }
-
-Reference
------------
-
-.. [4] L. Sweeney, “K-anonymity: A model for protecting privacy,” International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems, vol. 10, no. 05, pp. 557–570, 2002. 
-
 
 l-diversity
 =============
 
 The following code snippet assesses whether the data satisfies :math:`l`-diversity [5]_.
 
-We use ``data/inpatient_anonymized.csv`` as the anonymized data and ``attributeTypes`` as the attribute type definitions to demonstrate how to evaluate this indicator through PETWorks-framework.
+We use ``data/inpatient/inpatient_anonymized.csv`` as the anonymized data and the attribute type definitions in ``data/inpatient/inpatient_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETValidation(None, anonymized, "l-diversity", attributeTypes, l)`` with the data, the string "l-diversity", and the l value as parameters to determine whether the data satisfies :math:`l`-diversity.
+In the following code snippet, we use the API ``PETValidation(None, anonymized, "l-diversity", l)`` with the data, the string "l-diversity", and the l value as parameters to determine whether the data satisfies :math:`l`-diversity.
 
 Then, we use the API ``report(result, format)`` with the evaluation result and the string "json" as parameters to print the evaluation result in JSON format.
 
@@ -212,20 +163,10 @@ Example: l-diversity.py
 .. code-block:: python
 
     from PETWorks import PETValidation, report
-    from PETWorks.attributetypes import SENSITIVE_ATTRIBUTE, QUASI_IDENTIFIER
 
-    anonymized = "data/inpatient_anonymized.csv"
+    anonymized = "datasets/inpatient/inpatient_anonymized.csv"
 
-    attributeTypes = {
-        "zipcode": QUASI_IDENTIFIER,
-        "age": QUASI_IDENTIFIER,
-        "nationality": QUASI_IDENTIFIER,
-        "condition": SENSITIVE_ATTRIBUTE
-    }
-
-    result = PETValidation(
-        None, anonymized, "l-diversity", attributeTypes=attributeTypes, l=3
-    )
+    result = PETValidation(None, anonymized, "l-diversity", l=3)
     report(result, "json")
 
 Execution Result
@@ -239,19 +180,14 @@ Execution Result
         "fulfill l-diversity": true
     }
 
-Reference
----------
-.. [5] A. Machanavajjhala, J. Gehrke, D. Kifer, and M. Venkitasubramaniam, L-diversity: privacy beyond k-anonymity. 2006. doi: 10.1109/icde.2006.1.
-
-
 Non-Uniform Entropy
 =======================
 
 The following code snippet evaluate the non-uniform entropy [6]_。
 
-We use ``data/adult.csv`` as the original data, ``data/adult_anonymized.csv`` as the anonymized data, and ``data/adult_hierarchy`` as the data hierarchy to demonstrate how to evaluate this indicator through PETWorks-framework.
+We use ``data/adult/adult.csv`` as the original data, ``data/adult/adult_anonymized.csv`` as the anonymized data, and the data hierarchy, ``data/adult/adult_hierarchy``, defined in ``data/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETValidation(original, anonymized, tech, dataHierarchy)`` with the data and the string “Non-Uniform Entropy” as the parameters to evaluate the non-uniform entropy.
+In the following code snippet, we use the API ``PETValidation(original, anonymized, "Non-Uniform Entropy")`` with the data and the string “Non-Uniform Entropy” as the parameters to evaluate the non-uniform entropy.
 
 Then, we use the API ``report(result, format)`` with the evaluation result and the string "json" as parameters to print the evaluation result in JSON format.
 
@@ -262,13 +198,10 @@ Example: nonUniformEntropy.py
 
     from PETWorks import PETValidation, report
 
-    originalData = "data/adult.csv"
-    anonymizedData = "data/adult_anonymized.csv"
-    dataHierarchy = "data/adult_hierarchy"
+    originalData = "datasets/adult/adult.csv"
+    anonymizedData = "datasets/adult/adult_anonymized.csv"
 
-    result = PETValidation(
-        originalData, anonymizedData, "Non-Uniform Entropy", dataHierarchy=dataHierarchy
-    )
+    result = PETValidation(originalData, anonymizedData, "Non-Uniform Entropy")
     report(result, "json")
 
 Execution Result
@@ -278,25 +211,17 @@ Execution Result
 
     $ python nonUniformEntropy.py
     {
-        "Non-Uniform Entropy": 0.6691909578638351
+        "Non-Uniform Entropy": 0.6740002378300514
     }
-
-
-Reference
------------
-
-.. [6] A. Gionis and T. Tassa, “k-Anonymization with Minimal Loss of Information.” IEEE Transactions on Knowledge and Data Engineering, vol. 21, no. 2, pp. 206-219, 2009, doi: 10.1109/tkde.2008.129.
-
-
 
 Precision
 =================
 
 The following code snippet evaluate the precision [7]_.
 
-We use ``data/adult.csv`` as the original data, ``data/adult_anonymized.csv`` as the anonymized data, and ``data/adult_hierarchy`` as the data hierarchy to demonstrate how to evaluate this indicator through PETWorks-framework.
+We use ``data/adult/adult.csv`` as the original data, ``data/adult/adult_anonymized.csv`` as the anonymized data, and the data hierarchy, ``data/adult/adult_hierarchy``, defined in ``data/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETValidation(original, anonymized, tech, dataHierarchy)`` with the data and the string “Precision” as the parameters to evaluate the precision.
+In the following code snippet, we use the API ``PETValidation(original, anonymized, "Precision")`` with the data and the string “Precision” as the parameters to evaluate the precision.
 
 Then, we use the API ``report(result, format)`` with the evaluation result and the string "json" as parameters to print the evaluation result in JSON format.
 
@@ -307,13 +232,10 @@ Example: precision.py
 
     from PETWorks import PETValidation, report
 
-    originalData = "data/adult.csv"
-    anonymizedData = "data/adult_anonymized.csv"
-    dataHierarchy = "data/adult_hierarchy"
+    originalData = "datasets/adult/adult.csv"
+    anonymizedData = "datasets/adult/adult_anonymized.csv"
 
-    result = PETValidation(
-        originalData, anonymizedData, "Precision", dataHierarchy=dataHierarchy
-    )
+    result = PETValidation(originalData, anonymizedData, "Precision")
     report(result, "json")
 
 Execution Result
@@ -326,21 +248,14 @@ Execution Result
         "precision": 0.7271401100722763
     }
 
-Reference
------------
-
-.. [7] L. SWEENEY, “ACHIEVING k-ANONYMITY PRIVACY PROTECTION USING GENERALIZATION AND SUPPRESSION.” International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems, vol. 10, no. 5, pp. 571-588, 2002, doi: 10.1142/s021848850200165x.
-
-
-
 Profitability
 ==================
 
 The following code snippet assesses whether the data satisfies profitability [8]_.
 
-We use ``data/delta.csv`` as the original data, ``data/delta_anonymized.csv`` as the anonymized data, ``data/delta_hierarchy`` as the data hierarchy, and ``attributeTypes`` as the attribute type definitions to demonstrate how to evaluate this indicator through PETWorks-framework.
+We use ``data/delta/delta.csv`` as the original data, ``data/delta/delta_anonymized.csv`` as the anonymized data, and the data hierarchy, ``data/delta/delta_hierarchy``, and the attribute type definitions in ``data/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETValidation(origin, anonymized, "profitability", dataHierarchy, attributeTypes, allowAttack, adversaryCost, adversaryGain, publisherLost, publisherBenefit)`` with the data, the string “profitability", the variables allowAttack, adversaryCost, adversaryGain, publisherLost, and publisherBenefit as the parameters to determine whether the data satisfies profitability.
+In the following code snippet, we use the API ``PETValidation(origin, anonymized, "profitability", allowAttack, adversaryCost, adversaryGain, publisherLost, publisherBenefit)`` with the data, the string “profitability", the variables allowAttack, adversaryCost, adversaryGain, publisherLost, and publisherBenefit as the parameters to determine whether the data satisfies profitability.
 
 Then, we use the API ``report(result, format)`` with the evaluation result and the string "json" as parameters to print the evaluation result in JSON format.
 
@@ -350,30 +265,19 @@ Example: profitability.py
 .. code-block:: python
 
     from PETWorks import PETValidation, report
-    from PETWorks.attributetypes import QUASI_IDENTIFIER, INSENSITIVE_ATTRIBUTE
 
-    origin = "data/delta.csv"
-    anonymized = "data/delta_anonymized.csv"
-    dataHierarchy = "data/delta_hierarchy"
-
-    attributeTypes = {
-        "zip": QUASI_IDENTIFIER,
-        "age": QUASI_IDENTIFIER,
-        "nationality": QUASI_IDENTIFIER,
-        "salary-class": INSENSITIVE_ATTRIBUTE
-    }
+    origin = "datasets/delta/delta.csv"
+    anonymized = "datasets/delta/delta_anonymized.csv"
 
     result = PETValidation(
         origin,
         anonymized,
         "profitability",
-        dataHierarchy=dataHierarchy,
-        attributeTypes=attributeTypes,
         allowAttack=True,
         adversaryCost=4,
         adversaryGain=300,
         publisherLost=300,
-        publisherBenefit=1200
+        publisherBenefit=1200,
     )
     report(result, "json")
 
@@ -390,23 +294,17 @@ Execution Result
         "adversary's gain": 300,
         "publisher's loss": 300,
         "publisher's benefit": 1200,
-        "profitability": true
+        "isProfitable": true
     }
-
-Reference
------------
-.. [8] Z. Wan et al., “A Game Theoretic Framework for Analyzing Re-Identification Risk,” PLOS ONE, vol. 10, no. 3, p. e0120592, Mar. 2015, doi: 10.1371/journal.pone.0120592.
-
-
 
 t-closeness
 ================
 
 The following code snippet assesses whether the data satisfies t-closeness [9]_。
 
-We use ``data/patient_anonymized.csv`` as the anonymized data, ``data/patient_hierarchy`` as the data hierarchy, and ``attributeTypes`` as the attribute type definitions to demonstrate how to evaluate this indicator through PETWorks-framework.
+We use ``data/patient/patient_anonymized.csv`` as the anonymized data, the data hierarchy, ``data/patient/patient_hierarchy``, and the attribute type definitions in ``data/patient/patient_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETValidation(None, anonymized, "t-closeness", dataHierarchy, attributeTypes, tLimit)`` with the data, the string “t-closeness,” and the variables tLimit as parameters to determine whether the data satisfies t-closeness.
+In the following code snippet, we use the API ``PETValidation(None, anonymized, "t-closeness", tLimit)`` with the data, the string “t-closeness,” and the variables tLimit as parameters to determine whether the data satisfies t-closeness.
 
 Then, we use the API ``report(result, format)`` with the evaluation result and the string "json" as parameters to print the evaluation result in JSON format.
 
@@ -415,27 +313,14 @@ Example: t-closeness.py
 
 .. code-block:: python
 
-   from PETWorks import PETValidation, report
-    from PETWorks.attributetypes import (
-        SENSITIVE_ATTRIBUTE,
-        QUASI_IDENTIFIER,
-    )
+    from PETWorks import PETValidation, report
 
-    anonymized = "data/patient_anonymized.csv"
-    dataHierarchy = "data/patient_hierarchy"
-
-    attributeTypes = {
-        "ZIPCode": QUASI_IDENTIFIER,
-        "Age": QUASI_IDENTIFIER,
-        "Disease": SENSITIVE_ATTRIBUTE,
-    }
+    anonymized = "datasets/patient/patient_anonymized.csv"
 
     result = PETValidation(
         None,
         anonymized,
         "t-closeness",
-        dataHierarchy=dataHierarchy,
-        attributeTypes=attributeTypes,
         tLimit=0.376,
     )
     report(result, "json")
@@ -452,18 +337,12 @@ Execution Result
         "fulfill t-closeness": true
     }
 
-Reference
------------
-.. [9] N. Li, T. Li and S. Venkatasubramanian, “t-Closeness: Privacy Beyond k-Anonymity and l-Diversity,” 2007 IEEE 23rd International Conference on Data Engineering, Istanbul, Turkey, 2007, pp. 106-115, doi: 10.1109/ICDE.2007.367856.
-
-
-
 Utility Bias
 ================
 
 The following code snippet assesses whether the data satisfies the utility bias.
 
-We use ``data/presence.csv`` as the original data and ``data/presence_anonymized2.csv`` as the anonymized data to demonstrate how to evaluate this indicator through PETWorks-framework.
+We use ``data/presence.csv`` as the original data and ``data/presence_anonymized2.csv`` as the anonymized data to demonstrate how to evaluate this metric through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETValidation(origin, anonymized, "UtilityBias", processingFunc, maxBias)`` with the original data, the anonymized data, the string "UtilityBias," the processing function, and the maximal acceptable bias to determine whether the data satisfies the utility bias.
 
@@ -477,8 +356,8 @@ Example: utilityBias.py
     from PETWorks import PETValidation, report
     import pandas as pd
 
-    origin = "data/presence.csv"
-    anonymized = "data/presence_anonymized2.csv"
+    origin = "datasets/presence/presence.csv"
+    anonymized = "datasets/presence/presence_anonymized2.csv"
 
 
     def averageAge(source):
@@ -506,11 +385,11 @@ Execution Result
 De-identification for d-presence
 ====================================
 
-The following code snippet de-identify the data to satisfy :math:`\delta`-presence [10]_.
+The following code snippet de-identify the data to satisfy :math:`\delta`-presence [3]_.
 
-We use ``data/adult.csv`` as the original data, ``data/adult_hierarchy`` as the data hierarchy, and ``attributeTypes`` as the attribute type definitions, and ``data/adult10.csv`` as the subset to demonstrate how to perform de-identification through PETWorks-framework.
+We use ``data/adult/adult.csv`` as the original data, ``data/adult/adult10.csv`` as the subset, and the data hierarchy, ``data/adult/adult_hierarchy``, and the attribute type definitions in ``data/adult/adult.yaml`` to demonstrate how to perform de-identification through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETAnonymization(originalData, tech, dataHierarchy, attributeTypes, maxSuppressionRate, dMin, dMax, subsetData)`` with the data, the string “d-presence", the attribute type definitions, the maximal suppression rate, the target dMin and dMax, and the subset ``subsetData`` as the parameters to perform de-identification for d-presence.
+In the following code snippet, we use the API ``PETAnonymization(originalData, "d-presence", maxSuppressionRate, dMin, dMax, subsetData)`` with the data, the string “d-presence", the maximal suppression rate, the target dMin and dMax, and the subset ``subsetData`` as the parameters to perform de-identification for d-presence.
 
 Then, we use the API ``report(result, path)`` with the result and the string "path" as parameters to write the result to the path.
 
@@ -520,36 +399,25 @@ Example: d-presence.py
 .. code-block:: python
                                                                                                   
   from PETWorks import PETAnonymization, output
-  from PETWorks.attributetypes import *
-  
-  originalData = "data/adult.csv"
-  dataHierarchy = "data/adult_hierarchy"
-  subsetData = "data/adult10.csv"
-  
-  attributeTypes = {
-      "sex": QUASI_IDENTIFIER,
-      "age": QUASI_IDENTIFIER,
-      "workclass": SENSITIVE_ATTRIBUTE,
-  }
-  
+
+  originalData = "datasets/adult/adult.csv"
+  subsetData = "datasets/adult/adult10.csv"
+
   result = PETAnonymization(
       originalData,
       "d-presence",
-      dataHierarchy,
-      attributeTypes,
       maxSuppressionRate=0.6,
       dMin=0.0,
       dMax=0.7,
       subsetData=subsetData,
   )
-  
+
   output(result, "output.csv")
 
 Execution Result
 ---------------------------
 
-
-上述程式碼將輸出滿足 dMin = 0.0 與 dMax = 0.7 之 :math:`\delta`-存在性去識別化結果至 `output.csv`。檔案內容節錄如下：
+The above code snippet will output a de-identification result satisfying :math:`\delta`-presence with d in the range of 0.0 and 0.7 to ``output.csv``. The excerpt of the file content is as follows:
 
 +--------+-----+------+----------------+-----------+----------------+------------------+------------+--------------+
 | sex    | age | race | marital-status | education | native-country | workclass        | occupation | salary-class |
@@ -583,7 +451,7 @@ Execution Result
 | ...    | ... | ...  | ...            | ...       | ...            | ...              | ...        | ...          |
 +--------+-----+------+----------------+-----------+----------------+------------------+------------+--------------+
 
-以本專案開發之 `δ-匿名性再識別化工具 <https://petworks-doc.readthedocs.io/en/latest/dpresence.html>`_ 進行檢測，可確認去識別化結果已滿足 :math:`\delta_{\min}` = 0.0 與 :math:`\delta_{\max}` = 0.7 之 :math:`\delta`-存在性。
+Use `the validation API <https://petworks-doc.readthedocs.io/en/latest/dpresence.html>`__ to verify the result satisfies :math:`\delta`-presence with d in the range of 0.0 and 0.7.
 
 .. code-block:: json
                                                                                                   
@@ -593,20 +461,14 @@ Execution Result
       "d-presence": true
   }
 
-Reference
----------
-.. [10] M. E. Nergiz, M. Atzori, and C. Clifton, “Hiding the presence of individuals from shared databases,” Proceedings of the 2007 ACM SIGMOD international conference on Management of data, 2007. 
-
-
-
 De-identification for k-anonymity
 =======================================
 
-The following code snippet de-identify the data to satisfy k-anonymity [11]_.
+The following code snippet de-identify the data to satisfy k-anonymity [4]_.
 
-We use ``data/adult.csv`` as the original data, ``data/adult_hierarchy`` as the data hierarchy, and ``attributeTypes`` as the attribute type definitions to demonstrate how to perform de-identification through PETWorks-framework.
+We use ``data/adult/adult.csv`` as the original data, the data hierarchy, ``data/adult/adult_hierarchy``, and the attribute type definitions in ``data/adult/adult.yaml`` to demonstrate how to perform de-identification through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETAnonymization(originalData, tech, dataHierarchy, attributeTypes, maxSuppressionRate, k)`` with the data, the string “k-anonymity”, the attribute type definitions, the maximal suppression rate, and the target k value as the parameters to perform de-identification for k-anonymity.
+In the following code snippet, we use the API ``PETAnonymization(originalData, "k-anonymity", maxSuppressionRate, k)`` with the data, the string “k-anonymity”, the maximal suppression rate, and the target k value as the parameters to perform de-identification for k-anonymity.
 
 Then, we use the API ``report(result, path)`` with the result and the string "path" as parameters to write the result to the path.
 
@@ -617,36 +479,22 @@ Example: k-anonymization.py
 .. code-block:: python
                                                            
   from PETWorks import PETAnonymization, output
-  from PETWorks.attributetypes import *
-  
-  originalData = "data/adult.csv"
-  dataHierarchy = "data/adult_hierarchy"
-  
-  attributeTypes = {
-      "sex": QUASI_IDENTIFIER,
-      "age": QUASI_IDENTIFIER,
-      "workclass": QUASI_IDENTIFIER,
-  }
-  
+
+  originalData = "datasets/adult/adult.csv"
+
   result = PETAnonymization(
       originalData,
       "k-anonymity",
-      dataHierarchy,
-      attributeTypes,
       maxSuppressionRate=0.6,
       k=6,
   )
-  
+
   output(result, "output.csv")
-
-
-
 
 Execution Result
 ---------------------------
 
-上述程式碼將輸出滿足 k = 6 之 k-匿名性去識別化結果至 `output.csv`。檔案內容節錄如下：
-
+The above code snippet will output a de-identification result satisfying k-anonymity with k = 6 to ``output.csv``. The excerpt of the file content is as follows:
 
 +--------+-----+------+----------------+-----------+----------------+------------------+------------+--------------+
 | sex    | age | race | marital-status | education | native-country | workclass        | occupation | salary-class |
@@ -672,7 +520,7 @@ Execution Result
 | ...    | ... | ...  | ...            | ...       | ...            | ...              | ...        | ...          |
 +--------+-----+------+----------------+-----------+----------------+------------------+------------+--------------+
 
-以本專案開發之 `k-匿名性再識別化工具 <https://petworks-doc.readthedocs.io/en/latest/kanonymity.html>`_ 進行檢測，可確認去識別化結果已滿足 k = 6 之 k-匿名性。
+Use `the validation API <https://petworks-doc.readthedocs.io/en/latest/kanonymity.html>`__ to verify the result satisfies k-anonymity with k = 6.
 
 .. code-block:: json
 
@@ -681,20 +529,14 @@ Execution Result
       "fulfill k-anonymity": true
   }
 
-Reference
------------
-.. [11] L. Sweeney, “K-anonymity: A model for protecting privacy,” International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems, vol. 10, no. 05, pp. 557–570, 2002. 
-
-
 De-identification for l-diversity
 ======================================
 
+The following code snippet de-identify the data to satisfy :math:`l`-diversity [5]_。
 
-The following code snippet de-identify the data to satisfy :math:`l`-diversity [12]_。
+We use ``data/adult/adult.csv`` as the original data, the data hierarchy, ``data/adult/adult_hierarchy``, and the attribute type definitions in ``data/adult/adult.yaml`` to demonstrate how to perform de-identification through PETWorks-framework.
 
-We use ``data/adult.csv`` as the original data, ``data/adult_hierarchy`` as the data hierarchy, and ``attributeTypes`` as the attribute type definitions to demonstrate how to perform de-identification through PETWorks-framework.
-
-In the following code snippet, we use the API ``PETAnonymization(originalData, tech, dataHierarchy, attributeTypes, maxSuppressionRate, l)`` with the data, the string “l-diversity”, the attribute type definitions, the maximal suppression rate, and the target l value as the parameters to perform de-identification for l-diversity.
+In the following code snippet, we use the API ``PETAnonymization(originalData, tech, maxSuppressionRate, l)`` with the data, the string “l-diversity”, the attribute type definitions, the maximal suppression rate, and the target l value as the parameters to perform de-identification for l-diversity.
 
 Then, we use the API ``report(result, path)`` with the result and the string "path" as parameters to write the result to the path.
 
@@ -704,22 +546,12 @@ Example: l-diversity.py
 .. code-block:: python
 
   from PETWorks import PETAnonymization, output
-  from PETWorks.attributetypes import *
-  
-  originalData = "data/adult.csv"
-  dataHierarchy = "data/adult_hierarchy"
-  
-  attributeTypes = {
-      "sex": QUASI_IDENTIFIER,
-      "age": QUASI_IDENTIFIER,
-      "workclass": SENSITIVE_ATTRIBUTE,
-  }
-  
+
+  originalData = "datasets/adult/adult.csv"
+
   result = PETAnonymization(
       originalData,
       "l-diversity",
-      dataHierarchy,
-      attributeTypes,
       maxSuppressionRate=0.6,
       l=6,
   )
@@ -730,7 +562,7 @@ Example: l-diversity.py
 Execution Result
 ---------------------------
 
-上述程式碼將輸出滿足 :math:`l = 6` 之 :math:`l`-多樣性去識別化結果至 `output.csv`。檔案內容節錄如下：
+The above code snippet will output a de-identification result satisfying :math:`l`-diversity with :math:`l = 6` to ``output.csv``. The excerpt of the file content is as follows:
 
 +--------+-----+------+----------------+-----------+----------------+------------------+------------+--------------+
 | sex    | age | race | marital-status | education | native-country | workclass        | occupation | salary-class |
@@ -764,8 +596,7 @@ Execution Result
 | ...    | ... | ...  | ...            | ...       | ...            | ...              | ...        | ...          |
 +--------+-----+------+----------------+-----------+----------------+------------------+------------+--------------+
 
-
-以本專案開發之 `l-多樣性再識別化工具 <https://petworks-doc.readthedocs.io/en/latest/ldiversity.html>`_ 進行檢測，可確認去識別化結果已滿足 :math:`l = 6` 之 :math:`l`-多樣性。
+Use `the validation API <https://petworks-doc.readthedocs.io/en/latest/ldiversity.html>`__ to verify the result satisfies :math:`l`-diversity with :math:`l = 6`.
 
 .. code-block:: json
 
@@ -774,20 +605,14 @@ Execution Result
       "fulfill l-diversity": true
   }
 
-Reference
----------
-.. [12] A. Machanavajjhala, J. Gehrke, D. Kifer, and M. Venkitasubramaniam, L-diversity: privacy beyond k-anonymity. 2006. doi: 10.1109/icde.2006.1.
-
-
-
 De-identification for t-closeness
 ======================================
 
-The following code snippet de-identify the data to satisfy t-closeness [13]_.
+The following code snippet de-identify the data to satisfy t-closeness [9]_.
 
-We use ``data/adult.csv`` as the original data, ``data/adult_hierarchy`` as the data hierarchy, and ``attributeTypes`` as the attribute type definitions to demonstrate how to perform de-identification through PETWorks-framework.
+We use ``data/adult/adult.csv`` as the original data, the data hierarchy, ``data/adult/adult_hierarchy``, and the attribute type definitions in ``data/adult/adult.yaml`` to demonstrate how to perform de-identification through PETWorks-framework.
 
-In the following code snippet, we use the API ``PETAnonymization(originalData, tech, dataHierarchy, attributeTypes, maxSuppressionRate, t)`` with the data, the string “t-closeness,” the attribute type definitions, the maximal suppression rate, and the target t value as the parameters to perform de-identification for t-closeness.
+In the following code snippet, we use the API ``PETAnonymization(originalData, "t-closeness", maxSuppressionRate, t)`` with the data, the string “t-closeness,” the maximal suppression rate, and the target t value as the parameters to perform de-identification for t-closeness.
 
 Then, we use the API ``report(result, path)`` with the result and the string "path" as parameters to write the result to the path.
 
@@ -797,36 +622,22 @@ Example: t-closeness.py
 .. code-block:: python
 
   from PETWorks import PETAnonymization, output
-  from PETWorks.attributetypes import *
-  
-  originalData = "data/adult.csv"
-  dataHierarchy = "data/adult_hierarchy"
-  
-  attributeTypes = {
-      "sex": QUASI_IDENTIFIER,
-      "age": QUASI_IDENTIFIER,
-      "workclass": SENSITIVE_ATTRIBUTE,
-  }
-  
+
+  originalData = "datasets/adult/adult.csv"
+
   result = PETAnonymization(
       originalData,
       "t-closeness",
-      dataHierarchy,
-      attributeTypes,
       maxSuppressionRate=0.6,
       t=0.2,
   )
-  
+
   output(result, "output.csv")
-
-
-
-
 
 Execution Result
 ---------------------------
 
-上述程式碼將輸出滿足 t = 0.2 之 t-相似性去識別化結果至 `output.csv`。檔案內容節錄如下：
+The above code snippet will output a de-identification result satisfying t-closeness with t = 0.2 to ``output.csv``. The excerpt of the file content is as follows:
 
 +--------+-----+------+----------------+-----------+----------------+------------------+------------+--------------+
 | sex    | age | race | marital-status | education | native-country | workclass        | occupation | salary-class |
@@ -860,7 +671,7 @@ Execution Result
 | ...    | ... | ...  | ...            | ...       | ...            | ...              | ...        | ...          |
 +--------+-----+------+----------------+-----------+----------------+------------------+------------+--------------+
 
-以本專案開發之 `t-相似性再識別化工具 <https://petworks-doc.readthedocs.io/en/latest/tcloseness.html>`_ 進行檢測，可確認去識別化結果已滿足 t = 0.2 之 t-相似性。
+Use `the validation API <https://petworks-doc.readthedocs.io/en/latest/tcloseness.html>`__ to verify the result satisfies t-closeness with t = 0.2.
 
 .. code-block:: json
 
@@ -869,6 +680,14 @@ Execution Result
       "fulfill t-closeness": true
   }
 
-Reference
----------
-.. [13] N. Li, T. Li and S. Venkatasubramanian, “t-Closeness: Privacy Beyond k-Anonymity and l-Diversity,” 2007 IEEE 23rd International Conference on Data Engineering, Istanbul, Turkey, 2007, pp. 106-115, doi: 10.1109/ICDE.2007.367856.
+References
+==========
+.. [1] K. LeFevre, D. J. DeWitt and R. Ramakrishnan, "Mondrian Multidimensional K-Anonymity," 22nd International Conference on Data Engineering (ICDE'06), Atlanta, GA, USA, 2006, pp. 25-25, doi: 10.1109/ICDE.2006.101. 
+.. [2] J. Goldberger and T. Tassa, “Efficient Anonymizations with Enhanced Utility,” in 2009 IEEE International Conference on Data Mining Workshops, Miami, FL, USA, Dec. 2009, pp. 106–113. doi: 10.1109/ICDMW.2009.15.
+.. [3] M. E. Nergiz, M. Atzori, and C. Clifton, “Hiding the presence of individuals from shared databases,” Proceedings of the 2007 ACM SIGMOD international conference on Management of data, 2007. 
+.. [4] L. Sweeney, “K-anonymity: A model for protecting privacy,” International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems, vol. 10, no. 05, pp. 557–570, 2002. 
+.. [5] A. Machanavajjhala, J. Gehrke, D. Kifer, and M. Venkitasubramaniam, L-diversity: privacy beyond k-anonymity. 2006. doi: 10.1109/icde.2006.1.
+.. [6] A. Gionis and T. Tassa, “k-Anonymization with Minimal Loss of Information.” IEEE Transactions on Knowledge and Data Engineering, vol. 21, no. 2, pp. 206-219, 2009, doi: 10.1109/tkde.2008.129.
+.. [7] L. SWEENEY, “ACHIEVING k-ANONYMITY PRIVACY PROTECTION USING GENERALIZATION AND SUPPRESSION.” International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems, vol. 10, no. 5, pp. 571-588, 2002, doi: 10.1142/s021848850200165x.
+.. [8] Z. Wan et al., “A Game Theoretic Framework for Analyzing Re-Identification Risk,” PLOS ONE, vol. 10, no. 3, p. e0120592, Mar. 2015, doi: 10.1371/journal.pone.0120592.
+.. [9] N. Li, T. Li and S. Venkatasubramanian, “t-Closeness: Privacy Beyond k-Anonymity and l-Diversity,” 2007 IEEE 23rd International Conference on Data Engineering, Istanbul, Turkey, 2007, pp. 106-115, doi: 10.1109/ICDE.2007.367856.

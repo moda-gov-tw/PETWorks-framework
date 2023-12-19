@@ -12,7 +12,6 @@ from PETWorks.deidentification.arx import (
     setDataHierarchies,
     anonymizeData,
 )
-from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER
 
 
 def measureDPresence(
@@ -21,7 +20,9 @@ def measureDPresence(
     attributeTypes: Dict[str, str],
 ) -> list[float]:
     qiNames = [
-        qi for qi, value in attributeTypes.items() if value == QUASI_IDENTIFIER
+        qi
+        for qi, value in attributeTypes.items()
+        if value == "quasi_identifier"
     ]
     populationGroups = populationTable.groupby(qiNames).groups
     sampleGroups = sampleTable.groupby(qiNames).groups
@@ -52,7 +53,7 @@ def validateDPresence(
 
 
 def PETValidation(
-    original, sample, _, dataHierarchy, attributeTypes, dMin, dMax
+    original, sample, _, dMin, dMax, dataHierarchy=None, attributeTypes={}
 ):
     javaApi = JavaApi()
     dataHierarchy = loadDataHierarchy(
@@ -94,12 +95,12 @@ def PETValidation(
 
 def PETAnonymization(
     originalData: str,
-    dataHierarchy: str,
-    attributeTypes: Dict[str, str],
     maxSuppressionRate: float,
     dMin: float,
     dMax: float,
     subsetData: str,
+    dataHierarchy: str = None,
+    attributeTypes: Dict[str, str] = {},
 ) -> pd.DataFrame:
     javaApi = JavaApi()
 

@@ -151,7 +151,7 @@ counterexample that can be attacked is found, the lemma turns red.
 +---------------------------------------------------+
 
 Reference
--------------------
+=========
 
 .. [1] The Tamarin Team, “The Tamarin prover repository.” Aug. 07, 2023. [Online] Available: https://github.com/tamarin-prover/tamarin-prover
 

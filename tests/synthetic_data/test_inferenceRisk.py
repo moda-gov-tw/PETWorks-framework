@@ -2,9 +2,9 @@ import PETWorks.synthetic_data.InferenceRisk as InferenceRisk
 
 
 def testPETValidation():
-    synthetic = "data/adults_syn_ctgan.csv"
-    original = "data/adults_train.csv"
-    control = "data/adults_control.csv"
+    synthetic = "datasets/adult/adults_syn_ctgan.csv"
+    original = "datasets/adult/adults_train.csv"
+    control = "datasets/adult/adults_control.csv"
 
     result = InferenceRisk.PETValidation(
         synthetic, original, control, nAttack=5

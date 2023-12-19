@@ -11,7 +11,7 @@ def _measureAECS(original: Data, anonymized: Data) -> float:
     return UtilityMetrics.evaluate(original, anonymized).aecs
 
 
-def PETValidation(original, anonymized, _, attributeTypes):
+def PETValidation(original, anonymized, _, attributeTypes, **__):
     javaApi = JavaApi()
     original = loadDataFromCsv(
         original, javaApi.StandardCharsets.UTF_8, ";", javaApi

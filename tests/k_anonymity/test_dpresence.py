@@ -1,5 +1,3 @@
-from PETWorks.deidentification.attributetypes import IDENTIFIER, QUASI_IDENTIFIER
-from PETWorks.deidentification.attributetypes import SENSITIVE_ATTRIBUTE
 from PETWorks.deidentification.dpresence import (
     measureDPresence,
     validateDPresence,
@@ -11,21 +9,21 @@ from typing import Dict
 import pytest
 import pandas as pd
 
-ORIGINAL_POPULATION_DATA_PATH = "data/presence.csv"
-ANONYMIZED_POPULATION_DATA_PATH = "data/presence_transformed.csv"
-ANONYMIZED_SAMPLE_DATA_PATH = "data/presence_anonymized.csv"
-DATA_HIERARCHY_PATH = "data/presence_hierarchy"
+ORIGINAL_POPULATION_DATA_PATH = "datasets/presence/presence.csv"
+ANONYMIZED_POPULATION_DATA_PATH = "datasets/presence/presence_transformed.csv"
+ANONYMIZED_SAMPLE_DATA_PATH = "datasets/presence/presence_anonymized.csv"
+DATA_HIERARCHY_PATH = "datasets/presence/presence_hierarchy"
 
 
 @pytest.fixture(scope="module")
 def attributeTypesForPresence() -> Dict[str, str]:
     attributeTypes = {
-        "identifier": IDENTIFIER,
-        "name": IDENTIFIER,
-        "zip": QUASI_IDENTIFIER,
-        "age": QUASI_IDENTIFIER,
-        "nationality": QUASI_IDENTIFIER,
-        "sen": SENSITIVE_ATTRIBUTE,
+        "identifier": "identifier",
+        "name": "identifier",
+        "zip": "quasi_identifier",
+        "age": "quasi_identifier",
+        "nationality": "quasi_identifier",
+        "sen": "sensitive_attribute",
     }
     return attributeTypes
 
@@ -99,14 +97,14 @@ def testPETValidationNotFulfilled(attributeTypesForPresence):
 def testPETAnonymization(DATASET_PATH_ADULT, attributeTypesForAdultAllQi):
     result = PETAnonymization(
         DATASET_PATH_ADULT["originalData"],
-        DATASET_PATH_ADULT["dataHierarchy"],
-        attributeTypesForAdultAllQi,
         maxSuppressionRate=0.05,
         dMin=0.0,
         dMax=0.2,
-        subsetData="data/adult10.csv",
+        subsetData="datasets/adult/adult10.csv",
+        dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
+        attributeTypes=attributeTypesForAdultAllQi,
     )
     result["age"] = result["age"].astype(float)
     assert result.equals(
-        pd.read_csv("data/DAnonymization.csv", sep=";", skipinitialspace=True)
+        pd.read_csv("datasets/DAnonymization.csv", sep=";", skipinitialspace=True)
     )

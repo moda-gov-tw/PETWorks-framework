@@ -1,5 +1,3 @@
-from PETWorks.deidentification.attributetypes import QUASI_IDENTIFIER
-from PETWorks.deidentification.attributetypes import SENSITIVE_ATTRIBUTE
 from PETWorks.deidentification.ldiversity import (
     measureLDiversity,
     validateLDiversity,
@@ -10,16 +8,16 @@ from typing import Dict
 import pytest
 import pandas as pd
 
-ANONYMIZED_DATA_PATH = "data/inpatient_anonymized.csv"
+ANONYMIZED_DATA_PATH = "datasets/inpatient/inpatient_anonymized.csv"
 
 
 @pytest.fixture(scope="module")
 def attributeTypesForInpatient() -> Dict[str, str]:
     attributeTypes = {
-        "zipcode": QUASI_IDENTIFIER,
-        "age": QUASI_IDENTIFIER,
-        "nationality": QUASI_IDENTIFIER,
-        "condition": SENSITIVE_ATTRIBUTE,
+        "zipcode": "quasi_identifier",
+        "age": "quasi_identifier",
+        "nationality": "quasi_identifier",
+        "condition": "sensitive_attribute",
     }
     return attributeTypes
 
@@ -76,25 +74,25 @@ def testPETValidationNotFulfilled(attributeTypesForInpatient):
 
 def testPETAnonymization(DATASET_PATH_ADULT):
     attributeTypes = {
-        "age": QUASI_IDENTIFIER,
-        "education": QUASI_IDENTIFIER,
-        "marital-status": QUASI_IDENTIFIER,
-        "native-country": QUASI_IDENTIFIER,
-        "occupation": SENSITIVE_ATTRIBUTE,
-        "race": QUASI_IDENTIFIER,
-        "salary-class": QUASI_IDENTIFIER,
-        "sex": QUASI_IDENTIFIER,
-        "workclass": QUASI_IDENTIFIER,
+        "age": "quasi_identifier",
+        "education": "quasi_identifier",
+        "marital-status": "quasi_identifier",
+        "native-country": "quasi_identifier",
+        "occupation": "sensitive_attribute",
+        "race": "quasi_identifier",
+        "salary-class": "quasi_identifier",
+        "sex": "quasi_identifier",
+        "workclass": "quasi_identifier",
     }
 
     result = PETAnonymization(
         DATASET_PATH_ADULT["originalData"],
-        DATASET_PATH_ADULT["dataHierarchy"],
-        attributeTypes,
         maxSuppressionRate=0.04,
         l=5,
+        dataHierarchy=DATASET_PATH_ADULT["dataHierarchy"],
+        attributeTypes=attributeTypes,
     )
 
     assert result.equals(
-        pd.read_csv("data/LAnonymization.csv", sep=";", skipinitialspace=True)
+        pd.read_csv("datasets/LAnonymization.csv", sep=";", skipinitialspace=True)
     )

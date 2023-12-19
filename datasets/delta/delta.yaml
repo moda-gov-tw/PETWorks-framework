@@ -1,0 +1,11 @@
+DATASET:
+  ATTRIBUTE_TYPE:
+    QUASI_IDENTIFIER:
+      - "zip"
+      - "age"
+    SENSITIVE_ATTRIBUTE:
+      - "nationality"
+    INSENSITIVE_ATTRIBUTE: 
+      - "salary-class"
+      
+  HIERARCHY: "delta_hierarchy"

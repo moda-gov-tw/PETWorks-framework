@@ -10,7 +10,6 @@ from PETWorks.deidentification.arx import (
     getDataFrame,
     anonymizeData,
 )
-from PETWorks.deidentification.attributetypes import SENSITIVE_ATTRIBUTE, QUASI_IDENTIFIER
 import numpy as np
 from math import fabs
 from typing import Dict
@@ -163,16 +162,16 @@ def _validateTCloseness(tFromData: float, tLimit: float) -> bool:
 
 
 def PETValidation(
-    original, anonymized, _, dataHierarchy, attributeTypes, tLimit, **other
+    original, anonymized, _, tLimit, dataHierarchy=None, attributeTypes={}
 ):
     tLimit = float(tLimit)
 
     dataHierarchy = loadDataHierarchyNatively(dataHierarchy, ";")
     anonymizedData = pd.read_csv(anonymized, sep=";", skipinitialspace=True)
 
-    qiNames = getAttributeNameByType(attributeTypes, QUASI_IDENTIFIER)
+    qiNames = getAttributeNameByType(attributeTypes, "quasi_identifier")
     sensitiveAttributes = getAttributeNameByType(
-        attributeTypes, SENSITIVE_ATTRIBUTE
+        attributeTypes, "sensitive_attribute"
     )
 
     tList = [
@@ -192,10 +191,10 @@ def PETValidation(
 
 def PETAnonymization(
     originalData: str,
-    dataHierarchy: str,
-    attributeTypes: Dict[str, str],
     maxSuppressionRate: float,
     t: float,
+    dataHierarchy: str = None,
+    attributeTypes: Dict[str, str] = {},
 ) -> pd.DataFrame:
     javaApi = JavaApi()
     originalDataFrame = pd.read_csv(
@@ -216,7 +215,7 @@ def PETAnonymization(
 
     privacyModels = []
     for attributeName, attributeType in attributeTypes.items():
-        if attributeType == SENSITIVE_ATTRIBUTE:
+        if attributeType == "sensitive_attribute":
             isNumerical = True
             try:
                 float(originalDataFrame[attributeName].iloc[0])

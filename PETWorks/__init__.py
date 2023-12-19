@@ -1,8 +1,9 @@
 import json
 
 import pandas as pd
+from PETWorks.deidentification.config import Config
 
-import PETWorks.federated_learning as FL
+import PETWorks.federated_learning as FederatedLearning
 import PETWorks.deidentification.reidentificationrisk as ReidentificationRisk
 import PETWorks.deidentification.ambiguity as Ambiguity
 import PETWorks.deidentification.precision as Precision
@@ -27,43 +28,68 @@ HISTORY = "images/history.png"
 
 def dataProcess(model, gradient, tech, method, **keywordArgs):
     if tech == "FL":
-        return FL.dataProcess(model, gradient, tech, method, **keywordArgs)
+        return FederatedLearning.dataProcess(
+            model, gradient, tech, method, **keywordArgs
+        )
     elif tech == "HomomorphicEncryption":
         return HomomorphicEncryption.dataProcess(
             model, gradient, method, **keywordArgs
         )
 
 
+def loadConfig(pathToData):
+    config = Config(Config.getDefaultConfigPath(pathToData))
+
+    keywordArgs = {}
+    if config.attributeTypes:
+        keywordArgs["attributeTypes"] = config.attributeTypes
+
+    if config.hierarchy is not None:
+        keywordArgs["dataHierarchy"] = config.hierarchy
+
+    return keywordArgs
+
+
 def PETValidation(arg0, arg1, metric, **keywordArgs):
-    if metric == "ImageSimilarity":
-        return FL.PETValidation(arg0, arg1, metric, **keywordArgs)
+    if metric == "FL":
+        return FederatedLearning.PETValidation(
+            arg0, arg1, metric, **keywordArgs
+        )
     elif metric == "ReidentificationRisk":
         return ReidentificationRisk.PETValidation(
             arg0, arg1, metric, **keywordArgs
         )
     elif metric == "Ambiguity":
+        keywordArgs.update(loadConfig(arg1))
         return Ambiguity.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "Precision":
+        keywordArgs.update(loadConfig(arg1))
         return Precision.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "Non-Uniform Entropy":
+        keywordArgs.update(loadConfig(arg1))
         return NonUniformEntropy.PETValidation(
             arg0, arg1, metric, **keywordArgs
         )
     elif metric == "AECS":
+        keywordArgs.update(loadConfig(arg1))
         return AECS.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "k-anonymity":
+        keywordArgs.update(loadConfig(arg1))
         return KAnonymity.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "d-presence":
+        keywordArgs.update(loadConfig(arg1))
         return DPresence.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "profitability":
-        return Profitability.PETValidation(
-            arg0, arg1, metric, **keywordArgs
-        )
+        keywordArgs.update(loadConfig(arg1))
+        return Profitability.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "t-closeness":
+        keywordArgs.update(loadConfig(arg1))
         return TCloseness.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "l-diversity":
+        keywordArgs.update(loadConfig(arg1))
         return LDiversity.PETValidation(arg0, arg1, metric, **keywordArgs)
     elif metric == "UtilityBias":
+        keywordArgs.update(loadConfig(arg1))
         return UtilityBias.PETValidation(arg0, arg1, **keywordArgs)
     elif metric == "SinglingOutRisk":
         return SinglingOutRisk.PETValidation(arg0, arg1, **keywordArgs)
@@ -83,26 +109,24 @@ def report(result, format):
         return
 
     if format == "web":
-        originPath = "images/original_image.png"
-        recoverPath = "images/recovered_image.png"
-        result["origin"].save(originPath)
-        result["recover"].save(recoverPath)
-        html = generateWebView(
-            originPath, recoverPath, HISTORY, result["similarity"]
-        )
-        with open("output.html", "w") as f:
-            f.write(html)
+        if result.get("metric", None) == "FL":
+            html = generateWebView(
+                result["original"],
+                result["recovered"],
+                result["history"],
+                result["similarity"],
+            )
+
+            with open("output.html", "w") as f:
+                f.write(html)
+        else:
+            raise ValueError("The result does not support the web format.")
     return
 
 
-def PETAnonymization(
-    originalData,
-    tech,
-    dataHierarchy,
-    attributeTypes,
-    maxSuppressionRate,
-    **keywordArgs
-):
+def PETAnonymization(originalData, tech, maxSuppressionRate, **keywordArgs):
+    keywordArgs.update(loadConfig(originalData))
+
     if tech == "k-anonymity":
         anonymization = KAnonymity
     elif tech == "l-diversity":
@@ -114,10 +138,8 @@ def PETAnonymization(
 
     return anonymization.PETAnonymization(
         originalData,
-        dataHierarchy,
-        attributeTypes,
         maxSuppressionRate,
-        **keywordArgs
+        **keywordArgs,
     )
 
 

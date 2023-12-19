@@ -1,0 +1,7 @@
+DATASET:
+  ATTRIBUTE_TYPE:
+    QUASI_IDENTIFIER:
+      - "zipcode"
+      - "age"
+    SENSITIVE_ATTRIBUTE:
+      - "condition"

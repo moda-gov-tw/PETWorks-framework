@@ -4,7 +4,7 @@ import base64
 def generateWebView(origin, recover, history, similarity):
 
     template = None
-    with open("web/template.html", "r") as f:
+    with open("PETWorks/federated_learning/web/template.html", "r") as f:
         template = f.read()
 
     originData = base64.b64encode(open(origin, 'rb').read()).decode('utf-8')
