@@ -29,7 +29,7 @@ pip install -r requirement.txt
 
 ## APIs
 
-- [k-anonymity](docs/source/k-anonymity.rst)
+- k-anonymity
     - Average Equivalence Class Size
     - Ambiguity
     - d-presence
@@ -44,13 +44,13 @@ pip install -r requirement.txt
     - De-identification for k-anonymity
     - De-identification for l-diversity
     - De-identification for t-closeness
-- [Differential Privacy](docs/source/differential_privacy.rst)
+- Differential Privacy
     - Man-in-the-Middle Attack
-- [Federated Learning](docs/source/federated_learning.rst)
+- Federated Learning
     - Federated Learning Validation With Tamarin Prover
-- [Homomorphic Encryption](docs/source/homomorphic_encryption.rst)
+- Homomorphic Encryption
     - Testing Method for Homomorphic Encryption Technology
-- [Synthetic Data](docs/source/syntehtic_data.rst)
+- Synthetic Data
     - Singling Out Attack
     - Inference Attack
     - Linkalility Attack
