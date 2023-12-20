@@ -168,9 +168,9 @@ Example: FL.py
 
   from PETWorks import dataProcess, PETValidation, report
 
-  gradient = "/home/Doc/gradient"
-  model = "/home/Doc/model"
-  originalData = "/home/Doc/o.png"
+  gradient = "datasets/grad.pt"
+  model = "datasets/net.pth"
+  originalData = "datasets/original_image.png"
 
   recoveredData = dataProcess(model, gradient, "FL", "recover")
   result = PETValidation(recoveredData, originalData, "FL")
