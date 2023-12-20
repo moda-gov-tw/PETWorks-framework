@@ -14,11 +14,11 @@ Here we provide a framework dealing with the validation problem of PET enhanced 
 | PET Validation            | This module has validation methodologies built in. Returning the result of the validation.                                            |
 | Report                    | This module handles the output format of the report.  It could be text-based on the terminal or GUI-based showing on the web browser. |
 
-## How to install
+## How to install?
 
 #### System Requirements:
-- Python 3.8 or higher
-- Java 8 or higher
+- Python 3.8 or later
+- Java 8 or later
 
 #### Installation Instructions:
 To install, open a terminal in the directory and enter the following command:
@@ -29,7 +29,7 @@ pip install -r requirement.txt
 
 ## APIs
 
-- k-anonymity
+- Traditional De-identification Technologies
     - Average Equivalence Class Size
     - Ambiguity
     - d-presence
@@ -59,7 +59,7 @@ pip install -r requirement.txt
 
 ## Showcase
 
-### Validate the Federated Learning Enhanced Image
+### Validate the Federated Learning Enhanced Data
 
 ```python
 from PETWorks import dataProcess, PETValidation, report
