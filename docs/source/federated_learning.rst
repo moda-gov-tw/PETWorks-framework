@@ -157,9 +157,9 @@ The provided code snippet illustrates the use of PETWorks-framework for a data r
 
 First, the script imports necessary functions (``dataProcess``, ``PETValidation``, ``report``) from the PETWorks library. It then defines file paths for the gradient, model, and original data with ``gradient``, ``model``, and ``originalData`` variables, respectively.
 
-The data recovery step is performed using the ``dataProcess`` function. This function takes the model, gradient, and specifies "FL" (possibly referring to a technique or method) and "recover" as parameters to recover the data. The output of this process is stored in ``recoveredData``.
+The data recovery step is performed using the ``dataProcess(model, gradient, "FL", "recover")`` function. This function takes the model, gradient, and specifies "FL" (possibly referring to a technique or method) and "recover" as parameters to recover the data. The output of this process is stored in ``recoveredData``.
 
-Next, the ``PETValidation`` function is used to validate the recovery process. It compares the recovered data (``recoveredData``) with the original data (``originalData``) using the "FL" method.
+Next, the ``PETValidation(recoveredData, originalData, "FL")`` function is used to validate the recovery process. It compares the recovered data (``recoveredData``) with the original data (``originalData``) using the "FL" method.
 
 Example: FL.py
 -------------------------
