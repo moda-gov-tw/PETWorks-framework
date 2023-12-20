@@ -7,7 +7,7 @@ Average Equivalence Class Size
 
 The following code snippet evaluate the average equivalence class size [1]_.
 
-We use ``data/adult/adult.csv`` as the original data, ``data/adult/adult_anonymized.csv`` as the anonymized data, and the attribute type definitions in ``data/adult/adult.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
+We use ``datasets/adult/adult.csv`` as the original data, ``datasets/adult/adult_anonymized.csv`` as the anonymized data, and the attribute type definitions in ``datasets/adult/adult.csv`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETValidation(original, anonymized, "AECS")`` with the data and the string “AECS” as parameters to evaluate the ambiguity.
 
@@ -42,7 +42,7 @@ Ambiguity
 
 The following code snippet evaluate the ambiguity of the data [2]_ .
 
-We use ``data/adult/adult.csv`` as the original data, ``data/adult/adult_anonymized.csv`` as the anonymized data, and the data hierarchy, ``data/adult/adult_hierarchy``, defined in ``data/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
+We use ``datasets/adult/adult.csv`` as the original data, ``datasets/adult/adult_anonymized.csv`` as the anonymized data, and the data hierarchy, ``datasets/adult/adult_hierarchy``, defined in ``datasets/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETValidation(original, anonymized, "Ambiguity")`` with the data and the string "Ambiguity" as parameters to evaluate the ambiguity.
 
@@ -77,7 +77,7 @@ d-presence
 
 The following code snippet assesses whether the data satisfies :math:`\delta`-presence [3]_。
 
-We use ``data/delta/delta.csv`` as the original data, ``data/delta/delta_anonymized.csv`` as the anonymized data, and the data hierarchy, ``data/delta/delta_hierarchy``, and the attribute type definitions in ``data/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
+We use ``datasets/delta/delta.csv`` as the original data, ``datasets/delta/delta_anonymized.csv`` as the anonymized data, and the data hierarchy, ``datasets/delta/delta_hierarchy``, and the attribute type definitions in ``datasets/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETValidation(origin, anonymized, "d-presence", dMin, dMax)`` with the data, the string “d-presence,” and the variables dMin and dMax as parameters to determine whether the data satisfies :math:`\delta`-presence.
 
@@ -116,7 +116,7 @@ k-anonymity
 
 The following code snippet assesses whether the data satisfies k-anonymity [4]_。
 
-We use ``data/adult/adult_anonymized.csv`` as the anonymized data and the attribute type definitions in ``data/adult/adult_anonymized.yaml`` to demonstrate the evaluation of this metric through PETWorks-Framework.
+We use ``datasets/adult/adult_anonymized.csv`` as the anonymized data and the attribute type definitions in ``datasets/adult/adult_anonymized.yaml`` to demonstrate the evaluation of this metric through PETWorks-Framework.
 
 In the following code snippet, we use the API ``PETValidation(None, anonymized, "k-anonymity", k)`` with the data, the string "k-anonymity", and the k value as parameters to determine whether the data satisfies k-anonymity.
 
@@ -151,7 +151,7 @@ l-diversity
 
 The following code snippet assesses whether the data satisfies :math:`l`-diversity [5]_.
 
-We use ``data/inpatient/inpatient_anonymized.csv`` as the anonymized data and the attribute type definitions in ``data/inpatient/inpatient_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
+We use ``datasets/inpatient/inpatient_anonymized.csv`` as the anonymized data and the attribute type definitions in ``datasets/inpatient/inpatient_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETValidation(None, anonymized, "l-diversity", l)`` with the data, the string "l-diversity", and the l value as parameters to determine whether the data satisfies :math:`l`-diversity.
 
@@ -185,7 +185,7 @@ Non-Uniform Entropy
 
 The following code snippet evaluate the non-uniform entropy [6]_。
 
-We use ``data/adult/adult.csv`` as the original data, ``data/adult/adult_anonymized.csv`` as the anonymized data, and the data hierarchy, ``data/adult/adult_hierarchy``, defined in ``data/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
+We use ``datasets/adult/adult.csv`` as the original data, ``datasets/adult/adult_anonymized.csv`` as the anonymized data, and the data hierarchy, ``datasets/adult/adult_hierarchy``, defined in ``datasets/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETValidation(original, anonymized, "Non-Uniform Entropy")`` with the data and the string “Non-Uniform Entropy” as the parameters to evaluate the non-uniform entropy.
 
@@ -219,7 +219,7 @@ Precision
 
 The following code snippet evaluate the precision [7]_.
 
-We use ``data/adult/adult.csv`` as the original data, ``data/adult/adult_anonymized.csv`` as the anonymized data, and the data hierarchy, ``data/adult/adult_hierarchy``, defined in ``data/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
+We use ``datasets/adult/adult.csv`` as the original data, ``datasets/adult/adult_anonymized.csv`` as the anonymized data, and the data hierarchy, ``datasets/adult/adult_hierarchy``, defined in ``datasets/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETValidation(original, anonymized, "Precision")`` with the data and the string “Precision” as the parameters to evaluate the precision.
 
@@ -253,7 +253,7 @@ Profitability
 
 The following code snippet assesses whether the data satisfies profitability [8]_.
 
-We use ``data/delta/delta.csv`` as the original data, ``data/delta/delta_anonymized.csv`` as the anonymized data, and the data hierarchy, ``data/delta/delta_hierarchy``, and the attribute type definitions in ``data/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
+We use ``datasets/delta/delta.csv`` as the original data, ``datasets/delta/delta_anonymized.csv`` as the anonymized data, and the data hierarchy, ``datasets/delta/delta_hierarchy``, and the attribute type definitions in ``datasets/adult/adult_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETValidation(origin, anonymized, "profitability", allowAttack, adversaryCost, adversaryGain, publisherLost, publisherBenefit)`` with the data, the string “profitability", the variables allowAttack, adversaryCost, adversaryGain, publisherLost, and publisherBenefit as the parameters to determine whether the data satisfies profitability.
 
@@ -302,7 +302,7 @@ t-closeness
 
 The following code snippet assesses whether the data satisfies t-closeness [9]_。
 
-We use ``data/patient/patient_anonymized.csv`` as the anonymized data, the data hierarchy, ``data/patient/patient_hierarchy``, and the attribute type definitions in ``data/patient/patient_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
+We use ``datasets/patient/patient_anonymized.csv`` as the anonymized data, the data hierarchy, ``datasets/patient/patient_hierarchy``, and the attribute type definitions in ``datasets/patient/patient_anonymized.yaml`` to demonstrate how to evaluate this metric through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETValidation(None, anonymized, "t-closeness", tLimit)`` with the data, the string “t-closeness,” and the variables tLimit as parameters to determine whether the data satisfies t-closeness.
 
@@ -342,7 +342,7 @@ Utility Bias
 
 The following code snippet assesses whether the data satisfies the utility bias.
 
-We use ``data/presence.csv`` as the original data and ``data/presence_anonymized2.csv`` as the anonymized data to demonstrate how to evaluate this metric through PETWorks-framework.
+We use ``datasets/presence.csv`` as the original data and ``datasets/presence_anonymized2.csv`` as the anonymized data to demonstrate how to evaluate this metric through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETValidation(origin, anonymized, "UtilityBias", processingFunc, maxBias)`` with the original data, the anonymized data, the string "UtilityBias," the processing function, and the maximal acceptable bias to determine whether the data satisfies the utility bias.
 
@@ -387,7 +387,7 @@ De-identification for d-presence
 
 The following code snippet de-identify the data to satisfy :math:`\delta`-presence [3]_.
 
-We use ``data/adult/adult.csv`` as the original data, ``data/adult/adult10.csv`` as the subset, and the data hierarchy, ``data/adult/adult_hierarchy``, and the attribute type definitions in ``data/adult/adult.yaml`` to demonstrate how to perform de-identification through PETWorks-framework.
+We use ``datasets/adult/adult.csv`` as the original data, ``datasets/adult/adult10.csv`` as the subset, and the data hierarchy, ``datasets/adult/adult_hierarchy``, and the attribute type definitions in ``datasets/adult/adult.csv`` to demonstrate how to perform de-identification through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETAnonymization(originalData, "d-presence", maxSuppressionRate, dMin, dMax, subsetData)`` with the data, the string “d-presence", the maximal suppression rate, the target dMin and dMax, and the subset ``subsetData`` as the parameters to perform de-identification for d-presence.
 
@@ -466,7 +466,7 @@ De-identification for k-anonymity
 
 The following code snippet de-identify the data to satisfy k-anonymity [4]_.
 
-We use ``data/adult/adult.csv`` as the original data, the data hierarchy, ``data/adult/adult_hierarchy``, and the attribute type definitions in ``data/adult/adult.yaml`` to demonstrate how to perform de-identification through PETWorks-framework.
+We use ``datasets/adult/adult.csv`` as the original data, the data hierarchy, ``datasets/adult/adult_hierarchy``, and the attribute type definitions in ``datasets/adult/adult.csv`` to demonstrate how to perform de-identification through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETAnonymization(originalData, "k-anonymity", maxSuppressionRate, k)`` with the data, the string “k-anonymity”, the maximal suppression rate, and the target k value as the parameters to perform de-identification for k-anonymity.
 
@@ -534,7 +534,7 @@ De-identification for l-diversity
 
 The following code snippet de-identify the data to satisfy :math:`l`-diversity [5]_。
 
-We use ``data/adult/adult.csv`` as the original data, the data hierarchy, ``data/adult/adult_hierarchy``, and the attribute type definitions in ``data/adult/adult.yaml`` to demonstrate how to perform de-identification through PETWorks-framework.
+We use ``datasets/adult/adult.csv`` as the original data, the data hierarchy, ``datasets/adult/adult_hierarchy``, and the attribute type definitions in ``datasets/adult/adult.csv`` to demonstrate how to perform de-identification through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETAnonymization(originalData, tech, maxSuppressionRate, l)`` with the data, the string “l-diversity”, the attribute type definitions, the maximal suppression rate, and the target l value as the parameters to perform de-identification for l-diversity.
 
@@ -610,7 +610,7 @@ De-identification for t-closeness
 
 The following code snippet de-identify the data to satisfy t-closeness [9]_.
 
-We use ``data/adult/adult.csv`` as the original data, the data hierarchy, ``data/adult/adult_hierarchy``, and the attribute type definitions in ``data/adult/adult.yaml`` to demonstrate how to perform de-identification through PETWorks-framework.
+We use ``datasets/adult/adult.csv`` as the original data, the data hierarchy, ``datasets/adult/adult_hierarchy``, and the attribute type definitions in ``datasets/adult/adult.csv`` to demonstrate how to perform de-identification through PETWorks-framework.
 
 In the following code snippet, we use the API ``PETAnonymization(originalData, "t-closeness", maxSuppressionRate, t)`` with the data, the string “t-closeness,” the maximal suppression rate, and the target t value as the parameters to perform de-identification for t-closeness.
 
