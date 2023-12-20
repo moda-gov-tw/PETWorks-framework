@@ -162,3 +162,47 @@ Reference
 .. |image5| image:: images/5.png
 .. |image6| image:: images/6.png
 .. |image7| image:: images/7.png
+
+Validate Data With the Image Similarity
+===========================================
+
+The provided code snippet illustrates the use of PETWorks-framework for a data recovery process and its subsequent validation. The process involves three main steps: data recovery, validation, and reporting.
+
+First, the script imports necessary functions (``dataProcess``, ``PETValidation``, ``report``) from the PETWorks library. It then defines file paths for the gradient, model, and original data with ``gradient``, ``model``, and ``originalData`` variables, respectively.
+
+The data recovery step is performed using the ``dataProcess`` function. This function takes the model, gradient, and specifies "FL" (possibly referring to a technique or method) and "recover" as parameters to recover the data. The output of this process is stored in ``recoveredData``.
+
+Next, the ``PETValidation`` function is used to validate the recovery process. It compares the recovered data (``recoveredData``) with the original data (``originalData``) using the "FL" method.
+
+Example: FL.py
+-------------------------
+
+.. code-block:: python
+
+  from PETWorks import dataProcess, PETValidation, report
+
+  gradient = "/home/Doc/gradient"
+  model = "/home/Doc/model"
+  originalData = "/home/Doc/o.png"
+
+  recoveredData = dataProcess(model, gradient, "FL", "recover")
+  result = PETValidation(recoveredData, originalData, "FL")
+  report(result, "web")
+
+Web Report
+-------------
+
+Here is the showcase of the web report.
+
+|image8|
+
+The web report also shows the process of recovery.
+
+
+|image9|
+
+
+
+
+.. |image8| image:: images/8.png
+.. |image9| image:: images/9.png
