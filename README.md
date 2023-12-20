@@ -29,31 +29,37 @@ pip install -r requirement.txt
 
 ## APIs
 
-- Traditional De-identification Technologies
-    - Average Equivalence Class Size
-    - Ambiguity
-    - d-presence
-    - k-anonymity
-    - l-diversity
-    - Non-Uniform Entropy
-    - Precision
-    - Profitability
-    - t-closeness
-    - Utility Bias
-    - De-identification for d-presence
-    - De-identification for k-anonymity
-    - De-identification for l-diversity
-    - De-identification for t-closeness
-- Differential Privacy
-    - Man-in-the-Middle Attack
-- Federated Learning
-    - Federated Learning Validation With Tamarin Prover
-- Homomorphic Encryption
-    - Testing Method for Homomorphic Encryption Technology
-- Synthetic Data
-    - Singling Out Attack
-    - Inference Attack
-    - Linkalility Attack
+- **Traditional De-identification Technologies**
+    - [Average Equivalence Class Size](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#average-equivalence-class-size)
+    - [Ambiguity](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#ambiguity)
+    - [d-presence](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#d-presence)
+    - [k-anonymity](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#k-anonymity)
+    - [l-diversity](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#l-diversity)
+    - [Non-Uniform Entropy](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#non-uniform-entropy)
+    - [Precision](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#precision)
+    - [Profitability](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#profitability)
+    - [t-closeness](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#t-closeness)
+    - [Utility Bias](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#utility-bias)
+    - [De-identification for d-presence](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#de-identification-for-d-presence)
+    - [De-identification for k-anonymity](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#de-identification-for-k-anonymity)
+    - [De-identification for l-diversity](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#de-identification-for-l-diversity)
+    - [De-identification for t-closeness](https://petworks-doc.readthedocs.io/en/latest/k-anonymity.html#de-identification-for-t-closeness)
+- **Differential Privacy**
+    - [Man-in-the-Middle Attack](https://petworks-doc.readthedocs.io/en/latest/differential_privacy.html#man-in-the-middle-attack)
+- **Federated Learning**
+    - [Federated Learning Validation With Tamarin Prover](https://petworks-doc.readthedocs.io/en/latest/federated_learning.html#federated-learning-validation-with-tamarin-prover)
+    - [Validate Data With the Image Similarity](https://petworks-doc.readthedocs.io/en/latest/federated_learning.html#validate-data-with-the-image-similarity)
+- **Homomorphic Encryption**
+    - [Testing Method for Homomorphic Encryption Technology](https://petworks-doc.readthedocs.io/en/latest/homomorphic_encryption.html#testing-method-for-homomorphic-encryption-technology)
+    - [Generate Key for Homomorphic Encryption](https://petworks-doc.readthedocs.io/en/latest/homomorphic_encryption.html#generate-key-for-homomorphic-encryption)
+    - [Encrypt Value Using Homomorphic Encryption](https://petworks-doc.readthedocs.io/en/latest/homomorphic_encryption.html#encrypt-value-using-homomorphic-encryption)
+    - [Decrypt Value Using Homomorphic Encryption](https://petworks-doc.readthedocs.io/en/latest/homomorphic_encryption.html#decrypt-value-using-homomorphic-encryption)
+    - [Detect the Use of TLS Protocol (v1.2 or later)](https://petworks-doc.readthedocs.io/en/latest/homomorphic_encryption.html#detect-the-use-of-tls-protocol-v1-2-or-later)
+    - [Find External Functions](https://petworks-doc.readthedocs.io/en/latest/homomorphic_encryption.html#find-external-functions)
+- **Synthetic Data**
+    - [Singling Out Attack](https://petworks-doc.readthedocs.io/en/latest/syntehtic_data.html#singling-out-attack)
+    - [Inference Attack](https://petworks-doc.readthedocs.io/en/latest/syntehtic_data.html#inference-attack)
+    - [Linkalility Attack](https://petworks-doc.readthedocs.io/en/latest/syntehtic_data.html#linkalility-attack)
 
 
 
